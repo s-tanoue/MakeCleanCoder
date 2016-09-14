@@ -12,7 +12,7 @@ Javaのバージョン，JavaCCのバージョンは気にしていない．
 
 #JavaFxのプラグインの導入
 Eclipseで実行する場合は，javaFx用のプラグインをインストールする必要がある．
-http://badbivouac.blog.fc2.com/blog-entry-7.html
+http://www.eclipse.org/efxclipse/install.html
 を参考にする．
 
 #JavaCCのプラグインの導入
