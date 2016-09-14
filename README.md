@@ -11,7 +11,7 @@ Javaのバージョン，JavaCCのバージョンは気にしていない．
 最新バージョンをインストールしてください．
 
 #JavaFxのプラグインの導入
-Eclipseで実行する場合は，javaFx用のプラグインをインストールする必要がある．
+EclipseでJavaFxを実行する場合は，javaFx用のプラグインをインストールする必要がある．
 http://www.eclipse.org/efxclipse/install.html
 を参考にする．
 
