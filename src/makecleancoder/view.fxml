@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import GetTextAreaNumber.*?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="725.0" prefWidth="829.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="makecleancoder.Controller">
+    <children>
+      <VBox prefHeight="766.0" prefWidth="832.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="ファイル(F)">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#fileOpen" text="ファイルを開く" />
+                        <MenuItem mnemonicParsing="false" onAction="#fileSave" text="ファイルを保存" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="編集(E)">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="戻す" />
+                    <MenuItem mnemonicParsing="false" onAction="#clearEditArea" text="編集エリアをクリア" />
+                    <MenuItem mnemonicParsing="false" onAction="#clearConsoleArea" text="表示エリアをクリア" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="実行(R)">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#executeParser" text="変数名を解析" />
+                          <MenuItem mnemonicParsing="false" onAction="#executeComment" text="コメントを解析" />
+                     
+                     </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="ヘルプ(H)">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="バージョン情報" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <HBox prefHeight="399.0" prefWidth="829.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Pane maxHeight="-Infinity" prefHeight="404.0" prefWidth="46.0">
+                     <children>
+                        <CleanCoderTextArea id="lineNumber" fx:id="lineNumberArea" editable="false" prefHeight="421.0" prefWidth="67.0" text="1">
+                           <font>
+                              <Font name="Osaka" size="13.0" />
+                           </font></CleanCoderTextArea>
+                     </children>
+                  </Pane>
+                  <CleanCoderTextArea fx:id="editArea" onKeyPressed="#createLineNumber" prefHeight="404.0" prefWidth="796.0" promptText="編集エリア" stylesheets="@application.css" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Osaka" size="13.0" />
+                     </font></CleanCoderTextArea>
+               </children>
+            </HBox>
+            <CleanCoderTextArea fx:id="consoleArea" editable="false" prefHeight="286.0" prefWidth="829.0" promptText="表示エリア" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Osaka" size="13.0" />
+               </font></CleanCoderTextArea>
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>

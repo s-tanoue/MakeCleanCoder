@@ -1,0 +1,380 @@
+options {
+	STATIC=false;
+	UNICODE_INPUT =true;
+}
+
+PARSER_BEGIN(CleanCoderParser)
+	package Parser;
+	import java.util.ArrayList;
+	import java.util.List;
+	import Dictionaly.*;
+
+	public class CleanCoderParser{
+	}
+PARSER_END(CleanCoderParser)
+
+	SKIP :
+{
+	"\n"
+    |" "	
+	|"\t"
+	| <LINE_COMMENT:"//"(~["\n","\r"])* ("\n"|"\r\n" | "\r")? >
+    | < BLOCK_COMMENT: "/*" (~["*"])*("*")+ (~["/","*"](~["*"])*("*")+)* "/" >
+
+}
+
+TOKEN :
+{
+     	< DOUBLE :"double">
+		|<SHORT : "short" >
+		|< FLOAT : "float" >
+		|< INT : "int" >
+		|< LONG : "long">
+		|< CHAR :"char" >
+		| < UNSIGNED:"unsigned" >
+		| < VOID:"void" >	
+		|< SMALL_LITERAL:(["a"-"z"])+>
+		|< LAGRGE_LITERAL:["A"-"Z"]>
+		|< DIGITS: (["0"-"9"])+ >
+		|< COMMA:"," >
+		|< UNDERBAR:"_" >
+		| <EQUAL:"=" >
+		|< LEFT_BRACKET:"[" >
+		|< RIGHT_BRACKET:"]" >
+		|< SEMICOLON:";" >
+		|< BACK :"/" >
+		|< OTHERS:~[] >
+
+}
+String comment():
+{
+   String result="";
+   Token t1,t2;
+}
+{
+	t1=< BACK > t2= <BACK > result=japanese() 
+	{
+		return t1.image+t2.image+result;
+	}
+}
+String japanese() :
+{
+  String result="";
+  String w;
+}
+{
+  (w = word()
+   {
+	result+=w;  
+   }	
+  )+
+  {
+    return result;
+  }
+}
+
+String word() :
+{
+  Token t1,t2,t3,t4,t5;
+}
+{
+ t1=< OTHERS >
+ {
+   return t1.image;
+ }
+ | t2=< SMALL_LITERAL >
+ {
+   return t2.image;
+ }
+ | t3= < LAGRGE_LITERAL >
+ {
+   return t3.image;
+ }
+
+ 
+}
+
+
+List<String> VariableDeclaration() :
+{
+    String resultText = "";
+	String name="";
+	String expr="";
+	List<String> result = new ArrayList<String>();
+	Token t;
+}
+{
+  
+	type()  name = name()  expr=expr() 
+	 {
+	  if(name.isEmpty()){	  }else{
+	    String[] names = name.split(",",0);
+	  if(names.length == 1){
+	     resultText +="変数名"+names[0]+expr;	  }else{
+	    resultText +="変数名"+names[0]+expr+"の";	  }
+	  for(int i=1; i<names.length; i++)
+	  {
+	  		System.out.println(names[i]);
+	  		if( i == names.length-1)	  		{
+	  		  resultText+=names[i];	  		}
+	  		else{
+	  		  resultText+=names[i]+",";	  		}
+	  }
+	  resultText+="から役割が推測できません．変数名を変更してください．";
+	  }
+	  result.add(resultText);
+	  resultText = "";
+	}
+	(< COMMA > name=name() expr=expr()
+	{
+	  if(name.isEmpty()){
+	  }else{
+	    String[] names = name.split(",",0);
+	  if(names.length == 1){
+	     resultText +="変数名"+names[0]+expr;
+	  }else{
+	    resultText +="変数名"+names[0]+expr+"の";
+	  }
+	  for(int i=1; i<names.length; i++)
+	  {
+	  		System.out.println(names[i]);
+	  		if( i == names.length-1)
+	  		{
+	  		  resultText+=names[i];
+	  		}
+	  		else{
+	  		  resultText += names[i]+",";
+	  		}
+	  }
+	  resultText+="から役割が推測できません．変数名を変更してください．";
+	  }
+	  result.add(resultText);
+	  resultText = "";
+	     
+	}
+    )*
+	< SEMICOLON >
+	{
+		return result;
+	}
+}
+String name():
+{
+  Token t;
+  String result="",name;
+  WebDicitonaly dictionaly = new WebDicitonaly();
+
+}
+{
+   (
+     LOOKAHEAD(snakeCaseName()) result = snakeCaseName()
+    | LOOKAHEAD(camelCaseName()) result = camelCaseName()
+	| name = commonName()	{
+	  	if(dictionaly.searchDictionaly(name)){
+			System.out.println(name);
+		} else{
+		  result=name;
+		}	}
+   )
+	{
+	  return result;
+	}
+}
+String expr() :
+{
+  Token t1 = null,t2 = null,t3 = null,t4 = null,t5 = null,t6 = null,t7 = null;
+  String result="";
+}
+{
+   (t1=< LEFT_BRACKET >
+   {
+	 try {
+    	 	result += t1.image;
+   		 } catch (NullPointerException e) {
+   			   e.printStackTrace();
+   		}
+	}
+   (( t2= <DIGITS >
+	{
+	 try {
+    	 	result += t2.image;
+   		 } catch (NullPointerException e) {
+   			   e.printStackTrace();
+   		}
+	}
+   | t3=<SMALL_LITERAL>
+   {
+     	 try {
+    	 	result += t3.image;
+   		 } catch (NullPointerException e) {
+   			   e.printStackTrace();
+   		}   }
+   |(t4=< LAGRGE_LITERAL >
+   {
+     	 try {
+    	 	result += t4.image;
+   		 } catch (NullPointerException e) {
+   			   e.printStackTrace();
+   		}
+   }
+   )+)
+
+   )?
+   t5= <RIGHT_BRACKET>
+	{	 try {
+    	 	result += t5.image;
+   		 } catch (NullPointerException e) {
+   			   e.printStackTrace();
+   		}
+	}
+
+   )*
+    (<EQUAL> <DIGITS >)?
+	{  
+ 	 return result;
+	}
+}
+
+void type() :
+{
+}
+{
+	< DOUBLE > | < FLOAT >| (<UNSIGNED > )?(< LONG >|< SHORT > | < INT > | < CHAR >)
+}
+
+String commonName() :
+{
+  	String result ="",name;
+	Token t1=null,t2=null;
+}
+{
+	(t1 = <SMALL_LITERAL> {result += t1.image;}  (t2 = < DIGITS >{result += t2.image;}) ? ) +
+	{
+		return result;
+	}
+}
+String snakeCaseName() :
+{
+  	List<String> errorResult = new ArrayList<String>();
+  	List<String> allName = new ArrayList<String>();
+	String tokenName,outPutString="";
+	String searchText;
+	WebDicitonaly dictionaly = new WebDicitonaly();
+	Token underbar;
+}
+{   
+	tokenName = commonName()
+	{
+	   //辞書を検索する．
+		if(dictionaly.searchDictionaly(tokenName)){
+			System.out.println(tokenName);
+		} else{
+		  //辞書に存在しない場合，errorResultに加える．
+		  errorResult.add(tokenName);
+		}
+		allName.add(tokenName);
+	}
+	(underbar = <UNDERBAR> tokenName = commonName()
+	{
+		if(dictionaly.searchDictionaly(tokenName)){
+			System.out.println(tokenName);
+		} else{
+		  errorResult.add(tokenName);
+		}
+		allName.add(underbar.image);
+		allName.add(tokenName);
+	}
+	)+
+	{
+		
+		//変数名を表示する．
+		for (int i = 0; i < allName.size(); i++) {
+			if (allName.get(i).isEmpty()) {
+			} else {
+				outPutString += allName.get(i);                 
+			}
+		}
+		outPutString += ",";
+		//適切でない命名を表示する．
+		for (int i = 0; i < errorResult.size(); i++) {
+			if (errorResult.get(i).isEmpty()) {
+			} else {
+				if( i == errorResult.size()-1 )            	 {
+					outPutString += errorResult.get(i);            
+				}else{
+					outPutString += errorResult.get(i)+",";            	 
+				}        
+			}
+		}
+		if(errorResult.isEmpty()){
+			return "";
+		}else{
+		   System.out.println("outPutString:"+outPutString);
+			return outPutString;        
+		}
+	}
+
+}
+
+String camelCaseName() :
+{
+	String result;
+	Token t = null;
+	List<String> errorResult = new ArrayList<String>();
+	List<String> allName = new ArrayList<String > ();
+	String tokenName,name,outPutString="";
+	WebDicitonaly dictionaly = new WebDicitonaly();
+	Token largeLiteral;
+}
+{   
+	tokenName = commonName()
+	{
+		if(dictionaly.searchDictionaly(tokenName)){
+			System.out.println(tokenName);
+		} else{
+			errorResult.add(tokenName);
+		}
+		allName.add(tokenName);
+	}
+
+	(largeLiteral = <LAGRGE_LITERAL>  tokenName=commonName()
+	 {
+	 if(dictionaly.searchDictionaly(largeLiteral.image+tokenName)){
+	 System.out.println(largeLiteral+tokenName);
+	 } else{
+	 errorResult.add(largeLiteral+tokenName);
+	 }
+	 allName.add(largeLiteral+tokenName);
+	 }
+
+	)+
+	{
+		//変数名を表示する．
+		for (int i = 0; i < allName.size(); i++) {
+			if (allName.get(i).isEmpty()) {
+			} else {
+				outPutString += allName.get(i);                 
+			}
+		}
+		outPutString +=",";
+		//適切でない命名を表示する．
+		for (int i = 0; i < errorResult.size(); i++) {
+			if (errorResult.get(i).isEmpty()) {
+			} else {
+				if( i == errorResult.size()-1 ){
+					outPutString += errorResult.get(i);
+				}else{
+					outPutString += errorResult.get(i)+",";
+				}        
+			}
+		}
+		if(errorResult.isEmpty()){
+			return "";
+		}else{
+			return outPutString;
+		}
+	}
+}
+
+
+

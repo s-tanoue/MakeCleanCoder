@@ -1,0 +1,69 @@
+options {
+  STATIC=false;
+  UNICODE_INPUT =true;
+}
+
+PARSER_BEGIN(CleanCoderCommentParser)
+  package CommentParser;
+  import java.util.ArrayList;
+  import java.util.List;
+  import Dictionaly.*;
+
+public class CleanCoderCommentParser{
+}
+PARSER_END(CleanCoderCommentParser)
+
+SKIP :{
+    <  SPACE:([" ","\t","\n","\r","\f"])+ >
+}
+
+TOKEN :
+{
+       <LINE_COMMENT:"//"(~["\n","\r"])* ("\n"|"\r\n" | "\r")? >
+        | < BLOCK_COMMENT: "/*" (~["*"])*("*")+ (~["/","*"](~["*"])*("*")+)* "/" >
+        | < FOR : "for" >
+        | < WHILE: "while" >
+        | < IF: "if" >
+        | < OTHERS:~[] >
+}
+String comment():
+{
+    Token t,t2;
+    String result="";
+}
+{
+    ( others()
+    ( t = < LINE_COMMENT > 
+        {
+            result+=t.image;
+        }
+    | t2=< BLOCK_COMMENT >
+        {
+            result+=t2.image+"\n";
+        }
+    )
+    others() )*
+         {
+              return result;
+         }
+
+}
+String others():
+{
+    String result="";
+    Token t;
+}
+{
+    (t= <OTHERS>
+     {
+        try {
+             result += t.image;
+        } catch (NullPointerException e) {
+             e.printStackTrace();
+        }
+     }
+    )*
+    {
+        return result;
+    }
+}
