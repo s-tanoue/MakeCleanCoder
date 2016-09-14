@@ -1,5 +1,6 @@
 #MakeCleanCoder
 あなたのコードをCleanに！　
+CleanCodeを提供します
 
 #使い方
 MakeCleanCoder.java を実行する
