@@ -6,9 +6,9 @@
 
 public class CleanCoderCommentParser implements CleanCoderCommentParserConstants {
 
-  final public String comment() throws ParseException {
+  final public ArrayList<String> comment() throws ParseException {
     Token t,t2;
-    String result="";
+    ArrayList<String> result= new ArrayList<String>();
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -25,11 +25,11 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case LINE_COMMENT:
         t = jj_consume_token(LINE_COMMENT);
-               result+=t.image;
+                 result.add(t.image.replaceAll("\u005cn", ""));
         break;
       case BLOCK_COMMENT:
         t2 = jj_consume_token(BLOCK_COMMENT);
-               result+=t2.image+"\u005cn";
+                result.add(t2.image);
         break;
       default:
         jj_la1[1] = jj_gen;
@@ -38,13 +38,13 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
       }
       others();
     }
-        {if (true) return result;}
+                {if (true) return result;}
     throw new Error("Missing return statement in function");
   }
 
   final public String others() throws ParseException {
-    String result="";
-    Token t;
+        String result="";
+        Token t;
     label_2:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -56,13 +56,13 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
         break label_2;
       }
       t = jj_consume_token(OTHERS);
-     try {
-     result += t.image;
-     } catch (NullPointerException e) {
-     e.printStackTrace();
-     }
+         try {
+           result += t.image;
+         } catch (NullPointerException e) {
+           e.printStackTrace();
+         }
     }
-        {if (true) return result;}
+                {if (true) return result;}
     throw new Error("Missing return statement in function");
   }
 
@@ -81,7 +81,7 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x8c,0xc,0x80,};
+      jj_la1_0 = new int[] {0x1c,0xc,0x10,};
    }
 
   /** Constructor with InputStream. */
@@ -198,7 +198,7 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[8];
+    boolean[] la1tokens = new boolean[5];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -212,7 +212,7 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
         }
       }
     }
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 5; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

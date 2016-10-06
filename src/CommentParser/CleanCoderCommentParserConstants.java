@@ -17,13 +17,7 @@ public interface CleanCoderCommentParserConstants {
   /** RegularExpression Id. */
   int BLOCK_COMMENT = 3;
   /** RegularExpression Id. */
-  int FOR = 4;
-  /** RegularExpression Id. */
-  int WHILE = 5;
-  /** RegularExpression Id. */
-  int IF = 6;
-  /** RegularExpression Id. */
-  int OTHERS = 7;
+  int OTHERS = 4;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -34,9 +28,6 @@ public interface CleanCoderCommentParserConstants {
     "<SPACE>",
     "<LINE_COMMENT>",
     "<BLOCK_COMMENT>",
-    "\"for\"",
-    "\"while\"",
-    "\"if\"",
     "<OTHERS>",
   };
 

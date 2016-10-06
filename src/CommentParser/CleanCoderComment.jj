@@ -21,49 +21,47 @@ TOKEN :
 {
        <LINE_COMMENT:"//"(~["\n","\r"])* ("\n"|"\r\n" | "\r")? >
         | < BLOCK_COMMENT: "/*" (~["*"])*("*")+ (~["/","*"](~["*"])*("*")+)* "/" >
-        | < FOR : "for" >
-        | < WHILE: "while" >
-        | < IF: "if" >
         | < OTHERS:~[] >
 }
-String comment():
+
+ArrayList<String> comment():
 {
     Token t,t2;
-    String result="";
+    ArrayList<String> result= new ArrayList<String>();
 }
 {
-    ( others()
-    ( t = < LINE_COMMENT > 
+      ( others()
+          ( t = < LINE_COMMENT > 
+            {
+                 result.add(t.image.replaceAll("\n", ""));
+            }
+            | t2=< BLOCK_COMMENT >
+            {
+                result.add(t2.image);
+            }
+          )
+          others() )*
         {
-            result+=t.image;
+                return result;
         }
-    | t2=< BLOCK_COMMENT >
-        {
-            result+=t2.image+"\n";
-        }
-    )
-    others() )*
-         {
-              return result;
-         }
 
 }
 String others():
 {
-    String result="";
-    Token t;
+        String result="";
+        Token t;
 }
 {
-    (t= <OTHERS>
-     {
-        try {
-             result += t.image;
-        } catch (NullPointerException e) {
-             e.printStackTrace();
+        (t= <OTHERS>
+         {
+         try {
+           result += t.image;
+         } catch (NullPointerException e) {
+           e.printStackTrace();
+         }
+         }
+        )*
+        {
+                return result;
         }
-     }
-    )*
-    {
-        return result;
-    }
 }

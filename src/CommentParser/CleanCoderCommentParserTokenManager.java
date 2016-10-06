@@ -12,119 +12,9 @@ public class CleanCoderCommentParserTokenManager implements CleanCoderCommentPar
   public  java.io.PrintStream debugStream = System.out;
   /** Set debug output. */
   public  void setDebugStream(java.io.PrintStream ds) { debugStream = ds; }
-private final int jjStopStringLiteralDfa_0(int pos, long active0)
-{
-   switch (pos)
-   {
-      default :
-         return -1;
-   }
-}
-private final int jjStartNfa_0(int pos, long active0)
-{
-   return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
-}
-private int jjStopAtPos(int pos, int kind)
-{
-   jjmatchedKind = kind;
-   jjmatchedPos = pos;
-   return pos + 1;
-}
 private int jjMoveStringLiteralDfa0_0()
 {
-   switch(curChar)
-   {
-      case 102:
-         return jjMoveStringLiteralDfa1_0(0x10L);
-      case 105:
-         return jjMoveStringLiteralDfa1_0(0x40L);
-      case 119:
-         return jjMoveStringLiteralDfa1_0(0x20L);
-      default :
-         return jjMoveNfa_0(1, 0);
-   }
-}
-private int jjMoveStringLiteralDfa1_0(long active0)
-{
-   try { curChar = input_stream.readChar(); }
-   catch(java.io.IOException e) {
-      jjStopStringLiteralDfa_0(0, active0);
-      return 1;
-   }
-   switch(curChar)
-   {
-      case 102:
-         if ((active0 & 0x40L) != 0L)
-            return jjStopAtPos(1, 6);
-         break;
-      case 104:
-         return jjMoveStringLiteralDfa2_0(active0, 0x20L);
-      case 111:
-         return jjMoveStringLiteralDfa2_0(active0, 0x10L);
-      default :
-         break;
-   }
-   return jjStartNfa_0(0, active0);
-}
-private int jjMoveStringLiteralDfa2_0(long old0, long active0)
-{
-   if (((active0 &= old0)) == 0L)
-      return jjStartNfa_0(0, old0);
-   try { curChar = input_stream.readChar(); }
-   catch(java.io.IOException e) {
-      jjStopStringLiteralDfa_0(1, active0);
-      return 2;
-   }
-   switch(curChar)
-   {
-      case 105:
-         return jjMoveStringLiteralDfa3_0(active0, 0x20L);
-      case 114:
-         if ((active0 & 0x10L) != 0L)
-            return jjStopAtPos(2, 4);
-         break;
-      default :
-         break;
-   }
-   return jjStartNfa_0(1, active0);
-}
-private int jjMoveStringLiteralDfa3_0(long old0, long active0)
-{
-   if (((active0 &= old0)) == 0L)
-      return jjStartNfa_0(1, old0);
-   try { curChar = input_stream.readChar(); }
-   catch(java.io.IOException e) {
-      jjStopStringLiteralDfa_0(2, active0);
-      return 3;
-   }
-   switch(curChar)
-   {
-      case 108:
-         return jjMoveStringLiteralDfa4_0(active0, 0x20L);
-      default :
-         break;
-   }
-   return jjStartNfa_0(2, active0);
-}
-private int jjMoveStringLiteralDfa4_0(long old0, long active0)
-{
-   if (((active0 &= old0)) == 0L)
-      return jjStartNfa_0(2, old0);
-   try { curChar = input_stream.readChar(); }
-   catch(java.io.IOException e) {
-      jjStopStringLiteralDfa_0(3, active0);
-      return 4;
-   }
-   switch(curChar)
-   {
-      case 101:
-         if ((active0 & 0x20L) != 0L)
-            return jjStopAtPos(4, 5);
-         break;
-      default :
-         break;
-   }
-   return jjStartNfa_0(3, active0);
+   return jjMoveNfa_0(1, 0);
 }
 static final long[] jjbitVec0 = {
    0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
@@ -310,14 +200,14 @@ private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, lo
 
 /** Token literal values. */
 public static final String[] jjstrLiteralImages = {
-"", null, null, null, "\146\157\162", "\167\150\151\154\145", "\151\146", null, };
+"", null, null, null, null, };
 
 /** Lexer state names. */
 public static final String[] lexStateNames = {
    "DEFAULT",
 };
 static final long[] jjtoToken = {
-   0xfdL, 
+   0x1dL, 
 };
 static final long[] jjtoSkip = {
    0x2L, 
@@ -425,9 +315,9 @@ public Token getNextToken()
    jjmatchedKind = 0x7fffffff;
    jjmatchedPos = 0;
    curPos = jjMoveStringLiteralDfa0_0();
-   if (jjmatchedPos == 0 && jjmatchedKind > 7)
+   if (jjmatchedPos == 0 && jjmatchedKind > 4)
    {
-      jjmatchedKind = 7;
+      jjmatchedKind = 4;
    }
    if (jjmatchedKind != 0x7fffffff)
    {

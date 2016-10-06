@@ -88,20 +88,25 @@ public class Controller implements Initializable {
     @FXML
     private void executeComment(ActionEvent event) {
 
-        String str = extracted();
+        String str = editArea.getText();
         String  outPutString = "";
-        String result = "";
-      	try {
+        List<String> result = new ArrayList<String>();
+        
     		CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(str));
-			result= parser.comment();
-    		if (result.isEmpty()) {
-    		} else {
-    			outPutString += result+ "\n";
-    		}
-    	
-    	 } catch (CommentParser.ParseException e) {
-             e.printStackTrace();
-        }     
+			try {
+				result = parser.comment();
+				  for (int i = 0; i < result.size(); i++) {
+	                  if (result.get(i).isEmpty()) {
+	                  } else {
+	                      outPutString += result.get(i) + "\n";
+	                  }
+				  }
+			} catch (CommentParser.ParseException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+				outPutString += "パーサエラー";
+			}
+		
     
         consoleArea.setText(outPutString);
 
@@ -110,11 +115,10 @@ public class Controller implements Initializable {
     @FXML
     private void executeParser(ActionEvent event) {
 
-        String str = extracted();
+        String str = editArea.getText();
         String[] strs = str.split("\n");
         String outPutString = "";
         List<String> result = new ArrayList<String>();
-        String result2 ="";
         int count = 1;
         for (int i = 0; i < strs.length; i++) {
             try {
@@ -136,11 +140,6 @@ public class Controller implements Initializable {
 
     }
 
-	private String extracted() {
-		String str = editArea.getText();
-		return str;
-	}
-
     @FXML
     private void createLineNumber(KeyEvent event) {
         System.out.println(event.getCode().toString());
@@ -148,7 +147,7 @@ public class Controller implements Initializable {
         if ("ENTER".equals(event.getCode().toString())) {
             
             double scrollTop = editArea.getScrollTop(); 
-            String string = extracted();
+            String string = editArea.getText();
             int lineNumber = editArea.getLineNumber(string);
             String line = "";
             for (int i = 1; i <= lineNumber + 1; i++) {
