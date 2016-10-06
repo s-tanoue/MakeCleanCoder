@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import CommentParser.CleanCoderCommentParser;
+import Dictionaly.CommentDictionaly;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -99,10 +100,13 @@ public class Controller implements Initializable {
 	                  if (result.get(i).isEmpty()) {
 	                  } else {
 	                      outPutString += result.get(i) + "\n";
+	                      CommentDictionaly dictionaly = new CommentDictionaly();
+	                    if( !dictionaly.isRequiredComment(result.get(i)) ){
+	                    	outPutString += "不要なコメントです";
+	                    }
 	                  }
 				  }
 			} catch (CommentParser.ParseException e) {
-				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 				outPutString += "パーサエラー";
 			}
