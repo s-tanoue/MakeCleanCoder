@@ -88,8 +88,6 @@ public class WebDicitonaly{
 		}else{
 			return false;
 		}
-		
-		
 	}
         
 }

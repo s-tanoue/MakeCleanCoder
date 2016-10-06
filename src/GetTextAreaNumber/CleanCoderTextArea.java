@@ -15,7 +15,6 @@ public class CleanCoderTextArea extends TextArea{
 		super();
 		this.setText(text);
 	}
-	
 	public int getLineNumber(String str){
 		String strs[] = str.split("\n",-1);
 		return strs.length;
