@@ -8,7 +8,7 @@ public class CommentDictionaly {
 	
 	public boolean isRequiredComment(String text){
 			
-			if(text.matches(".*" + "TODO" + ".*")){
+			if(text.matches(".*TODO.*")){
 				return false;
 			}else if(text.matches(".*" + "修正" + ".*")){
 				return false;

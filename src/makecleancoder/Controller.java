@@ -100,17 +100,16 @@ public class Controller implements Initializable {
 				  for (int i = 0; i < result.comment.size(); i++) {
 	                  if (!result.comment.get(i).isEmpty()) {
 	                	 CommentDictionaly dictionaly = new CommentDictionaly();
-	                     if( !dictionaly.isRequiredComment(result.comment.get(i)) ){
-	                    	 //行番号を表示
+	                     if( !dictionaly.isRequiredComment(result.comment.get(i).replaceAll("\n", "")) ){
 	                    	 String dontNeedComment[] = result.comment.get(i).split("\n",-1); 
 	                    	 String editAreaTexts[] = editAreaText.split("\n",-1);
 	                    	 for(int j=0; j<=editAreaTexts.length; j++){
-	                    	   if(editAreaTexts[j].matches(".*"+dontNeedComment[0]+".*")){
+	                    	   if(editAreaTexts[j].matches(".*" + dontNeedComment[0] + ".*")){
 	                    		   lineNumber = j+1;
 	                    		   break;
 	                    	   }
 	                    	 }
-	                    	outPutString += String.valueOf(lineNumber)+":"+result.comment.get(i) +" は不要なコメントです\n";
+	                    	outPutString += String.valueOf(lineNumber)+":"+result.comment.get(i).replaceAll("\n", "") +" は不要なコメントです\n";
 	                    }
 	                  }
 				  }
