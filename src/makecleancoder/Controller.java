@@ -62,7 +62,6 @@ public class Controller implements Initializable {
             editArea.setText(inputAllString);
             int lineNumber = editArea.getLineNumber(editArea.getText());
             String line = "";
-
             for (int i = 1; i <= lineNumber; i++) {
                 line += String.valueOf(i) + "\n";
             }
@@ -102,7 +101,7 @@ public class Controller implements Initializable {
 	                      outPutString += result.get(i) + "\n";
 	                      CommentDictionaly dictionaly = new CommentDictionaly();
 	                    if( !dictionaly.isRequiredComment(result.get(i)) ){
-	                    	outPutString += "不要なコメントです";
+	                    	outPutString += "不要なコメントです\n";
 	                    }
 	                  }
 				  }
@@ -146,10 +145,7 @@ public class Controller implements Initializable {
 
     @FXML
     private void createLineNumber(KeyEvent event) {
-        System.out.println(event.getCode().toString());
-        
         if ("ENTER".equals(event.getCode().toString())) {
-            
             double scrollTop = editArea.getScrollTop(); 
             String string = editArea.getText();
             int lineNumber = editArea.getLineNumber(string);

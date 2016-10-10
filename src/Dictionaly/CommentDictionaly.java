@@ -8,23 +8,23 @@ public class CommentDictionaly {
 	
 	public boolean isRequiredComment(String text){
 			
-			if(text.equals("修正")){
+			if(text.matches(".*" + "TODO" + ".*")){
 				return false;
-			}else if(text.equals("TODO")){
+			}else if(text.matches(".*" + "修正" + ".*")){
 				return false;
-			}else if(text.equals("作成")){
+			}else if(text.matches(".*" + "サポート" + ".*")){
 				return false;
-			}else if(text.equals("サポート")){
+			}else if(text.matches(".*" + "追加" + ".*")){
 				return false;
-			}else if(text.equals("変更")){
+			}else if(text.matches(".*" + "変更" + ".*")){
 				return false;
-			}else if(text.equals("よく分からないけど動く")){
+			}else if(text.matches(".*" + "よくわからないけど動く" + ".*")){
 				return false;
-			}else if(text.equals("何故か動く")){
+			}else if(text.matches(".*" + "何故か動く" + ".*")){
 				return false;
-			}else if(text.equals("なぜか動く")){
+			}else if(text.matches(".*" + "なぜかうごく" + ".*")){
 				return false;
-			}else if(text.equals("なぜ動くのかわからない")){
+			}else if(text.matches(".*" + "なぜ動くのかわからない" + ".*")){
 				return false;
 			}else{
 				return true;

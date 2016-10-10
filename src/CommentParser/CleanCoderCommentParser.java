@@ -56,11 +56,11 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
         break label_2;
       }
       t = jj_consume_token(OTHERS);
-         try {
-           result += t.image;
-         } catch (NullPointerException e) {
-           e.printStackTrace();
-         }
+                try {
+                  result += t.image;
+                 } catch (NullPointerException e) {
+                   e.printStackTrace();
+            }
     }
                 {if (true) return result;}
     throw new Error("Missing return statement in function");

@@ -14,7 +14,7 @@ public class CleanCoderCommentParser{
 PARSER_END(CleanCoderCommentParser)
 
 SKIP :{
-    <  SPACE:([" ","\t","\n","\r","\f"])+ >
+    <  SPACE:([" ","\t","\r","\f"])+ >
 }
 
 TOKEN :
@@ -54,11 +54,11 @@ String others():
 {
         (t= <OTHERS>
          {
-         try {
-           result += t.image;
-         } catch (NullPointerException e) {
-           e.printStackTrace();
-         }
+         	try {
+         	  result += t.image;
+        	 } catch (NullPointerException e) {
+        	   e.printStackTrace();
+       	    }
          }
         )*
         {
