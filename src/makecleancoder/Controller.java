@@ -7,6 +7,7 @@ package makecleancoder;
 
 import Parser.CleanCoderParser;
 import Parser.ParseException;
+import ResultData.ResultData;
 import GetTextAreaNumber.CleanCoderTextArea;
 import java.io.BufferedReader;
 import java.io.File;
@@ -90,17 +91,16 @@ public class Controller implements Initializable {
 
         String str = editArea.getText();
         String  outPutString = "";
-        List<String> result = new ArrayList<String>();
+       ResultData result = new ResultData();
         
     		CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(str));
 			try {
 				result = parser.comment();
-				  for (int i = 0; i < result.size(); i++) {
-	                  if (result.get(i).isEmpty()) {
-	                  } else {
-	                      outPutString += result.get(i) + "\n";
-	                      CommentDictionaly dictionaly = new CommentDictionaly();
-	                    if( !dictionaly.isRequiredComment(result.get(i)) ){
+				  for (int i = 0; i < result.comment.size(); i++) {
+	                  if (!result.comment.get(i).isEmpty()) {
+	                	 CommentDictionaly dictionaly = new CommentDictionaly();
+	                     if( !dictionaly.isRequiredComment(result.comment.get(i)) ){
+	                    	outPutString += result.comment.get(i) + "\n";
 	                    	outPutString += "不要なコメントです\n";
 	                    }
 	                  }

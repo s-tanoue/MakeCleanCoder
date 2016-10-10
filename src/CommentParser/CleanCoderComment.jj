@@ -8,6 +8,7 @@ PARSER_BEGIN(CleanCoderCommentParser)
   import java.util.ArrayList;
   import java.util.List;
   import Dictionaly.*;
+  import ResultData.*;
 
 public class CleanCoderCommentParser{
 }
@@ -20,27 +21,33 @@ SKIP :{
 TOKEN :
 {
        <LINE_COMMENT:"//"(~["\n","\r"])* ("\n"|"\r\n" | "\r")? >
-        | < BLOCK_COMMENT: "/*" (~["*"])*("*")+ (~["/","*"](~["*"])*("*")+)* "/" >
-        | < OTHERS:~[] >
+       | < BLOCK_COMMENT: "/*" (~["*"])*("*")+ (~["/","*"](~["*"])*("*")+)* "/" >
+       | < OTHERS:~[] >
 }
-
-ArrayList<String> comment():
+ResultData comment():
 {
-    Token t,t2;
-    ArrayList<String> result= new ArrayList<String>();
+    Token lineComment,blockComment;
+    String firstOthers,lastOthers;
+    ResultData result = new ResultData();
+   
 }
 {
-      ( others()
-          ( t = < LINE_COMMENT > 
+      ( firstOthers = others()
+      { if(!firstOthers.isEmpty()){
+            result.lineNumber.add(firstOthers);
+          }
+       }
+          ( lineComment = < LINE_COMMENT > 
             {
-                 result.add(t.image.replaceAll("\n", ""));
+                 result.comment.add(lineComment.image.replaceAll("\n", ""));
+                 //result.comment.add(lineComment.image);
             }
-            | t2=< BLOCK_COMMENT >
+            | blockComment =< BLOCK_COMMENT >
             {
-                result.add(t2.image);
+                result.comment.add(blockComment.image);
             }
           )
-          others() )*
+          lastOthers = others() { if(!lastOthers.isEmpty()) { result.lineNumber.add(lastOthers); } })*
         {
                 return result;
         }

@@ -3,12 +3,14 @@
   import java.util.ArrayList;
   import java.util.List;
   import Dictionaly.*;
+  import ResultData.*;
 
 public class CleanCoderCommentParser implements CleanCoderCommentParserConstants {
 
-  final public ArrayList<String> comment() throws ParseException {
-    Token t,t2;
-    ArrayList<String> result= new ArrayList<String>();
+  final public ResultData comment() throws ParseException {
+    Token lineComment,blockComment;
+    String firstOthers,lastOthers;
+    ResultData result = new ResultData();
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -21,22 +23,28 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
         jj_la1[0] = jj_gen;
         break label_1;
       }
-      others();
+      firstOthers = others();
+        if(!firstOthers.isEmpty()){
+            result.lineNumber.add(firstOthers);
+          }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case LINE_COMMENT:
-        t = jj_consume_token(LINE_COMMENT);
-                 result.add(t.image.replaceAll("\u005cn", ""));
+        lineComment = jj_consume_token(LINE_COMMENT);
+                 result.comment.add(lineComment.image.replaceAll("\u005cn", ""));
+                 //result.comment.add(lineComment.image);
+
         break;
       case BLOCK_COMMENT:
-        t2 = jj_consume_token(BLOCK_COMMENT);
-                result.add(t2.image);
+        blockComment = jj_consume_token(BLOCK_COMMENT);
+                result.comment.add(blockComment.image);
         break;
       default:
         jj_la1[1] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
-      others();
+      lastOthers = others();
+                                  if(!lastOthers.isEmpty()) { result.lineNumber.add(lastOthers); }
     }
                 {if (true) return result;}
     throw new Error("Missing return statement in function");

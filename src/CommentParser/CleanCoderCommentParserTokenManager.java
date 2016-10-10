@@ -3,6 +3,7 @@ package CommentParser;
 import java.util.ArrayList;
 import java.util.List;
 import Dictionaly.*;
+import ResultData.*;
 
 /** Token Manager. */
 public class CleanCoderCommentParserTokenManager implements CleanCoderCommentParserConstants
