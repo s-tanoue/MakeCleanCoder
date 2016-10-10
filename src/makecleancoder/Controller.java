@@ -89,19 +89,28 @@ public class Controller implements Initializable {
     @FXML
     private void executeComment(ActionEvent event) {
 
-        String str = editArea.getText();
+        String editAreaText= editArea.getText();
         String  outPutString = "";
-       ResultData result = new ResultData();
+        ResultData result = new ResultData();
+        int lineNumber = 0; 
         
-    		CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(str));
+    		CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(editAreaText));
 			try {
 				result = parser.comment();
 				  for (int i = 0; i < result.comment.size(); i++) {
 	                  if (!result.comment.get(i).isEmpty()) {
 	                	 CommentDictionaly dictionaly = new CommentDictionaly();
 	                     if( !dictionaly.isRequiredComment(result.comment.get(i)) ){
-	                    	outPutString += result.comment.get(i) + "\n";
-	                    	outPutString += "不要なコメントです\n";
+	                    	 //行番号を表示
+	                    	 String dontNeedComment[] = result.comment.get(i).split("\n",-1); 
+	                    	 String editAreaTexts[] = editAreaText.split("\n",-1);
+	                    	 for(int j=0; j<=editAreaTexts.length; j++){
+	                    	   if(editAreaTexts[j].matches(".*"+dontNeedComment[0]+".*")){
+	                    		   lineNumber = j+1;
+	                    		   break;
+	                    	   }
+	                    	 }
+	                    	outPutString += String.valueOf(lineNumber)+":"+result.comment.get(i) +" は不要なコメントです\n";
 	                    }
 	                  }
 				  }
