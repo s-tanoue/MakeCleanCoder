@@ -18,7 +18,7 @@ public class CommentDictionalyTest {
         assertEquals(false, dictionaly.isRequiredComment("//よくわからないけど動く"));
         assertEquals(false, dictionaly.isRequiredComment("//TODO"));
         assertEquals(false, dictionaly.isRequiredComment("/*TODO*/"));
-        assertEquals(false, dictionaly.isRequiredComment("/TODOnnan/"));
+        assertEquals(false, dictionaly.isRequiredComment("/TODO\n\n\n/"));
         assertEquals(false, dictionaly.isRequiredComment("/*よくわからないけど動く*/"));
 	}
 

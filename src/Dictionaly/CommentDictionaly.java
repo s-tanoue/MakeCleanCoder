@@ -18,15 +18,14 @@ public class CommentDictionaly {
 				return false;
 			}else if(text.matches(".*" + "変更" + ".*")){
 				return false;
-			}else if(text.matches(".*" + "よくわからないけど動く" + ".*")){
+			}else if(text.matches(".* [なぜ|何故].*")){
 				return false;
-			}else if(text.matches(".*" + "何故か動く" + ".*")){
+			}else if(text.matches(".*[わからない].*")){
 				return false;
-			}else if(text.matches(".*" + "なぜかうごく" + ".*")){
+			}else if(text.matches(".*2015.*")){
 				return false;
-			}else if(text.matches(".*" + "なぜ動くのかわからない" + ".*")){
-				return false;
-			}else{
+			}
+			else{
 				return true;
 			}
 	}
