@@ -27,6 +27,7 @@ public class MakeCleanCoder extends Application {
 
     /**
      * @param args the command line arguments
+     * こんにちは，私の名前は田上諭です．こんにちは，私の名前は田上諭です．こんにちは，私の名前は田上諭です．
      */
     public static void main(String[] args) {
         launch(args);

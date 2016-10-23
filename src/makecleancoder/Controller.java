@@ -89,19 +89,29 @@ public class Controller implements Initializable {
     @FXML
     private void executeComment(ActionEvent event) {
 
-        String str = editArea.getText();
+        String editAreaText= editArea.getText();
         String  outPutString = "";
-       ResultData result = new ResultData();
+        ResultData result = new ResultData();
+        int lineNumber = 0; 
+        String editAreaTexts[] = editAreaText.split("\n",-1);
         
-    		CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(str));
+    		CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(editAreaText));
 			try {
 				result = parser.comment();
+				//行番号の表示をする
 				  for (int i = 0; i < result.comment.size(); i++) {
 	                  if (!result.comment.get(i).isEmpty()) {
 	                	 CommentDictionaly dictionaly = new CommentDictionaly();
-	                     if( !dictionaly.isRequiredComment(result.comment.get(i)) ){
-	                    	outPutString += result.comment.get(i) + "\n";
-	                    	outPutString += "不要なコメントです\n";
+	                     if( !dictionaly.isRequiredComment(result.comment.get(i).replaceAll("\n", "")) ){
+	                    	 String dontNeedComment[] = result.comment.get(i).split("\n",-1); 
+	                    	 for(int j=0; j<=editAreaTexts.length; j++){
+	                    	   if(editAreaTexts[j].matches(".*" + dontNeedComment[0] + ".*")){
+	                    		   lineNumber = j+1;
+	                    		   editAreaTexts[j] = "";
+	                    		   break;
+	                    	   }
+	                    	 }
+	                    	outPutString += String.valueOf(lineNumber)+":"+result.comment.get(i).replaceAll("\n", "") +" は不要なコメントです\n";
 	                    }
 	                  }
 				  }

@@ -17,7 +17,7 @@ PARSER_END(CleanCoderCommentParser)
 SKIP :{
     <  SPACE:([" ","\t","\r","\f"])+ >
 }
-
+s
 TOKEN :
 {
        <LINE_COMMENT:"//"(~["\n","\r"])* ("\n"|"\r\n" | "\r")? >
