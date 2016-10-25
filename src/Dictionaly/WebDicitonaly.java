@@ -8,7 +8,6 @@ public class WebDicitonaly{
 	
 	public boolean searchDictionaly(String text){
 		try{
-		
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = dbfactory.newDocumentBuilder();
 			
