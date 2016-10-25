@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<comments>
+    <comment type="TODOコメント">
+        <word>TODO</word>
+        <word>将来</word>
+        <word>予定</word>
+        <word>未来</word>
+        <word>対応</word>
+        <word>今後</word>
+    </comment>
+
+    <comment type="コードの繰り返しコメント">
+        <word>ループ</word>
+        <word>繰り返し</word>
+        <word>インクリメント</word>
+        <word>ブレーク</word>
+        <word>抜ける</word>
+    </comment>
+
+    <comment type="改修履歴コメント">
+        <word>平成</word>
+        <word>昭和</word>
+        <word>UPDATE</word>
+        <word>Version</word>
+        <word>追加</word>
+        <word>修正</word>
+    </comment>
+
+    <comment type="意図が曖昧なコメント">
+        <word>?</word>
+        <word>暫定的</word>
+        <word>未定</word>
+        <word>仮</word>
+        <word>曖昧</word>
+    </comment>
+
+    <comment type="理解不足であるために追加しているコメント">
+        <word>なぜか</word>
+        <word>不安</word>
+        <word>理解不足</word>
+        <word>?</word>
+    </comment>
+
+    <comment type="ソースコードコメント">
+        <word>ここから</word>
+        <word>ここまで</word>
+    </comment>
+
+</comments>
