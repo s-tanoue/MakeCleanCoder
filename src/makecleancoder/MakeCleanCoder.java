@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Milk
+ * @author SatoshiTanoue
  */
 public class MakeCleanCoder extends Application {
     
@@ -25,10 +25,6 @@ public class MakeCleanCoder extends Application {
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     * こんにちは，私の名前は田上諭です．こんにちは，私の名前は田上諭です．こんにちは，私の名前は田上諭です．
-     */
     public static void main(String[] args) {
         launch(args);
     }
