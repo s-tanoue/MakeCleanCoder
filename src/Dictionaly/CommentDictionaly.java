@@ -67,7 +67,8 @@ public class CommentDictionaly {
   }
 
   public boolean isRequiredComment(String text) {
-    text.replaceAll("\\n", "");
+    String crlf = System.getProperty("line.separator");
+    text=text.replaceAll(crlf, "A");
     setDicitonaly();
     for(String w: wordList){
       if(text.matches(".*"+w+".*")){
