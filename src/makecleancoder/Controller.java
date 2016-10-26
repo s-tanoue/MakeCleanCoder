@@ -30,17 +30,17 @@ import java.util.ResourceBundle;
  * @version 1.0
  */
 public class Controller implements Initializable {
-  String crlf = System.getProperty("line.separator");
-  @FXML
-  AnchorPane root;
-  @FXML
-  CleanCoderTextArea editArea;
 
   @FXML
-  CleanCoderTextArea consoleArea;
+  private AnchorPane root;
   @FXML
-  CleanCoderTextArea lineNumberArea;
-
+  private CleanCoderTextArea editArea;
+  @FXML
+  private CleanCoderTextArea consoleArea;
+  @FXML
+  private CleanCoderTextArea lineNumberArea;
+  private String crlf = System.getProperty("line.separator");
+  
   @FXML
   private void fileOpen(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
@@ -52,14 +52,14 @@ public class Controller implements Initializable {
         String str;
         inputAllString = "";
         while ((str = br.readLine()) != null) {
-          inputAllString += str + crlf;
+          inputAllString += str + "\n";
         }
       }
       editArea.setText(inputAllString);
       int lineNumber = editArea.getLineNumber(editArea.getText());
       String line = "";
       for (int i = 1; i <= lineNumber; i++) {
-        line += String.valueOf(i) + crlf;
+        line += String.valueOf(i) + "\n";
       }
       lineNumberArea.setText(line);
     } catch (FileNotFoundException e) {
@@ -89,26 +89,28 @@ public class Controller implements Initializable {
     String outPutString = "";
     ResultData result = new ResultData();
     int lineNumber = 0;
-    String editAreaTexts[] = editAreaText.split(crlf, -1);
+    String editAreaTexts[] = editAreaText.split("\n", -1);
 
     CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(editAreaText));
     try {
       result = parser.comment();
-      // 行番号の表示をする
+    
       for (int i = 0; i < result.comment.size(); i++) {
         if (!result.comment.get(i).isEmpty()) {
           CommentDictionaly dictionaly = new CommentDictionaly();
+          //適切なコメントかどうか判断する．
           if (!dictionaly.isRequiredComment(result.comment.get(i))) {
-            String dontNeedComment[] = result.comment.get(i).split(crlf, -1);
-            for (int j = 0; j <= editAreaTexts.length; j++) {
-              if (editAreaTexts[j].matches(".*" + dontNeedComment[0] + ".*")) {
+            // 行番号の表示をする
+            String dontNeedComment[] = result.comment.get(i).split("\n", -1);
+            for (int j = 0; j < editAreaTexts.length; j++) {
+              if (editAreaTexts[j].equals(dontNeedComment[0])) {
                 lineNumber = j + 1;
                 editAreaTexts[j] = "";
                 break;
               }
             }
             outPutString += String.valueOf(lineNumber) + ":"
-                + result.comment.get(i).replaceAll(crlf, "") + " は不要なコメントです\n";
+                + result.comment.get(i).replaceAll("\n", "") + " は不要なコメントです\n";
           }
         }
       }
@@ -124,7 +126,7 @@ public class Controller implements Initializable {
   @FXML
   private void executeParser(ActionEvent event) {
     String str = editArea.getText();
-    String[] strs = str.split(crlf);
+    String[] strs = str.split("\n");
     String outPutString = "";
     List<String> result = new ArrayList<String>();
     int count = 1;
@@ -134,7 +136,7 @@ public class Controller implements Initializable {
         result = parser.VariableDeclaration();
         for (int j = 0; j < result.size(); j++) {
           if (!result.get(j).isEmpty()) {
-            outPutString += String.valueOf(count) + ":" + result.get(j) + crlf;
+            outPutString += String.valueOf(count) + ":" + result.get(j) + "\n";
           }
         }
       } catch (ParseException e) {
@@ -155,7 +157,7 @@ public class Controller implements Initializable {
       int lineNumber = editArea.getLineNumber(string);
       String line = "";
       for (int i = 1; i <= lineNumber + 1; i++) {
-        line += String.valueOf(i) + crlf;
+        line += String.valueOf(i) + "\n";
       }
       lineNumberArea.setText(line);
       editArea.setScrollTop(scrollTop);
@@ -170,7 +172,7 @@ public class Controller implements Initializable {
   @FXML
   private void clearEditArea(ActionEvent event) {
     editArea.setText("");
-    lineNumberArea.setText("1"+crlf);
+    lineNumberArea.setText("1\n");
   }
 
   @Override

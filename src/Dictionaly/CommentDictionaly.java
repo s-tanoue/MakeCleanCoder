@@ -40,7 +40,7 @@ public class CommentDictionaly {
       // TODO 自動生成された catch ブロック
       e.printStackTrace();
     }
-   
+
     Node rootNode = (Node) (document.getDocumentElement());
     Node commentNode = rootNode.getFirstChild();
     while (commentNode != null) {
@@ -52,7 +52,7 @@ public class CommentDictionaly {
       while (wordNode != null) {
         if (wordNode.getNodeName().equals("word")) {  
           Node node = wordNode.getFirstChild(); 
-          if (node != null) {
+          if (node != null && node.getNodeValue() != null) {
             wordList.add(node.getNodeValue());           
           } 
         }
@@ -68,12 +68,17 @@ public class CommentDictionaly {
 
   public boolean isRequiredComment(String text) {
     String crlf = System.getProperty("line.separator");
-    text=text.replaceAll(crlf, "A");
+    text=text.replaceAll(crlf, "");
     setDicitonaly();
     for(String w: wordList){
-      if(text.matches(".*"+w+".*")){
+      if(w.equals("?")){
+        if(text.matches(".*\\"+ w +".*")){
+          return false;
+        }
+      }else if(text.matches(".*"+ w +".*")){
         return false;
       }
+
     }
     return true;
   }

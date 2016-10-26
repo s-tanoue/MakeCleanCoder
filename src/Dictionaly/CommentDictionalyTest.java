@@ -13,6 +13,8 @@ public class CommentDictionalyTest {
 	@Test
 	public void testIsRequiredComment() {
         CommentDictionaly dictionaly = new CommentDictionaly();
+
+        assertEquals(true, dictionaly.isRequiredComment("//aaaaa"));
         assertEquals(false, dictionaly.isRequiredComment("//TODO\n"));
         assertEquals(false, dictionaly.isRequiredComment("//TODO"));
         assertEquals(false, dictionaly.isRequiredComment("//将来"));
