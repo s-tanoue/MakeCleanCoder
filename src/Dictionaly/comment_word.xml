@@ -3,41 +3,61 @@
     <comment type="TODOコメント">
         <word>TODO</word>
         <word>将来</word>
-        <word>予定</word>
+        <word>しょうらい</word>
         <word>未来</word>
+        <word>みらい</word>
         <word>対応</word>
+        <word>たいおう</word>
         <word>今後</word>
+        <word>こんご</word>
     </comment>
 
     <comment type="コードの繰り返しコメント">
         <word>ループ</word>
+        <word>るーぷ</word>
         <word>繰り返し</word>
+        <word>くりかえし</word>
         <word>インクリメント</word>
+        <word>いんくりめんと</word>
         <word>ブレーク</word>
+        <word>ぶれーく</word>
         <word>抜ける</word>
+        <word>ぬける</word>
     </comment>
 
     <comment type="改修履歴コメント">
         <word>平成</word>
+        <word>へいせい</word>
         <word>昭和</word>
+        <word>しょうわ</word>
         <word>UPDATE</word>
         <word>Version</word>
         <word>追加</word>
+        <word>ついか</word>
         <word>修正</word>
+        <word>しゅうせい</word>
     </comment>
 
     <comment type="意図が曖昧なコメント">
         <word>?</word>
         <word>暫定的</word>
+        <word>ざんていてき</word>
         <word>未定</word>
+        <word>みてい</word>
         <word>仮</word>
+        <word>かり</word>
         <word>曖昧</word>
+        <word>あいまい</word>
     </comment>
 
     <comment type="理解不足であるために追加しているコメント">
+        <word>何故</word>
+        <word>なぜ</word>
         <word>なぜか</word>
         <word>不安</word>
+        <word>ふあん</word>
         <word>理解不足</word>
+        <word>りかいぶそく</word>
         <word>?</word>
     </comment>
 
