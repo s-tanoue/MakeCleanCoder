@@ -3,9 +3,6 @@ package GetTextAreaNumber;
 import javafx.scene.control.TextArea;
 
 public class CleanCoderTextArea extends TextArea{
-
-	private boolean pausedScroll = false;
-	private double scrollPosition = 0;
 	
 	public CleanCoderTextArea(){
 		super();

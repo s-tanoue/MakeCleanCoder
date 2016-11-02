@@ -5,8 +5,6 @@ options {
 
 PARSER_BEGIN(CleanCoderCommentParser)
   package CommentParser;
-  import java.util.ArrayList;
-  import java.util.List;
   import Dictionaly.*;
   import ResultData.*;
 
@@ -17,7 +15,7 @@ PARSER_END(CleanCoderCommentParser)
 SKIP :{
     <  SPACE:([" ","\t","\r","\f"])+ >
 }
-s
+
 TOKEN :
 {
        <LINE_COMMENT:"//"(~["\n","\r"])* ("\n"|"\r\n" | "\r")? >

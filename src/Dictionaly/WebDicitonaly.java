@@ -1,8 +1,6 @@
 package Dictionaly;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
-import java.io.*;
-import java.net.*;
 
 public class WebDicitonaly{
 	
