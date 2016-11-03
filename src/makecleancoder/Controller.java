@@ -43,6 +43,7 @@ public class Controller implements Initializable {
   
   @FXML
   private void fileOpen(ActionEvent event) {
+    
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
@@ -83,46 +84,58 @@ public class Controller implements Initializable {
   }
 
   @FXML
-  private void executeComment(ActionEvent event) {
+  private void executeParseComment(ActionEvent event) {
 
-    String editAreaText = editArea.getText();
-    String outPutString = "";
-    ResultData result = new ResultData();
-    int lineNumber = 0;
-    String editAreaTexts[] = editAreaText.split("\n", -1);
-
-    CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(editAreaText));
-    try {
-      result = parser.comment();
-    
-      for (int i = 0; i < result.comment.size(); i++) {
-        if (!result.comment.get(i).isEmpty()) {
-          CommentDictionaly dictionaly = new CommentDictionaly();
-          //適切なコメントかどうか判断する．
-          if (!dictionaly.isRequiredComment(result.comment.get(i))) {
-            // 行番号の表示をする
-            String dontNeedComment[] = result.comment.get(i).split(crlf, -1);
-            for (int j = 0; j < editAreaTexts.length; j++) {
-              if (editAreaTexts[j].matches(".*"+dontNeedComment[0]+".*")){
-                lineNumber = j + 1;
-                editAreaTexts[j] = "";
-                break;
-              }
-            }
-            outPutString += String.valueOf(lineNumber) + ":"
-                + result.comment.get(i).replaceAll(crlf, "") + " は不要なコメントです\n";
-          }
-        }
-      }
-    } catch (CommentParser.ParseException e) {
-      e.printStackTrace();
-      outPutString += "パーサエラー";
-    }
-
+     String editAreaText = editArea.getText();
+     String  outPutString = commentParse(editAreaText);
     consoleArea.setText(outPutString);
 
   }
 
+  
+  // 戻り値 コンソールエリアに出力する文字列
+  // 引数 解析するソースコード
+  private String commentParse(String inputString)
+  {
+    String outPutString = "";
+    ResultData result = new ResultData(inputString);
+
+    for (int i = 0; i < result.comment.size(); i++) {
+      if (!result.comment.get(i).isEmpty()) {
+        CommentDictionaly dictionaly = new CommentDictionaly();
+        //適切なコメントかどうか判断する．
+        if (!dictionaly.isRequiredComment(result.comment.get(i))) {
+        }
+        outPutString += String.valueOf(1) + ":"
+            + result.comment.get(i).replaceAll(crlf, "") + " は不要なコメントです\n";
+      }
+    }
+    return outPutString;
+  }
+
+  @FXML
+  private void executeParseMultipleFileOfComment(ActionEvent event) {
+    
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Resource File");
+    List<File> selectedFile = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
+    String inputAllString="";
+    BufferedReader br;
+    try {
+      for(File file: selectedFile){
+        br = new BufferedReader(new FileReader(file));
+        String str;
+        while ((str = br.readLine()) != null) {
+          inputAllString += str + crlf;
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    consoleArea.setText(commentParse(inputAllString));
+    
+  }
+  
   @FXML
   private void executeParser(ActionEvent event) {
     String str = editArea.getText();
@@ -172,13 +185,11 @@ public class Controller implements Initializable {
   @FXML
   private void clearEditArea(ActionEvent event) {
     editArea.setText("");
-    lineNumberArea.setText("1crlf");
+    lineNumberArea.setText("1"+crlf);
   }
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    ;
-
     editArea.scrollTopProperty().bindBidirectional(lineNumberArea.scrollTopProperty());
   }
 

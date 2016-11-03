@@ -31,8 +31,8 @@
                   <Menu mnemonicParsing="false" text="実行(R)">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#executeParser" text="変数名を解析" />
-                          <MenuItem mnemonicParsing="false" onAction="#executeComment" text="コメントを解析" />
-                     
+                        <MenuItem mnemonicParsing="false" onAction="#executeParseComment" text="コメントを解析" />
+                        <MenuItem mnemonicParsing="false" onAction="#executeParseMultipleFileOfComment" text="複数ファイルのコメントを解析" />
                      </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="ヘルプ(H)">
