@@ -110,7 +110,7 @@ public class Controller implements Initializable {
               }
             }
             outPutString += String.valueOf(lineNumber) + ":"
-                + result.comment.get(i).replaceAll(crlf, "") + " は不要なコメントです\n";
+                + result.comment.get(i).replaceAll(crlf, "") + " は不適切なコメントです\n";
           }
         }
       }

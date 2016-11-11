@@ -18,6 +18,7 @@ public class CommentDictionalyTest {
         assertEquals(false, dictionaly.isRequiredComment("//TODO\n"));
         assertEquals(false, dictionaly.isRequiredComment("//TODO"));
         assertEquals(false, dictionaly.isRequiredComment("//将来"));
+        assertEquals(false, dictionaly.isRequiredComment("//?"));
         assertEquals(false, dictionaly.isRequiredComment("//予定"));
         assertEquals(false, dictionaly.isRequiredComment("//未来"));
         assertEquals(false, dictionaly.isRequiredComment("/*対応*/"));
