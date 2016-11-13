@@ -83,6 +83,26 @@ public class Controller implements Initializable {
     }
   }
 
+  // 戻り値 コンソールエリアに出力する文字列
+  // 引数 解析するソースコード
+  private String commentParse(String inputString)
+  {
+	  String outPutString = "";
+	  ResultData result= new ResultData(inputString);
+
+	  for(int i = 0; i < result.map.size();  i++) {
+		  ArrayList<String> comment = result.map.get(result.keyValue.get(i));
+		  for(int j = 0; j < comment.size(); j++){
+			  CommentDictionaly dictionaly = new CommentDictionaly();
+			  //適切なコメントかどうか判断する．
+			  if (!dictionaly.isRequiredComment(comment.get(j))) {
+				  outPutString += String.valueOf(result.keyValue.get(i)) + ":"
+						  +comment.get(j).replaceAll(crlf, "") + " は不要なコメントです\n";
+			  }
+		  }
+	  }
+	  return outPutString;
+  }
   @FXML
   private void executeParseComment(ActionEvent event) {
 
@@ -90,27 +110,6 @@ public class Controller implements Initializable {
      String  outPutString = commentParse(editAreaText);
     consoleArea.setText(outPutString);
 
-  }
-
-  
-  // 戻り値 コンソールエリアに出力する文字列
-  // 引数 解析するソースコード
-  private String commentParse(String inputString)
-  {
-    String outPutString = "";
-    ResultData result = new ResultData(inputString);
-
-    for (int i = 0; i < result.comment.size(); i++) {
-      if (!result.comment.get(i).isEmpty()) {
-        CommentDictionaly dictionaly = new CommentDictionaly();
-        //適切なコメントかどうか判断する．
-        if (!dictionaly.isRequiredComment(result.comment.get(i))) {
-        }
-        outPutString += String.valueOf(1) + ":"
-            + result.comment.get(i).replaceAll(crlf, "") + " は不要なコメントです\n";
-      }
-    }
-    return outPutString;
   }
 
   @FXML

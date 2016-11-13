@@ -18,34 +18,11 @@ public class ResultDataTest {
 
   @Test
   public void test() {
-    ResultData result = new ResultData("//aaa\na\n//aaa\n");
-    
-    BidiMap <Integer,String> actual = new BidiMap<Integer,String>();
-    BidiMap <Integer,String> expected = new BidiMap<Integer,String>();
-    expected.put(1,"//aaa");
-    expected.put(3, "//aa");
-    actual=result.map;
-    System.out.println(expected.getKey("//aaa"));
-    
-    HashMap <String,ArrayList<Integer>> m =  new HashMap <String,ArrayList<Integer>>();
-    ArrayList<Integer> data = new ArrayList<>();
-    data.add(1);
-    m.put("//aa", data);
-    data.clear();
-    data.add(2);
-    data.clear();
-    
-    m.put("//bb", data);
-    
-    data = m.get("//bb");
-    data.add(3);
-    m.put("//aa", data);
+    ResultData result = new ResultData("//aaa\na\n/*aaa*//*aaaa*/\n");
    
-    data.clear();
-    data = m.get("//aa");
-    for(int i=0; i<data.size();i++){
-      System.out.println(data.get(i));
-    }
+    ArrayList<String> commentString = new ArrayList<String>();
+    commentString=result.map.get(1);
+    System.out.println(commentString.get(0));
   }
 
 }
