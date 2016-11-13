@@ -1,15 +1,15 @@
 #MakeCleanCoder
 あなたのコードをCleanに！　
-CleanCodeを提供します
+CleanCodeを提供します．
 
 #使い方
-MakeCleanCoder.java を実行する
+MakeCleanCoder.java を実行する．
 WebAPIを利用しているので，インターネットに接続していないと動かないことがある．
 
 #開発環境
 Eclipse + JavaCCプラグイン + JavaFxプラグイン
 Javaのバージョン，JavaCCのバージョンは気にしていない．
-最新バージョンをインストールしてください．
+最新バージョンをインストールする．
 
 #JavaFxプラグインの導入
 EclipseでJavaFxを実行する場合は，javaFx用のプラグインをインストールする必要がある．

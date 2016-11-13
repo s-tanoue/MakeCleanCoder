@@ -5,6 +5,8 @@ options {
 
 PARSER_BEGIN(CleanCoderCommentParser)
   package CommentParser;
+
+  import java.util.ArrayList;
   import Dictionaly.*;
   import ResultData.*;
 
@@ -22,33 +24,28 @@ TOKEN :
        | < BLOCK_COMMENT: "/*" (~["*"])*("*")+ (~["/","*"](~["*"])*("*")+)* "/" >
        | < OTHERS:~[] >
 }
-ResultData comment():
+ArrayList<String> comment():
 {
     Token lineComment,blockComment;
     String firstOthers,lastOthers;
-    ResultData result = new ResultData();
+    ArrayList<String> result = new ArrayList<String>();
    
 }
 {
       ( firstOthers = others()
-      { if(!firstOthers.isEmpty()){
-            result.lineNumber.add(firstOthers);
-          }
-       }
           ( lineComment = < LINE_COMMENT > 
             {
-                 result.comment.add(lineComment.image.replaceAll("\n", ""));
-                 //result.comment.add(lineComment.image);
+                 result.add(lineComment.image.replaceAll("\n", ""));
             }
             | blockComment =< BLOCK_COMMENT >
             {
-                result.comment.add(blockComment.image);
+                result.add(blockComment.image);
             }
           )
-          lastOthers = others() { if(!lastOthers.isEmpty()) { result.lineNumber.add(lastOthers); } })*
-        {
-                return result;
-        }
+          lastOthers = others())*
+      {
+               return result;
+      }
 
 }
 String others():

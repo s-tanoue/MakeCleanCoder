@@ -4,6 +4,7 @@ package Dictionaly;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -68,11 +69,7 @@ public class CommentDictionaly {
     text=text.replaceAll(crlf, "");
     setDicitonaly();
     for(String w: wordList){
-      if(w.equals("?")){
-        if(text.matches(".*\\"+ w +".*")){
-          return false;
-        }
-      }else if(text.matches(".*"+ w +".*")){
+     if(text.matches(".*"+ Pattern.quote(w) +".*")){
         return false;
       }
 
