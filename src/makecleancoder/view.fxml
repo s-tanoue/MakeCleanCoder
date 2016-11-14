@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import GetTextAreaNumber.*?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="725.0" prefWidth="829.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="makecleancoder.Controller">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="725.0" prefWidth="829.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="makecleancoder.Controller">
     <children>
       <VBox prefHeight="766.0" prefWidth="832.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -44,24 +47,21 @@
             </MenuBar>
             <HBox prefHeight="399.0" prefWidth="829.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Pane maxHeight="-Infinity" prefHeight="404.0" prefWidth="46.0">
-                     <children>
-                        <CleanCoderTextArea id="lineNumber" fx:id="lineNumberArea" editable="false" prefHeight="421.0" prefWidth="67.0" text="1">
-                           <font>
-                              <Font name="Osaka" size="13.0" />
-                           </font></CleanCoderTextArea>
-                     </children>
-                  </Pane>
-                  <CleanCoderTextArea fx:id="editArea" onKeyPressed="#createLineNumber" prefHeight="404.0" prefWidth="796.0" promptText="編集エリア" stylesheets="@application.css" HBox.hgrow="ALWAYS">
+                  <TextArea id="lineNumber" fx:id="lineNumberArea" editable="false" prefHeight="496.0" prefWidth="69.0" text="1">
                      <font>
                         <Font name="Osaka" size="13.0" />
-                     </font></CleanCoderTextArea>
+                     </font>
+                  </TextArea>
+                  <TextArea fx:id="editArea" onKeyPressed="#createLineNumber" prefHeight="496.0" prefWidth="807.0" promptText="編集エリア" stylesheets="@application.css" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Osaka" size="13.0" />
+                     </font></TextArea>
                </children>
             </HBox>
-            <CleanCoderTextArea fx:id="consoleArea" editable="false" prefHeight="286.0" prefWidth="829.0" promptText="表示エリア" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font name="Osaka" size="13.0" />
-               </font></CleanCoderTextArea>
+             <ScrollPane prefHeight="257.0" prefWidth="829.0" VBox.vgrow="ALWAYS">
+                        <TextFlow fx:id ="consoleArea" prefHeight="257.0" prefWidth="829.0" AnchorPane.bottomAnchor="-57.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-629.0" AnchorPane.topAnchor="0.0">
+                        </TextFlow>
+            </ScrollPane>
          </children>
       </VBox>
     </children>
