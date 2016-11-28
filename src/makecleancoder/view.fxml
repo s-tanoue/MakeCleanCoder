@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Hyperlink?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -22,6 +25,8 @@
                   <items>
                         <MenuItem mnemonicParsing="false" onAction="#fileOpen" text="ファイルを開く" />
                         <MenuItem mnemonicParsing="false" onAction="#fileSave" text="ファイルを保存" />
+                        <MenuItem mnemonicParsing="false" onAction="#menuOpenFolder" text="フォルダーの内のコメントを解析" />
+                        <MenuItem mnemonicParsing="false" onAction="#executeParseMultipleFileOfComment" text="複数ファイルのコメントを解析" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="編集(E)">
@@ -35,7 +40,6 @@
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#executeParser" text="変数名を解析" />
                         <MenuItem mnemonicParsing="false" onAction="#executeParseComment" text="コメントを解析" />
-                        <MenuItem mnemonicParsing="false" onAction="#executeParseMultipleFileOfComment" text="複数ファイルのコメントを解析" />
                      </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="ヘルプ(H)">
@@ -47,21 +51,48 @@
             </MenuBar>
             <HBox prefHeight="399.0" prefWidth="829.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TextArea id="lineNumber" fx:id="lineNumberArea" editable="false" prefHeight="496.0" prefWidth="69.0" text="1">
+                  <TextArea id="lineNumber" fx:id="lineNumberArea" editable="false" prefHeight="496.0" prefWidth="69.0" text="1" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Osaka" size="13.0" />
                      </font>
                   </TextArea>
-                  <TextArea fx:id="editArea" onKeyPressed="#createLineNumber" prefHeight="496.0" prefWidth="807.0" promptText="編集エリア" stylesheets="@application.css" HBox.hgrow="ALWAYS">
+                  <TextArea fx:id="editArea" onKeyPressed="#createLineNumber" prefHeight="404.0" prefWidth="762.0" promptText="編集エリア" stylesheets="@application.css" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Osaka" size="13.0" />
-                     </font></TextArea>
+                     </font>
+                  </TextArea>
                </children>
             </HBox>
-             <ScrollPane prefHeight="257.0" prefWidth="829.0" VBox.vgrow="ALWAYS">
-                        <TextFlow fx:id ="consoleArea" prefHeight="257.0" prefWidth="829.0" AnchorPane.bottomAnchor="-57.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-629.0" AnchorPane.topAnchor="0.0">
+            <Label fx:id="fileLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="830.0" textAlignment="JUSTIFY" textOverrun="CLIP">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="100.0" />
+               </padding></Label>
+            <TabPane prefHeight="275.0" prefWidth="829.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Untitled Tab 1">
+                     <content>
+                         <ScrollPane prefHeight="257.0" prefWidth="829.0">
+                           <content>
+                                       <TextFlow fx:id="consoleArea" prefHeight="257.0" prefWidth="829.0">
                         </TextFlow>
-            </ScrollPane>
+                           </content>
+                        </ScrollPane>
+                     </content>
+                </Tab>
+                <Tab text="Untitled Tab 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea fx:id="parseResultArea" prefHeight="245.0" prefWidth="829.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
          </children>
       </VBox>
     </children>

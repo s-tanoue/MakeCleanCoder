@@ -18,7 +18,7 @@ public class WebDicitonaly{
 			Element TotalHitCount = (Element)root.getElementsByTagName("TotalHitCount").item(0);
 		
 			String TotalHitCountValue=TotalHitCount.getFirstChild().getNodeValue();
-			System.out.println(" "+TotalHitCountValue);
+			System.out.println(""+TotalHitCountValue);
                         System.out.println("http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite?Dic=EJdict&Word="+text+"&Scope=HEADWORD&Match="
 					+ "EXACT&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0");
              
