@@ -3,7 +3,6 @@
         import java.util.ArrayList;
         import java.util.List;
         import Dictionaly.*;
-
         public class CleanCoderParser implements CleanCoderParserConstants {
 
   final public String comment() throws ParseException {
@@ -91,8 +90,8 @@
                           inappropriatePart+=names[i]+",";
                         }
           }
-          resultText += inappropriatePart.isEmpty() ? " role cannot be inferred from "+ variableName+ ", please change the variable"
-                           :" Role cannot be inferred from "+ variableName + ":"+inappropriatePart+", please change the variable";
+          resultText += inappropriatePart.isEmpty() ? " Role cannot be inferred from "+ variableName+ ", please change the variable name."
+                           :" Role cannot be inferred from "+ inappropriatePart+ " in "+variableName +", please change the variable name.";
           }
           result.add(resultText);
           resultText = "";
@@ -129,8 +128,8 @@
                           inappropriatePart+=names[i]+",";
                         }
           }
-          resultText += inappropriatePart.isEmpty() ? " role cannot be inferred from "+ variableName+ ", please change the variable"
-                           :" Role cannot be inferred from "+ variableName + ":"+inappropriatePart+", please change the variable";
+          resultText += inappropriatePart.isEmpty() ? " Role cannot be inferred from "+ variableName+ ", please change the variable name."
+                           :" Role cannot be inferred from "+ inappropriatePart+ " in "+variableName +", please change the variable name.";
         }
           result.add(resultText);
           resultText = "";

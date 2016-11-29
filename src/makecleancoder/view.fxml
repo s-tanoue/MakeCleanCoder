@@ -15,29 +15,29 @@
          <children>
             <MenuBar>
               <menus>
-                <Menu mnemonicParsing="false" text="File(F)">
+                <Menu mnemonicParsing="false" text="File">
                   <items>
-                        <MenuItem mnemonicParsing="false" onAction="#fileOpen" text="file open" />
-                        <MenuItem mnemonicParsing="false" onAction="#fileSave" text="filse save" />
+                        <MenuItem mnemonicParsing="false" onAction="#fileOpen" text="Open File" />
+                        <MenuItem mnemonicParsing="false" onAction="#fileSave" text="Save File" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="編集(E)">
+                <Menu mnemonicParsing="false" text="Edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="戻す" />
-                    <MenuItem mnemonicParsing="false" onAction="#clearEditArea" text="clear edtiArea" />
-                    <MenuItem mnemonicParsing="false" onAction="#clearConsoleArea" text="clear displayArea" />
+                    <MenuItem mnemonicParsing="false" text="Undo"/>
+                    <MenuItem mnemonicParsing="false" onAction="#clearEditArea" text="Clear EdtiArea" />
+                    <MenuItem mnemonicParsing="false" onAction="#clearConsoleArea" text="Clear displayArea" />
                   </items>
                 </Menu>
-                  <Menu mnemonicParsing="false" text="実行(R)">
+                  <Menu mnemonicParsing="false" text="Run">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#executeParser" text="Analyze variable name" />
+                        <MenuItem mnemonicParsing="false" onAction="#executeParser" text="Analyze Variable Name" />
                         <!-- <MenuItem mnemonicParsing="false" onAction="#executeParseComment" text="コメントを解析" /> -->
                         <!-- <MenuItem mnemonicParsing="false" onAction="#executeParseMultipleFileOfComment" text="複数ファイルのコメントを解析" /> -->
                      </items>
                   </Menu>
-                <Menu mnemonicParsing="false" text="Help(H)">
+                <Menu mnemonicParsing="false" text="Help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="version" />
+                    <MenuItem mnemonicParsing="false" text="Version" />
                   </items>
                 </Menu>
               </menus>
