@@ -90,14 +90,13 @@ String word() :
  {
    return t3.image;
  }
-
- 
 }
-
 
 List<String> VariableDeclaration() :
 {
     String resultText = "";
+    String variableName = "";
+    String inappropriatePart=""; 
 	String name="";
 	String expr="";
 	List<String> result = new ArrayList<String>();
@@ -110,44 +109,48 @@ List<String> VariableDeclaration() :
 	  if(name.isEmpty()){	  }else{
 	    String[] names = name.split(",",0);
 	  if(names.length == 1){
-	     resultText +="変数名"+names[0]+expr;	  }else{
-	    resultText +="変数名"+names[0]+expr+"の";	  }
+	     variableName = names[0]+expr;	  }else{
+	    variableName = names[0]+expr;	  }
 	  for(int i=1; i<names.length; i++)
 	  {
 	  		System.out.println(names[i]);
 	  		if( i == names.length-1)	  		{
-	  		  resultText+=names[i];	  		}
+	  		  inappropriatePart+=names[i];	  		}
 	  		else{
-	  		  resultText+=names[i]+",";	  		}
+	  		  inappropriatePart+=names[i]+",";	  		}
 	  }
-	  resultText+="から役割が推測できません．変数名を変更してください．";
+	  resultText += inappropriatePart.isEmpty() ? " role cannot be inferred from "+ variableName+ ", please change the variable" 
+ 		           :" Role cannot be inferred from "+ variableName + ":"+inappropriatePart+", please change the variable";
 	  }
 	  result.add(resultText);
 	  resultText = "";
 	}
 	(< COMMA > name=name() expr=expr()
 	{
+
+      inappropriatePart=""; 
 	  if(name.isEmpty()){
 	  }else{
 	    String[] names = name.split(",",0);
 	  if(names.length == 1){
-	     resultText +="変数名"+names[0]+expr;
+	     variableName= names[0]+expr;
 	  }else{
-	    resultText +="変数名"+names[0]+expr+"の";
+	     variableName= names[0]+expr;
 	  }
 	  for(int i=1; i<names.length; i++)
 	  {
 	  		System.out.println(names[i]);
 	  		if( i == names.length-1)
 	  		{
-	  		  resultText+=names[i];
+	  		  inappropriatePart+=":"+names[i];
 	  		}
 	  		else{
-	  		  resultText += names[i]+",";
+	  		  inappropriatePart+=names[i]+",";
 	  		}
 	  }
-	  resultText+="から役割が推測できません．変数名を変更してください．";
-	  }
+	  resultText += inappropriatePart.isEmpty() ? " role cannot be inferred from "+ variableName+ ", please change the variable" 
+ 		           :" Role cannot be inferred from "+ variableName + ":"+inappropriatePart+", please change the variable";
+	}
 	  result.add(resultText);
 	  resultText = "";
 	     
@@ -375,6 +378,3 @@ String camelCaseName() :
 		}
 	}
 }
-
-
-

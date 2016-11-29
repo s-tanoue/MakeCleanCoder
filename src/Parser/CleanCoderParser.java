@@ -63,6 +63,8 @@
 
   final public List<String> VariableDeclaration() throws ParseException {
     String resultText = "";
+    String variableName = "";
+    String inappropriatePart="";
         String name="";
         String expr="";
         List<String> result = new ArrayList<String>();
@@ -74,22 +76,23 @@
           }else{
             String[] names = name.split(",",0);
           if(names.length == 1){
-             resultText +="\u5909\u6570\u540d"+names[0]+expr;
+             variableName = names[0]+expr;
           }else{
-            resultText +="\u5909\u6570\u540d"+names[0]+expr+"\u306e";
+            variableName = names[0]+expr;
           }
           for(int i=1; i<names.length; i++)
           {
                         System.out.println(names[i]);
                         if( i == names.length-1)
                         {
-                          resultText+=names[i];
+                          inappropriatePart+=names[i];
                         }
                         else{
-                          resultText+=names[i]+",";
+                          inappropriatePart+=names[i]+",";
                         }
           }
-          resultText+="\u304b\u3089\u5f79\u5272\u304c\u63a8\u6e2c\u3067\u304d\u307e\u305b\u3093\uff0e\u5909\u6570\u540d\u3092\u5909\u66f4\u3057\u3066\u304f\u3060\u3055\u3044\uff0e";
+          resultText += inappropriatePart.isEmpty() ? " role cannot be inferred from "+ variableName+ ", please change the variable"
+                           :" Role cannot be inferred from "+ variableName + ":"+inappropriatePart+", please change the variable";
           }
           result.add(resultText);
           resultText = "";
@@ -106,27 +109,29 @@
       jj_consume_token(COMMA);
       name = name();
       expr = expr();
+      inappropriatePart="";
           if(name.isEmpty()){
           }else{
             String[] names = name.split(",",0);
           if(names.length == 1){
-             resultText +="\u5909\u6570\u540d"+names[0]+expr;
+             variableName= names[0]+expr;
           }else{
-            resultText +="\u5909\u6570\u540d"+names[0]+expr+"\u306e";
+             variableName= names[0]+expr;
           }
           for(int i=1; i<names.length; i++)
           {
                         System.out.println(names[i]);
                         if( i == names.length-1)
                         {
-                          resultText+=names[i];
+                          inappropriatePart+=":"+names[i];
                         }
                         else{
-                          resultText += names[i]+",";
+                          inappropriatePart+=names[i]+",";
                         }
           }
-          resultText+="\u304b\u3089\u5f79\u5272\u304c\u63a8\u6e2c\u3067\u304d\u307e\u305b\u3093\uff0e\u5909\u6570\u540d\u3092\u5909\u66f4\u3057\u3066\u304f\u3060\u3055\u3044\uff0e";
-          }
+          resultText += inappropriatePart.isEmpty() ? " role cannot be inferred from "+ variableName+ ", please change the variable"
+                           :" Role cannot be inferred from "+ variableName + ":"+inappropriatePart+", please change the variable";
+        }
           result.add(resultText);
           resultText = "";
     }
@@ -471,12 +476,6 @@
     finally { jj_save(1, xla); }
   }
 
-  private boolean jj_3R_11() {
-    if (jj_scan_token(UNDERBAR)) return true;
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
   private boolean jj_3R_12() {
     if (jj_scan_token(LAGRGE_LITERAL)) return true;
     if (jj_3R_10()) return true;
@@ -535,6 +534,12 @@
 
   private boolean jj_3_1() {
     if (jj_3R_8()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_11() {
+    if (jj_scan_token(UNDERBAR)) return true;
+    if (jj_3R_10()) return true;
     return false;
   }
 
