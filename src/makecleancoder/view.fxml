@@ -30,7 +30,7 @@
                 </Menu>
                   <Menu mnemonicParsing="false" text="Run">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#executeParser" text="Analyze Variable Name" />
+                        <MenuItem mnemonicParsing="false" onAction="#executeParser" text="Analyze Variable Names" />
                         <!-- <MenuItem mnemonicParsing="false" onAction="#executeParseComment" text="コメントを解析" /> -->
                         <!-- <MenuItem mnemonicParsing="false" onAction="#executeParseMultipleFileOfComment" text="複数ファイルのコメントを解析" /> -->
                      </items>
