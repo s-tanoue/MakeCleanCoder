@@ -25,7 +25,6 @@ public class ResultData {
 				if (!comment.get(i).isEmpty()) {
 					String comments[] = comment.get(i).split("\n", -1);
 					for (int j = 0; j < inputStrings.length; j++) {
-					//	if (inputStrings[j].matches(".*"+comments[0]+".*")){
 						if(inputStrings[j].matches(".*"+Pattern.quote(comments[0])+".*")){
 							lineNumber = j + 1;
 							ArrayList<String> resultComment = new ArrayList<String>();
