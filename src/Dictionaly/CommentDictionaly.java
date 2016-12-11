@@ -4,6 +4,7 @@ package Dictionaly;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,17 +12,14 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-
 import org.xml.sax.SAXException;
-
 
 public class CommentDictionaly {
 
   //データ構造の作成
-  private ArrayList<String> wordList = new ArrayList<String>();
   private HashMap<String,ArrayList<String>>  wordMap = new HashMap<String,ArrayList<String>>();
-
-  public void setDicitonaly() { 
+  private HashMap<String,ArrayList<String>>  regularExpressionMap = new HashMap<String,ArrayList<String>>();
+  public CommentDictionaly() {
     //xml の読みこみ
     Document document = null;
     try {
@@ -38,10 +36,13 @@ public class CommentDictionaly {
       // TODO 自動生成された catch ブロック
       e.printStackTrace();
     }
-
+    //commentsを取得
     Node rootNode = (Node) (document.getDocumentElement());
+    //commentの最初のnodeを取得
     Node commentNode = rootNode.getFirstChild();
     while (commentNode != null) {
+      ArrayList<String> wordList = new ArrayList<String>();
+      ArrayList<String> regularExpressionList = new ArrayList<String>();
       if (!commentNode.getNodeName().equals("comment")) {
         commentNode = commentNode.getNextSibling();
         continue;
@@ -53,11 +54,19 @@ public class CommentDictionaly {
           if (node != null && node.getNodeValue() != null) {
             wordList.add(node.getNodeValue());           
           } 
+        }else if(wordNode.getNodeName().equals("regularExpression") ){
+          Node node = wordNode.getFirstChild(); 
+          if (node != null && node.getNodeValue() != null) {
+            regularExpressionList.add(node.getNodeValue());           
+          } 
         }
         //nullじゃないとき，ハッシュマップに，コメントの属性値とワードのリストをセットする．
         if(wordList != null && commentNode.getAttributes().getNamedItem("type") != null){
           wordMap.put(commentNode.getAttributes().getNamedItem("type").getNodeValue(),wordList);
         }   
+        if(regularExpressionList != null && commentNode.getAttributes().getNamedItem("type") != null){
+          regularExpressionMap.put(commentNode.getAttributes().getNamedItem("type").getNodeValue(),regularExpressionList);
+        }
         wordNode = wordNode.getNextSibling();
       }
       commentNode = commentNode.getNextSibling();
@@ -67,12 +76,21 @@ public class CommentDictionaly {
   public boolean isRequiredComment(String text) {
     String crlf = System.getProperty("line.separator");
     text=text.replaceAll(crlf, "");
-    setDicitonaly();
-    for(String w: wordList){
-     if(text.matches(".*"+ Pattern.quote(w) +".*")){
-        return false;
+    for (String key : wordMap.keySet()) {
+      for(String w: wordMap.get(key)){
+        if(text.matches(".*"+ Pattern.quote(w) +".*")){
+          return false;
+       }
       }
-
+    }
+    for (String key : regularExpressionMap.keySet()) {
+      for(String r: regularExpressionMap.get(key)){
+        Pattern p = Pattern.compile(r);
+        Matcher m = p.matcher(text);
+        if(m.find()){
+          return false;
+       }
+      }
     }
     return true;
   }
