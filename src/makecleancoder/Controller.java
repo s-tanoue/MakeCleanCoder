@@ -35,7 +35,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 /**
  * @author SatoshiTanoue
  * @version 1.0
@@ -44,21 +43,26 @@ public class Controller implements Initializable {
 
     @FXML
     private AnchorPane root;
+
     @FXML
     private TextArea editArea;
+
     @FXML
     private TextFlow consoleArea;
+
     @FXML
     private VBox consoleAreaVbox;
+
     @FXML
     private TextArea lineNumberArea;
+
     @FXML
     private TextArea parseResultArea;
+
     @FXML
     private Label fileLabel;
 
     private String crlf = System.getProperty("line.separator");
-
 
     @FXML 
     private void hanleHyperlinkAction(ActionEvent event){
@@ -133,16 +137,7 @@ public class Controller implements Initializable {
 
         VBox vbox = new VBox();
         consoleArea.getChildren().clear();
-
         for(Hyperlink link : outPutLink){
-            link.setOnAction(new EventHandler<MouseEvent>() {
-              @Override
-              public void handle(MouseEvent event) {
-                if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                  System.out.println("ボタンが2回押されました。");
-                }
-              }
-            });
             vbox.getChildren().add(link);
         }
         consoleArea.getChildren().add(vbox);
@@ -183,7 +178,6 @@ public class Controller implements Initializable {
                 outPutLink.add(0, new Hyperlink("ファイル名:"+file.getPath()));
                 //改行を入れるために，
                 outPutLink.add(new Hyperlink());
-
                 for(Hyperlink link : outPutLink){
                     //ファイルを開いてテキストエディタにセットする機能の追加
                     link.setOnAction(new EventHandler<ActionEvent>() {
@@ -193,6 +187,7 @@ public class Controller implements Initializable {
                                 br = new BufferedReader(new FileReader(file));
                                 String temp="";
                                 String str=new String();
+                                fileLabel.setText(file.getName());
                                 while ((str = br.readLine()) != null) {
                                     temp+= str + crlf;
                                     editArea.setText(temp);
@@ -204,7 +199,6 @@ public class Controller implements Initializable {
                                     line += String.valueOf(i) + crlf;
                                 }
                                 lineNumberArea.setText(line);
-                                //ここまで
                             } catch (FileNotFoundException e1) {
                                 // TODO 自動生成された catch ブロック
                                 e1.printStackTrace();

@@ -346,7 +346,6 @@ String camelCaseName() :
 	 }
 	 allName.add(largeLiteral+tokenName);
 	 }
-
 	)+
 	{
 		//変数名を表示する．
