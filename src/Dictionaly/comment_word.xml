@@ -12,6 +12,7 @@
         <word>こんご</word>
         <word>予定</word>
         <word>よてい</word>
+        <regularExpression>[0-9]</regularExpression>
     </comment>
 
     <comment type="コードの繰り返しコメント">
@@ -62,7 +63,10 @@
         <word>ふあん</word>
         <word>理解不足</word>
         <word>りかいぶそく</word>
+        <word>バグ</word>
+        <word>ばぐ</word>
         <word>?</word>
+        <word>？</word>
     </comment>
 
     <comment type="ソースコードコメント">

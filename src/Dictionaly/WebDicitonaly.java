@@ -1,5 +1,6 @@
 package Dictionaly;
 import javax.xml.parsers.*;
+
 import org.w3c.dom.*;
 
 public class WebDicitonaly{
@@ -12,13 +13,10 @@ public class WebDicitonaly{
 			//http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite?Dic=EJdict&Word= &Scope=HEADWORD&Match=HEADWORD&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0
 			Document doc = builder.parse("http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite?Dic=EJdict&Word="+text+"&Scope=HEADWORD&Match="
 					+ "EXACT&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0");
-
 			Element root = doc.getDocumentElement();
-				
 			Element TotalHitCount = (Element)root.getElementsByTagName("TotalHitCount").item(0);
-		
 			String TotalHitCountValue=TotalHitCount.getFirstChild().getNodeValue();
-			System.out.println(" "+TotalHitCountValue);
+			System.out.println(""+TotalHitCountValue);
                         System.out.println("http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite?Dic=EJdict&Word="+text+"&Scope=HEADWORD&Match="
 					+ "EXACT&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0");
              

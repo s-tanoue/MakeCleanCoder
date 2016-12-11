@@ -22,6 +22,7 @@ public class MakeCleanCoder extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));   
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("MCC");
         stage.show();
     }
 
