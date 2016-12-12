@@ -121,7 +121,7 @@ public class Controller implements Initializable {
             for(int j = 0; j < comment.size(); j++){
                 CommentDictionaly dictionaly = new CommentDictionaly();
                 //適切なコメントかどうか判断する．
-                if (!dictionaly.isRequiredComment(comment.get(j))) {
+                if (dictionaly.isInappropriateComment(comment.get(j))) {
                     outPutLink.add(new Hyperlink(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切なコメントです"+crlf));
                 }
             }

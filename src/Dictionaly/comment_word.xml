@@ -12,7 +12,7 @@
         <word>こんご</word>
         <word>予定</word>
         <word>よてい</word>
-        <regularExpression>[0-9]</regularExpression>
+        <regularExpression>\d{4}/\d{1,2}/\d{1,2}</regularExpression>
     </comment>
 
     <comment type="コードの繰り返しコメント">

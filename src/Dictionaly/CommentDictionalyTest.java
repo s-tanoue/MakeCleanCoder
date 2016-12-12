@@ -14,15 +14,10 @@ public class CommentDictionalyTest {
 	public void testIsRequiredComment() {
         CommentDictionaly dictionaly = new CommentDictionaly();
 
-        assertEquals(true, dictionaly.isRequiredComment("//aaaaa"));
-        assertEquals(false, dictionaly.isRequiredComment("//TODO\n"));
-        assertEquals(false, dictionaly.isRequiredComment("//TODO"));
-        assertEquals(false, dictionaly.isRequiredComment("//将来"));
-        assertEquals(false, dictionaly.isRequiredComment("//?"));
-        assertEquals(false, dictionaly.isRequiredComment("//予定"));
-        assertEquals(false, dictionaly.isRequiredComment("//未来"));
-        assertEquals(false, dictionaly.isRequiredComment("/*対応*/"));
-        assertEquals(false, dictionaly.isRequiredComment("/*今後*/"));
+        assertEquals(false, dictionaly.isInappropriateComment("//aaaaa"));
+        assertEquals(true, dictionaly.isWord("/* 2016/11/12 修正*/"));
+        assertEquals(true, dictionaly.isRegularExppression("/* 2016/11/12 */"));
+        assertEquals(true, dictionaly.isInappropriateComment("//2016/11/12 TODO"));
 	}
 
 }
