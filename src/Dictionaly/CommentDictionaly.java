@@ -77,7 +77,7 @@ public class CommentDictionaly {
     //不適切なコメントであったらtrue
     public boolean isInappropriateComment(String target) {
 
-        if(isWord(target) || isRegularExppression(target)){
+        if(isWord(target) && isRegularExppression(target)){
             return true;
         }
         return false;

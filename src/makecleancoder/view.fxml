@@ -21,28 +21,33 @@
          <children>
             <MenuBar>
               <menus>
-                <Menu mnemonicParsing="false" text="ファイル(F)">
+                  <Menu mnemonicParsing="false" text="MCC">
+                     <items>
+                        <MenuItem fx:id="Preference" mnemonicParsing="false" onAction="#onPreference" text="設定" />
+                     </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="ファイル">
                   <items>
-                        <MenuItem mnemonicParsing="false" onAction="#fileOpen" text="ファイルを開く" />
-                        <MenuItem mnemonicParsing="false" onAction="#fileSave" text="ファイルを保存" />
-                        <MenuItem mnemonicParsing="false" onAction="#menuOpenFolder" text="フォルダーの内のコメントを解析" />
-                        <MenuItem mnemonicParsing="false" onAction="#executeParseMultipleFileOfComment" text="複数ファイルのコメントを解析" />
+                        <MenuItem fx:id="fileOpen" mnemonicParsing="false" onAction="#onFileOpen" text="ファイルを開く" />
+                        <MenuItem fx:id="fileSave" mnemonicParsing="false" onAction="#onFileSave" text="ファイルを保存" />
+                        <MenuItem fx:id="analaysisCommentInFolder" mnemonicParsing="false" onAction="#onAnalaysisCommentInFolder" text="フォルダーの内のコメントを解析" />
+                        <MenuItem fx:id="analaysisCommentInMultipleFiles" mnemonicParsing="false" onAction="#onAnalaysisCommentInMultipleFiles" text="複数ファイルのコメントを解析" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="編集(E)">
+                <Menu mnemonicParsing="false" text="編集">
                   <items>
                     <MenuItem mnemonicParsing="false" text="戻す" />
                     <MenuItem mnemonicParsing="false" onAction="#clearEditArea" text="編集エリアをクリア" />
                     <MenuItem mnemonicParsing="false" onAction="#clearConsoleArea" text="表示エリアをクリア" />
                   </items>
                 </Menu>
-                  <Menu mnemonicParsing="false" text="実行(R)">
+                  <Menu mnemonicParsing="false" text="実行">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#executeParser" text="変数名を解析" />
                         <MenuItem mnemonicParsing="false" onAction="#executeParseComment" text="コメントを解析" />
                      </items>
                   </Menu>
-                <Menu mnemonicParsing="false" text="ヘルプ(H)">
+                <Menu mnemonicParsing="false" text="ヘルプ">
                   <items>
                     <MenuItem mnemonicParsing="false" text="バージョン情報" />
                   </items>

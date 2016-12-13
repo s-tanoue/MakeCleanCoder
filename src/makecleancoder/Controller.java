@@ -64,13 +64,12 @@ public class Controller implements Initializable {
 
     private String crlf = System.getProperty("line.separator");
 
-    @FXML 
-    private void hanleHyperlinkAction(ActionEvent event){
-        System.out.println("Hello");
-    }
 
+    @FXML 
+    private void onPreference(ActionEvent event){
+    }
     @FXML
-    private void fileOpen(ActionEvent event) {
+    private void onFileOpen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
@@ -97,7 +96,7 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private void fileSave(ActionEvent event) {
+    private void onFileSave(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save File");
         File selectedFile = fileChooser.showSaveDialog(root.getScene().getWindow());
@@ -108,7 +107,6 @@ public class Controller implements Initializable {
             System.out.println(e);
         }
     }
-
     // 戻り値 コンソールエリアに出力する文字列
     // 引数 解析するソースコード
     private ArrayList<Hyperlink> commentParse(String inputString)
@@ -128,8 +126,8 @@ public class Controller implements Initializable {
         }
         return outPutLink;
     }
-    @FXML
     //ファイルのコメントを解析する
+    @FXML
     private void executeParseComment(ActionEvent event) {
 
         String editAreaText = editArea.getText();
@@ -142,18 +140,17 @@ public class Controller implements Initializable {
         }
         consoleArea.getChildren().add(vbox);
     }
-    //複数ファイルのコメントを解析
+    //フォルダー内のコメントを解析
     @FXML
-    private void menuOpenFolder(ActionEvent event){
-
+    private void onAnalaysisCommentInFolder(ActionEvent event){
       DirectoryChooser directoryChosser = new DirectoryChooser();
       File selectedFolder = directoryChosser.showDialog(root.getScene().getWindow());
       fileLabel.setText(selectedFolder.getName());
       
     }
+    //複数ファイルのコメントを解析
     @FXML
-    private void executeParseMultipleFileOfComment(ActionEvent event) {
-
+    private void onAnalaysisCommentInMultipleFiles (ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         List<File> selectedFile = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
