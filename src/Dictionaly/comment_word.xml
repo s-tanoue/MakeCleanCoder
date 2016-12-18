@@ -26,7 +26,7 @@
         <word>ぶれーく</word>
         <word>抜ける</word>
         <word>ぬける</word>
-        <regularExpression>.*</regularExpression>
+        <!-- <regularExpression>.*</regularExpression> -->
     </comment>
 
     <comment type="改修履歴コメント">
@@ -40,7 +40,6 @@
         <word>ついか</word>
         <word>修正</word>
         <word>しゅうせい</word>
-        <regularExpression>.*</regularExpression>
     </comment>
 
     <comment type="意図が曖昧なコメント">
@@ -53,7 +52,7 @@
         <word>かり</word>
         <word>曖昧</word>
         <word>あいまい</word>
-        <regularExpression>.*</regularExpression>
+        <!-- <regularExpression>.*</regularExpression> -->
     </comment>
 
     <comment type="理解不足であるために追加しているコメント">
@@ -70,13 +69,11 @@
         <word>ばぐ</word>
         <word>?</word>
         <word>？</word>
-        <regularExpression>.*</regularExpression>
     </comment>
 
     <comment type="ソースコードコメント">
         <word>ここから</word>
         <word>ここまで</word>
-        <regularExpression>*</regularExpression>
     </comment>
 
 </comments>
