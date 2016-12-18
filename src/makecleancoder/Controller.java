@@ -68,6 +68,7 @@ public class Controller implements Initializable {
     @FXML 
     private void onPreference(ActionEvent event){
     }
+
     @FXML
     private void onFileOpen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -100,7 +101,6 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save File");
         File selectedFile = fileChooser.showSaveDialog(root.getScene().getWindow());
-
         try (FileWriter filewriter = new FileWriter(selectedFile)) {
             filewriter.write(editArea.getText());
         } catch (IOException e) {

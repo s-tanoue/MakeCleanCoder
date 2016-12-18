@@ -76,8 +76,7 @@ public class CommentDictionaly {
 
     //不適切なコメントであったらtrue
     public boolean isInappropriateComment(String target) {
-
-        if(isWord(target) || isRegularExppression(target)){
+        if( isWord(target) || isRegularExppression(target)){
             return true;
         }
         return false;
@@ -86,6 +85,7 @@ public class CommentDictionaly {
     //単語と一致したらtrue
     public boolean isWord(String target){
         for (String key : wordMap.keySet()) {
+          //手に入れたListをそれぞれ，wに展開
             for(String w: wordMap.get(key)){
                 if(target.matches(".*"+ Pattern.quote(w) +".*")){
                     return true;
@@ -94,17 +94,19 @@ public class CommentDictionaly {
         }
         return false;
     }
+
     //正規表現に一致したらtrue
     public boolean isRegularExppression(String target){
         for (String key : regularExpressionMap.keySet()) {
             for(String r: regularExpressionMap.get(key)){
                 Pattern p = Pattern.compile(r);
                 Matcher m = p.matcher(target);
-                if(m.find()){
+                if(m.matches()){
                     return true;
                 }
             }
         }
         return false;
     }
+
 }
