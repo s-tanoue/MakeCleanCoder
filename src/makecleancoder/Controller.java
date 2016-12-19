@@ -26,10 +26,12 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -64,9 +66,20 @@ public class Controller implements Initializable {
 
     private String crlf = System.getProperty("line.separator");
 
+    //enum 型にする．
+    private boolean encoding = true;
 
-    @FXML 
+    @FXML
     private void onPreference(ActionEvent event){
+    }
+
+    @FXML
+    private void onUTF8(ActionEvent event){
+      encoding = true;
+    }
+    @FXML
+    private void onShiftJIS(ActionEvent event){
+      encoding = false;
     }
 
     @FXML
@@ -77,7 +90,9 @@ public class Controller implements Initializable {
         fileLabel.setText(selectedFile.getName());
         try {
             String inputAllString;
-            try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
+//            try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
+            
+            try(BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(selectedFile),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(selectedFile),"SJIS"))){
                 String str;
                 inputAllString = "";
                 while ((str = br.readLine()) != null) {
@@ -162,7 +177,8 @@ public class Controller implements Initializable {
         try {
             for(File file: selectedFile){
               //選択された一つ目のファイルを開く
-                BufferedReader br = new BufferedReader(new FileReader(file));
+     //           BufferedReader br = new BufferedReader(new FileReader(file));
+                BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
                 String str;
                 inputString = "";
                 while ((str = br.readLine()) != null) {
@@ -179,9 +195,8 @@ public class Controller implements Initializable {
                     //ファイルを開いてテキストエディタにセットする機能の追加
                     link.setOnAction(new EventHandler<ActionEvent>() {
                         public void handle(ActionEvent e) {
-                            BufferedReader br;
                             try {
-                                br = new BufferedReader(new FileReader(file));
+                                BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
                                 String temp="";
                                 String str=new String();
                                 fileLabel.setText(file.getName());
@@ -214,7 +229,6 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     //変数名を解析
     @FXML

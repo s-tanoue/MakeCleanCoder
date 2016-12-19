@@ -5,10 +5,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -24,6 +26,16 @@
                   <Menu mnemonicParsing="false" text="MCC">
                      <items>
                         <MenuItem fx:id="Preference" mnemonicParsing="false" onAction="#onPreference" text="設定" />
+                        <Menu mnemonicParsing="false" text="文字コード">
+                           <items>
+                              <RadioMenuItem fx:id="UTF8" mnemonicParsing="false" onAction="#onUTF8" selected="true" text="UTF-8">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="encoding" />
+                                 </toggleGroup>
+                              </RadioMenuItem>
+                              <RadioMenuItem fx:id="ShiftJIS" mnemonicParsing="false" onAction="#onShiftJIS" text="Shfit-JIS" toggleGroup="$encoding" />
+                           </items>
+                        </Menu>
                      </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="ファイル">
