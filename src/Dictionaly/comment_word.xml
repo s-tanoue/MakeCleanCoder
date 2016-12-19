@@ -12,7 +12,7 @@
         <word>こんご</word>
         <word>予定</word>
         <word>よてい</word>
-        <regularExpression>\d{4}/\d{1,2}/\d{1,2}</regularExpression>
+        <regularExpression>(?i)TODO</regularExpression>
     </comment>
 
     <comment type="コードの繰り返しコメント">
@@ -26,12 +26,10 @@
         <word>ぶれーく</word>
         <word>抜ける</word>
         <word>ぬける</word>
-        <!-- <regularExpression>.*</regularExpression> -->
+
     </comment>
 
     <comment type="改修履歴コメント">
-        <word>平成</word>
-        <word>へいせい</word>
         <word>昭和</word>
         <word>しょうわ</word>
         <word>UPDATE</word>
@@ -40,6 +38,12 @@
         <word>ついか</word>
         <word>修正</word>
         <word>しゅうせい</word>
+        <regularExpression>改修</regularExpression>
+        <regularExpression>\d{2,4}/\d{1,2}/\d{1,2}</regularExpression>
+        <regularExpression>(\d{1,2})?-?((?i)(jan|feb|mar|apr|jun|jul|aug|sep|oct|nov|dec)(\w)?)-?(\d{1,2})?</regularExpression>
+        <regularExpression>(\d{4}-\d{1,2}-\d{1,2})</regularExpression>
+        <regularExpression>(\d{4}年?\d{1,2}月?\d{1,2}日?)</regularExpression>
+        <regularExpression>(\d{1,2})?-?(Dec(\w)?)-?(\d{1,2})?</regularExpression>
     </comment>
 
     <comment type="意図が曖昧なコメント">
