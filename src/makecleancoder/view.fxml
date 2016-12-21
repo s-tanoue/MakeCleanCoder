@@ -103,6 +103,15 @@
                         </ScrollPane>
                      </content>
                 </Tab>
+                  <Tab text="全てのコメント">
+                     <content>
+                        <ScrollPane prefHeight="257.0" prefWidth="829.0">
+                           <content>
+                              <TextFlow fx:id="allCommentsArea" prefHeight="257.0" prefWidth="829.0" />
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </Tab>
                 <Tab text="変数名">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

@@ -1,6 +1,5 @@
 package makecleancoder;
 
-import CommentParser.CleanCoderCommentParser;
 import Dictionaly.CommentDictionaly;
 import Parser.CleanCoderParser;
 import Parser.ParseException;
@@ -11,24 +10,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -51,6 +43,8 @@ public class Controller implements Initializable {
 
     @FXML
     private TextFlow consoleArea;
+    @FXML
+    private TextFlow allCommentsArea;
 
     @FXML
     private VBox consoleAreaVbox;
@@ -90,8 +84,6 @@ public class Controller implements Initializable {
         fileLabel.setText(selectedFile.getName());
         try {
             String inputAllString;
-//            try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
-            
             try(BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(selectedFile),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(selectedFile),"SJIS"))){
                 String str;
                 inputAllString = "";
@@ -141,6 +133,22 @@ public class Controller implements Initializable {
         }
         return outPutLink;
     }
+    // 引数　ソースコード
+    // 戻り値 ソースコードに存在するすべてのコメント
+    private ArrayList<Hyperlink> getAllComment(String inputString)
+    {
+        ResultData result= new ResultData(inputString);
+        ArrayList<Hyperlink> outPutLink= new ArrayList<Hyperlink>();
+
+        for(int i = 0; i < result.map.size();  i++) {
+            ArrayList<String> comment = result.map.get(result.keyValue.get(i));
+            for(int j = 0; j < comment.size(); j++){
+                CommentDictionaly dictionaly = new CommentDictionaly();
+                    outPutLink.add(new Hyperlink(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切なコメントです"+crlf));
+            }
+        }
+        return outPutLink;
+    }
     //ファイルのコメントを解析する
     @FXML
     private void executeParseComment(ActionEvent event) {
@@ -170,6 +178,7 @@ public class Controller implements Initializable {
         fileChooser.setTitle("Open Resource File");
         List<File> selectedFile = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
         VBox vbox = new VBox();
+        VBox vbox2 = new VBox();
         String inputString="";
         ArrayList<Hyperlink> outPutLink = new ArrayList<Hyperlink>();
 
@@ -177,7 +186,6 @@ public class Controller implements Initializable {
         try {
             for(File file: selectedFile){
               //選択された一つ目のファイルを開く
-     //           BufferedReader br = new BufferedReader(new FileReader(file));
                 BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
                 String str;
                 inputString = "";
@@ -204,7 +212,42 @@ public class Controller implements Initializable {
                                     temp+= str + crlf;
                                     editArea.setText(temp);
                                 }
-                                //行番号を表示．ここからメソッドにする．
+                                int lineNumber = temp.split(crlf,-1).length; 
+                                String line = "";
+                                for (int i = 1; i <= lineNumber; i++) {
+                                    line += String.valueOf(i) + crlf;
+                                }
+                                lineNumberArea.setText(line);
+                            } catch (FileNotFoundException e1) {
+                                e1.printStackTrace();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                    });
+                    vbox.getChildren().add(link);
+                }
+            consoleArea.getChildren().add(vbox);
+
+            allCommentsArea.getChildren().clear();
+            ArrayList<Hyperlink> allComment = getAllComment(inputString);
+                //改行を入れるために，
+            allComment.add(0, new Hyperlink("ファイル名:"+file.getPath()));
+            allComment.add(new Hyperlink());
+
+           for(Hyperlink link :allComment){
+                    //ファイルを開いてテキストエディタにセットする機能の追加
+                    link.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent e) {
+                            try {
+                                BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
+                                String temp="";
+                                String str = new String();
+                                fileLabel.setText(file.getName());
+                                while ((str = br.readLine()) != null) {
+                                    temp+= str + crlf;
+                                    editArea.setText(temp);
+                                }
                                 int lineNumber = temp.split(crlf,-1).length; 
                                 String line = "";
                                 for (int i = 1; i <= lineNumber; i++) {
@@ -218,13 +261,12 @@ public class Controller implements Initializable {
                                 // TODO 自動生成された catch ブロック
                                 e1.printStackTrace();
                             }
-
                         }
                     });
-                    vbox.getChildren().add(link);
+                    vbox2.getChildren().add(link);
                 }
+               allCommentsArea.getChildren().add(vbox2);
             }
-            consoleArea.getChildren().add(vbox);
         } catch (IOException e) {
             e.printStackTrace();
         }

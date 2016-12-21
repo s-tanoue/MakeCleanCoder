@@ -73,7 +73,6 @@ public class CommentDictionaly {
             commentNode = commentNode.getNextSibling();
         }
     }
-
     //不適切なコメントであったらtrue
     public boolean isInappropriateComment(String target) {
       if( isWord(target) || isRegularExppression(target)){
@@ -81,7 +80,6 @@ public class CommentDictionaly {
         }
         return false;
     }
-
     //単語と一致したらtrue
     public boolean isWord(String target){
         for (String key : wordMap.keySet()) {
