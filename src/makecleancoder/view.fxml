@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="725.0" prefWidth="829.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="makecleancoder.Controller">
     <children>
@@ -25,25 +24,25 @@
               <menus>
                   <Menu mnemonicParsing="false" text="MCC">
                      <items>
-                        <MenuItem fx:id="Preference" mnemonicParsing="false" onAction="#onPreference" text="設定" />
+                        <MenuItem fx:id="Preference" mnemonicParsing="false" onAction="#handleOnPreference" text="設定" />
                         <Menu mnemonicParsing="false" text="文字コード">
                            <items>
-                              <RadioMenuItem fx:id="UTF8" mnemonicParsing="false" onAction="#onUTF8" selected="true" text="UTF-8">
+                              <RadioMenuItem fx:id="UTF8" mnemonicParsing="false" onAction="#handleOnUTF8" selected="true" text="UTF-8">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="encoding" />
                                  </toggleGroup>
                               </RadioMenuItem>
-                              <RadioMenuItem fx:id="ShiftJIS" mnemonicParsing="false" onAction="#onShiftJIS" text="Shfit-JIS" toggleGroup="$encoding" />
+                              <RadioMenuItem fx:id="ShiftJIS" mnemonicParsing="false" onAction="#handleOnShiftJIS" text="Shfit-JIS" toggleGroup="$encoding" />
                            </items>
                         </Menu>
                      </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="ファイル">
                   <items>
-                        <MenuItem fx:id="fileOpen" mnemonicParsing="false" onAction="#onFileOpen" text="ファイルを開く" />
-                        <MenuItem fx:id="fileSave" mnemonicParsing="false" onAction="#onFileSave" text="ファイルを保存" />
-                        <MenuItem fx:id="analaysisCommentInFolder" mnemonicParsing="false" onAction="#onAnalaysisCommentInFolder" text="フォルダーの内のコメントを解析" />
-                        <MenuItem fx:id="analaysisCommentInMultipleFiles" mnemonicParsing="false" onAction="#onAnalaysisCommentInMultipleFiles" text="複数ファイルのコメントを解析" />
+                        <MenuItem fx:id="fileOpen" mnemonicParsing="false" onAction="#handleOnFileOpen" text="ファイルを開く" />
+                        <MenuItem fx:id="fileSave" mnemonicParsing="false" onAction="#handleOnFileSave" text="ファイルを保存" />
+                        <MenuItem fx:id="analaysisCommentInFolder" mnemonicParsing="false" onAction="#handleOnAnalaysisCommentInFolder" text="フォルダーの内のコメントを解析" />
+                        <MenuItem fx:id="analaysisCommentInMultipleFiles" mnemonicParsing="false" onAction="#handleOnAnalaysisCommentInMultipleFiles" text="複数ファイルのコメントを解析" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="編集">
@@ -56,7 +55,7 @@
                   <Menu mnemonicParsing="false" text="実行">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#executeParser" text="変数名を解析" />
-                        <MenuItem mnemonicParsing="false" onAction="#executeParseComment" text="コメントを解析" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleOnExecuteParseComment" text="コメントを解析" />
                      </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="ヘルプ">
@@ -95,23 +94,22 @@
               <tabs>
                 <Tab text="コメント">
                      <content>
-                         <ScrollPane prefHeight="257.0" prefWidth="829.0">
+                         <ScrollPane fx:id="consoleArea" prefHeight="257.0" prefWidth="829.0">
                            <content>
-                                       <TextFlow fx:id="consoleArea" prefHeight="257.0" prefWidth="829.0">
-                        </TextFlow>
+                              <VBox fx:id="consoleAreaVbox" prefHeight="228.0" prefWidth="824.0" />
                            </content>
                         </ScrollPane>
                      </content>
                 </Tab>
-                  <Tab text="全てのコメント">
+                <Tab text="全てのコメント">
                      <content>
-                        <ScrollPane prefHeight="257.0" prefWidth="829.0">
+                        <ScrollPane fx:id="allCommentsArea" prefHeight="257.0" prefWidth="829.0">
                            <content>
-                              <TextFlow fx:id="allCommentsArea" prefHeight="257.0" prefWidth="829.0" />
+                              <VBox fx:id="allCommentsAreaVbox" prefHeight="228.0" prefWidth="824.0" />
                            </content>
                         </ScrollPane>
                      </content>
-                  </Tab>
+                </Tab>
                 <Tab text="変数名">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

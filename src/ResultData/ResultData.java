@@ -41,6 +41,7 @@ public class ResultData {
 				}
 			}
 		} catch (CommentParser.ParseException e) {
+		  System.out.println("コメントがありません");
 			e.printStackTrace();
 		}
 	}

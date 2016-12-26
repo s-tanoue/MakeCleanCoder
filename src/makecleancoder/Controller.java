@@ -10,10 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -42,12 +44,15 @@ public class Controller implements Initializable {
     private TextArea editArea;
 
     @FXML
-    private TextFlow consoleArea;
+    private ScrollPane consoleArea;
     @FXML
-    private TextFlow allCommentsArea;
+    private ScrollPane allCommentsArea;
 
     @FXML
     private VBox consoleAreaVbox;
+
+    @FXML
+    private VBox allCommentsAreaVbox;
 
     @FXML
     private TextArea lineNumberArea;
@@ -64,20 +69,21 @@ public class Controller implements Initializable {
     private boolean encoding = true;
 
     @FXML
-    private void onPreference(ActionEvent event){
+    private void handleOnPreference(ActionEvent event){
     }
 
     @FXML
-    private void onUTF8(ActionEvent event){
-      encoding = true;
+    private void handleOnUTF8(ActionEvent event){
+        encoding = true;
     }
     @FXML
-    private void onShiftJIS(ActionEvent event){
-      encoding = false;
+    private void handleOnShiftJIS(ActionEvent event){
+        encoding = false;
     }
 
+
     @FXML
-    private void onFileOpen(ActionEvent event) {
+    private void handleOnFileOpen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
@@ -104,7 +110,7 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private void onFileSave(ActionEvent event) {
+    private void handleOnFileSave(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save File");
         File selectedFile = fileChooser.showSaveDialog(root.getScene().getWindow());
@@ -137,69 +143,84 @@ public class Controller implements Initializable {
     // 戻り値 ソースコードに存在するすべてのコメント
     private ArrayList<Hyperlink> getAllComment(String inputString)
     {
-        ResultData result= new ResultData(inputString);
+        ResultData result = new ResultData(inputString);
         ArrayList<Hyperlink> outPutLink= new ArrayList<Hyperlink>();
 
         for(int i = 0; i < result.map.size();  i++) {
             ArrayList<String> comment = result.map.get(result.keyValue.get(i));
             for(int j = 0; j < comment.size(); j++){
-                CommentDictionaly dictionaly = new CommentDictionaly();
-                    outPutLink.add(new Hyperlink(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切なコメントです"+crlf));
+                outPutLink.add(new Hyperlink(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "")));
             }
         }
         return outPutLink;
     }
-    //ファイルのコメントを解析する
+    //編集エリアのコメントを解析する
     @FXML
-    private void executeParseComment(ActionEvent event) {
+    private void handleOnExecuteParseComment(ActionEvent event) {
 
         String editAreaText = editArea.getText();
         ArrayList<Hyperlink> outPutLink = commentParse(editAreaText);
+        ArrayList<Hyperlink> outPutLink2 = getAllComment(editAreaText);
 
-        VBox vbox = new VBox();
-        consoleArea.getChildren().clear();
+        consoleAreaVbox.getChildren().clear();
+        TextFlow inappriprateCommentCount= new TextFlow(new Text("不適切なコメントの数:"+String.valueOf(outPutLink.size())));
+        consoleAreaVbox.getChildren().add(inappriprateCommentCount);
         for(Hyperlink link : outPutLink){
-            vbox.getChildren().add(link);
+            TextFlow textFlow = new TextFlow(link);
+            consoleAreaVbox.getChildren().add(textFlow);
         }
-        consoleArea.getChildren().add(vbox);
+       allCommentsAreaVbox.getChildren().clear();
+       
+        TextFlow commentCount= new TextFlow(new Text("コメントの数:"+String.valueOf(outPutLink2.size())));
+       allCommentsAreaVbox.getChildren().add(commentCount);
+        for(Hyperlink link : outPutLink2){
+            TextFlow textFlow = new TextFlow(link);
+            allCommentsAreaVbox.getChildren().add(textFlow);
+        }
     }
     //フォルダー内のコメントを解析
     @FXML
-    private void onAnalaysisCommentInFolder(ActionEvent event){
-      DirectoryChooser directoryChosser = new DirectoryChooser();
-      File selectedFolder = directoryChosser.showDialog(root.getScene().getWindow());
-      fileLabel.setText(selectedFolder.getName());
-      
+    private void handleOnAnalaysisCommentInFolder(ActionEvent event){
+        DirectoryChooser directoryChosser = new DirectoryChooser();
+        File selectedFolder = directoryChosser.showDialog(root.getScene().getWindow());
+        fileLabel.setText(selectedFolder.getName());
+
     }
     //複数ファイルのコメントを解析
     @FXML
-    private void onAnalaysisCommentInMultipleFiles (ActionEvent event) {
+    private void handleOnAnalaysisCommentInMultipleFiles (ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         List<File> selectedFile = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
-        VBox vbox = new VBox();
-        VBox vbox2 = new VBox();
         String inputString="";
-        ArrayList<Hyperlink> outPutLink = new ArrayList<Hyperlink>();
+        ArrayList<Hyperlink> outPutLinkList = new ArrayList<Hyperlink>();
+        ArrayList<Hyperlink> outPutLinkList2 = new ArrayList<Hyperlink>();
 
-        consoleArea.getChildren().clear();
+        consoleAreaVbox.getChildren().clear();
+        allCommentsAreaVbox.getChildren().clear();
         try {
             for(File file: selectedFile){
-              //選択された一つ目のファイルを開く
+                //選択された一つ目のファイルを開く
                 BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
                 String str;
                 inputString = "";
                 while ((str = br.readLine()) != null) {
                     inputString += str + crlf;
                 }
+                
+                //Text fileName = new Text("ファイル名:"+file.getPath());
+                String filePath = file.getPath();
+                //consoleAreaVbox.getChildren().add(fileName);
                 //コメントを解析した結果は，hyperlinkのlistで返ってくる．
-                outPutLink.clear();
-                outPutLink = commentParse(inputString);
-                //コメント解析した結果のリストの0番目にファイル名を追加
-                outPutLink.add(0, new Hyperlink("ファイル名:"+file.getPath()));
-                //改行を入れるために，
-                outPutLink.add(new Hyperlink());
-                for(Hyperlink link : outPutLink){
+
+                outPutLinkList.clear();
+                outPutLinkList = commentParse(inputString);
+                Text inappropriateCommentCount = new Text("不適切なコメントの数:"+String.valueOf(outPutLinkList.size()));
+                TextFlow textFlow = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),inappropriateCommentCount);
+                consoleAreaVbox.getChildren().add(textFlow);
+                outPutLinkList.add(new Hyperlink());
+
+                for(Hyperlink link : outPutLinkList){
                     //ファイルを開いてテキストエディタにセットする機能の追加
                     link.setOnAction(new EventHandler<ActionEvent>() {
                         public void handle(ActionEvent e) {
@@ -225,24 +246,24 @@ public class Controller implements Initializable {
                             }
                         }
                     });
-                    vbox.getChildren().add(link);
+                    consoleAreaVbox.getChildren().add(link);
                 }
-            consoleArea.getChildren().add(vbox);
-
-            allCommentsArea.getChildren().clear();
-            ArrayList<Hyperlink> allComment = getAllComment(inputString);
-                //改行を入れるために，
-            allComment.add(0, new Hyperlink("ファイル名:"+file.getPath()));
-            allComment.add(new Hyperlink());
-
-           for(Hyperlink link :allComment){
+                outPutLinkList2 = getAllComment(inputString);
+                Text commentCount = new Text("コメントの数:"+String.valueOf(outPutLinkList2.size()));
+//                allCommentsAreaVbox.getChildren().add(new Text("ファイル名:"+file.getPath()));
+                TextFlow textFlow2 = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),commentCount);
+                allCommentsAreaVbox.getChildren().add(textFlow2);
+                // //改行を入れるために，
+                outPutLinkList2.add(new Hyperlink());
+                
+                for(Hyperlink link : outPutLinkList2){
                     //ファイルを開いてテキストエディタにセットする機能の追加
                     link.setOnAction(new EventHandler<ActionEvent>() {
                         public void handle(ActionEvent e) {
                             try {
                                 BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
                                 String temp="";
-                                String str = new String();
+                                String str=new String();
                                 fileLabel.setText(file.getName());
                                 while ((str = br.readLine()) != null) {
                                     temp+= str + crlf;
@@ -255,17 +276,14 @@ public class Controller implements Initializable {
                                 }
                                 lineNumberArea.setText(line);
                             } catch (FileNotFoundException e1) {
-                                // TODO 自動生成された catch ブロック
                                 e1.printStackTrace();
                             } catch (IOException e1) {
-                                // TODO 自動生成された catch ブロック
                                 e1.printStackTrace();
                             }
                         }
                     });
-                    vbox2.getChildren().add(link);
+                    allCommentsAreaVbox.getChildren().add(link);
                 }
-               allCommentsArea.getChildren().add(vbox2);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -314,7 +332,7 @@ public class Controller implements Initializable {
 
     @FXML
     private void clearConsoleArea(ActionEvent event) {
-        consoleArea.getChildren().clear();
+      consoleAreaVbox.getChildren().clear();
     }
 
     @FXML
