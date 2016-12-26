@@ -43,7 +43,6 @@
         <regularExpression>(\d{1,2})?-?((?i)(jan|feb|mar|apr|jun|jul|aug|sep|oct|nov|dec)(\w)?)-?(\d{1,2})?</regularExpression>
         <regularExpression>(\d{4}-\d{1,2}-\d{1,2})</regularExpression>
         <regularExpression>(\d{4}年?\d{1,2}月?\d{1,2}日?)</regularExpression>
-        <regularExpression>(\d{1,2})?-?(Dec(\w)?)-?(\d{1,2})?</regularExpression>
     </comment>
 
     <comment type="意図が曖昧なコメント">
