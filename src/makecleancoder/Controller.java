@@ -65,6 +65,7 @@ public class Controller implements Initializable {
 
     private String crlf = System.getProperty("line.separator");
     private File initialFile = new File(System.getProperty("user.home"));
+    private File openedFileOnEditArea;
     //enum 型にする．
     private boolean encoding = true;
 
@@ -76,10 +77,12 @@ public class Controller implements Initializable {
     @FXML
     private void handleOnUTF8(ActionEvent event){
         encoding = true;
+        openFile(openedFileOnEditArea);
     }
     @FXML
     private void handleOnShiftJIS(ActionEvent event){
         encoding = false;
+        openFile(openedFileOnEditArea);
     }
 
     @FXML
@@ -89,10 +92,15 @@ public class Controller implements Initializable {
         fileChooser.setInitialDirectory(initialFile);
         File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
         initialFile = new File(selectedFile.getParent());
+        openedFileOnEditArea = new File(selectedFile.getPath());
         fileLabel.setText(selectedFile.getName());
+        openFile(selectedFile);
+    }
+    //指定されたパスに存在するファイルを開く．
+    private void openFile(File file){
         try {
             String inputAllString;
-            try(BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(selectedFile),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(selectedFile),"SJIS"))){
+            try(BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"))){
                 String str;
                 inputAllString = "";
                 while ((str = br.readLine()) != null) {
@@ -109,6 +117,7 @@ public class Controller implements Initializable {
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
         }
+      
     }
 
     @FXML
@@ -135,7 +144,7 @@ public class Controller implements Initializable {
                 CommentDictionaly dictionaly = new CommentDictionaly();
                 //適切なコメントかどうか判断する．
                 if (dictionaly.isInappropriateComment(comment.get(j))) {
-                    outPutLink.add(new Hyperlink(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切なコメントです"+crlf));
+                    outPutLink.add(new Hyperlink(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります"+crlf));
                 }
             }
         }
@@ -165,7 +174,7 @@ public class Controller implements Initializable {
         ArrayList<Hyperlink> outPutLink2 = getAllComment(editAreaText);
 
         consoleAreaVbox.getChildren().clear();
-        TextFlow inappriprateCommentCount= new TextFlow(new Text("不適切なコメントの数:"+String.valueOf(outPutLink.size())));
+        TextFlow inappriprateCommentCount= new TextFlow(new Text("不適切な可能性のあるコメントの数:"+String.valueOf(outPutLink.size())));
         consoleAreaVbox.getChildren().add(inappriprateCommentCount);
         for(Hyperlink link : outPutLink){
             TextFlow textFlow = new TextFlow(link);
@@ -195,6 +204,7 @@ public class Controller implements Initializable {
         fileChooser.setInitialDirectory(initialFile);
         List<File> selectedFile = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
         initialFile = new File(selectedFile.get(0).getParent());
+        openedFileOnEditArea = new File(selectedFile.get(0).getPath());
         String inputString="";
         ArrayList<Hyperlink> outPutLinkList = new ArrayList<Hyperlink>();
         ArrayList<Hyperlink> outPutLinkList2 = new ArrayList<Hyperlink>();
@@ -216,7 +226,7 @@ public class Controller implements Initializable {
                 //コメントを解析した結果は，hyperlinkのlistで返ってくる．
                 outPutLinkList.clear();
                 outPutLinkList = commentParse(inputString);
-                Text inappropriateCommentCount = new Text("不適切なコメントの数:"+String.valueOf(outPutLinkList.size()));
+                Text inappropriateCommentCount = new Text("不適切な可能性のあるコメントの数:"+String.valueOf(outPutLinkList.size()));
                 TextFlow textFlow = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),inappropriateCommentCount);
                 consoleAreaVbox.getChildren().add(textFlow);
                 outPutLinkList.add(new Hyperlink());
