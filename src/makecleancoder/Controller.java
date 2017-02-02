@@ -64,9 +64,10 @@ public class Controller implements Initializable {
     private Label fileLabel;
 
     private String crlf = System.getProperty("line.separator");
-
+    private File initialFile = new File(System.getProperty("user.home"));
     //enum 型にする．
     private boolean encoding = true;
+
 
     @FXML
     private void handleOnPreference(ActionEvent event){
@@ -81,12 +82,13 @@ public class Controller implements Initializable {
         encoding = false;
     }
 
-
     @FXML
     private void handleOnFileOpen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
+        fileChooser.setInitialDirectory(initialFile);
         File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
+        initialFile = new File(selectedFile.getParent());
         fileLabel.setText(selectedFile.getName());
         try {
             String inputAllString;
@@ -156,8 +158,8 @@ public class Controller implements Initializable {
     }
     //編集エリアのコメントを解析する
     @FXML
-    private void handleOnExecuteParseComment(ActionEvent event) {
-
+    private void handleOnExecuteParseComment(ActionEvent event) 
+    {
         String editAreaText = editArea.getText();
         ArrayList<Hyperlink> outPutLink = commentParse(editAreaText);
         ArrayList<Hyperlink> outPutLink2 = getAllComment(editAreaText);
@@ -184,14 +186,15 @@ public class Controller implements Initializable {
         DirectoryChooser directoryChosser = new DirectoryChooser();
         File selectedFolder = directoryChosser.showDialog(root.getScene().getWindow());
         fileLabel.setText(selectedFolder.getName());
-
     }
     //複数ファイルのコメントを解析
     @FXML
     private void handleOnAnalaysisCommentInMultipleFiles (ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
+        fileChooser.setInitialDirectory(initialFile);
         List<File> selectedFile = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
+        initialFile = new File(selectedFile.get(0).getParent());
         String inputString="";
         ArrayList<Hyperlink> outPutLinkList = new ArrayList<Hyperlink>();
         ArrayList<Hyperlink> outPutLinkList2 = new ArrayList<Hyperlink>();
@@ -208,11 +211,9 @@ public class Controller implements Initializable {
                     inputString += str + crlf;
                 }
                 
-                //Text fileName = new Text("ファイル名:"+file.getPath());
                 String filePath = file.getPath();
-                //consoleAreaVbox.getChildren().add(fileName);
-                //コメントを解析した結果は，hyperlinkのlistで返ってくる．
 
+                //コメントを解析した結果は，hyperlinkのlistで返ってくる．
                 outPutLinkList.clear();
                 outPutLinkList = commentParse(inputString);
                 Text inappropriateCommentCount = new Text("不適切なコメントの数:"+String.valueOf(outPutLinkList.size()));
@@ -250,7 +251,6 @@ public class Controller implements Initializable {
                 }
                 outPutLinkList2 = getAllComment(inputString);
                 Text commentCount = new Text("コメントの数:"+String.valueOf(outPutLinkList2.size()));
-//                allCommentsAreaVbox.getChildren().add(new Text("ファイル名:"+file.getPath()));
                 TextFlow textFlow2 = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),commentCount);
                 allCommentsAreaVbox.getChildren().add(textFlow2);
                 // //改行を入れるために，
