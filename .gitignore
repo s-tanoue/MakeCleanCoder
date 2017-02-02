@@ -1,3 +1,4 @@
 .pmd
 .checkstyle
+.DS_Store
 /reports
