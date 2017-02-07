@@ -387,6 +387,7 @@ public class Controller implements Initializable {
         //フォーマットパターンを指定して表示する
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
        String exportString = sdf.format(c.getTime())+crlf;
+       exportString += "不適切な可能性のあるコメントの数:"+String.valueOf(list.size())+crlf;
         for(String str:list){
           exportString+=str;
         }
@@ -400,7 +401,7 @@ public class Controller implements Initializable {
           }
         }
         try {
-          BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8"));
+          BufferedWriter bw = encoding? new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8")) : new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"SJIS"));
           bw.write(exportString);
           bw.newLine();
           bw.close();
