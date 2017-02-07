@@ -44,6 +44,7 @@ public class ResultData {
 		  System.out.println("コメントがありません");
 			e.printStackTrace();
 		}
+
 	}
 }
 
