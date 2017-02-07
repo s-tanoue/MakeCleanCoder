@@ -20,15 +20,24 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 /**
@@ -47,28 +56,23 @@ public class Controller implements Initializable {
     private ScrollPane consoleArea;
     @FXML
     private ScrollPane allCommentsArea;
-
     @FXML
     private VBox consoleAreaVbox;
-
     @FXML
     private VBox allCommentsAreaVbox;
-
     @FXML
     private TextArea lineNumberArea;
-
     @FXML
     private TextArea parseResultArea;
-
     @FXML
     private Label fileLabel;
 
     private String crlf = System.getProperty("line.separator");
     private File initialFile = new File(System.getProperty("user.home"));
     private File openedFileOnEditArea;
-    //enum 型にする．
+    
+    //encodingがtrueのときはutf-8になる
     private boolean encoding = true;
-
 
     @FXML
     private void handleOnPreference(ActionEvent event){
@@ -92,7 +96,6 @@ public class Controller implements Initializable {
         fileChooser.setInitialDirectory(initialFile);
         File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
         initialFile = new File(selectedFile.getParent());
-        openedFileOnEditArea = new File(selectedFile.getPath());
         fileLabel.setText(selectedFile.getName());
         openFile(selectedFile);
     }
@@ -113,13 +116,17 @@ public class Controller implements Initializable {
     private void handleOnExecuteParseComment(ActionEvent event) 
     {
         String editAreaText = editArea.getText();
-        ArrayList<Hyperlink> outPutLink = commentParse(editAreaText);
-        ArrayList<Hyperlink> outPutLink2 = getAllComment(editAreaText);
+        ArrayList<String> inproperCommentStringList = commentParse(editAreaText);
+        exportResultToFile(inproperCommentStringList, openedFileOnEditArea.getName());
+        ArrayList<Hyperlink> inproperCommentLinkList =toHyperLinkList(inproperCommentStringList);
+        ArrayList<String> allCommentStringList = commentParse(editAreaText);
+        ArrayList<Hyperlink> allCommentLinkList =toHyperLinkList(allCommentStringList);
+
 
         consoleAreaVbox.getChildren().clear();
-        TextFlow inappriprateCommentCount= new TextFlow(new Text("不適切な可能性のあるコメントの数:"+String.valueOf(outPutLink.size())));
-        consoleAreaVbox.getChildren().add(inappriprateCommentCount);
-        for(Hyperlink link : outPutLink){
+        TextFlow inproperCommentCount= new TextFlow(new Text("不適切な可能性のあるコメントの数:"+String.valueOf(inproperCommentLinkList.size())));
+        consoleAreaVbox.getChildren().add(inproperCommentCount);
+        for(Hyperlink link : inproperCommentLinkList){
             link.setOnAction(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) {
                     String str[] =link.toString().split(":",0);
@@ -133,9 +140,9 @@ public class Controller implements Initializable {
         }
         allCommentsAreaVbox.getChildren().clear();
 
-        TextFlow commentCount= new TextFlow(new Text("コメントの数:"+String.valueOf(outPutLink2.size())));
+        TextFlow commentCount= new TextFlow(new Text("コメントの数:"+String.valueOf(allCommentLinkList.size())));
         allCommentsAreaVbox.getChildren().add(commentCount);
-        for(Hyperlink link : outPutLink2){
+        for(Hyperlink link : allCommentLinkList){
             link.setOnAction(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) {
                     String str[] =link.toString().split(":",0);
@@ -158,39 +165,44 @@ public class Controller implements Initializable {
     //複数ファイルのコメントを解析
     @FXML
     private void handleOnAnalaysisCommentInMultipleFiles (ActionEvent event) {
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.setInitialDirectory(initialFile);
         List<File> selectedFile = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
         initialFile = new File(selectedFile.get(0).getParent());
-        openedFileOnEditArea = new File(selectedFile.get(0).getPath());
         String inputString="";
-        ArrayList<Hyperlink> outPutLinkList = new ArrayList<Hyperlink>();
-        ArrayList<Hyperlink> outPutLinkList2 = new ArrayList<Hyperlink>();
+        ArrayList<Hyperlink> inproperCommentLinkList = new ArrayList<>();
+        ArrayList<String> inproperCommentStringList = new ArrayList<>();
+        ArrayList<String> allCommentStringList = new ArrayList<>();
+        ArrayList<Hyperlink> allCommentLinkList = new ArrayList<>();
 
         consoleAreaVbox.getChildren().clear();
         allCommentsAreaVbox.getChildren().clear();
         try {
             for(File file: selectedFile){
                 //選択された一つ目のファイルを開く
+                openFile(file);
                 BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"));
                 String str;
                 inputString = "";
                 while ((str = br.readLine()) != null) {
                     inputString += str + crlf;
                 }
-
                 String filePath = file.getPath();
 
                 //コメントを解析した結果は，hyperlinkのlistで返ってくる．
-                outPutLinkList.clear();
-                outPutLinkList = commentParse(inputString);
-                Text inappropriateCommentCount = new Text("不適切な可能性のあるコメントの数:"+String.valueOf(outPutLinkList.size()));
-                TextFlow textFlow = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),inappropriateCommentCount);
-                consoleAreaVbox.getChildren().add(textFlow);
-                outPutLinkList.add(new Hyperlink());
+                inproperCommentLinkList.clear();
+                inproperCommentStringList = commentParse(inputString);
+                exportResultToFile(inproperCommentStringList, file.getName());
+                inproperCommentLinkList = toHyperLinkList(inproperCommentStringList);
 
-                for(Hyperlink link : outPutLinkList){
+                Text inproperCommentCount = new Text("不適切な可能性のあるコメントの数:"+String.valueOf(inproperCommentLinkList.size()));
+                TextFlow textFlow = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),inproperCommentCount);
+                consoleAreaVbox.getChildren().add(textFlow);
+                inproperCommentLinkList.add(new Hyperlink());
+
+                for(Hyperlink link : inproperCommentLinkList){
                     //ファイルを開いてテキストエディタにセットする機能の追加
                     link.setOnAction(new EventHandler<ActionEvent>() {
                         public void handle(ActionEvent e) {
@@ -203,14 +215,17 @@ public class Controller implements Initializable {
                     });
                     consoleAreaVbox.getChildren().add(link);
                 }
-                outPutLinkList2 = getAllComment(inputString);
-                Text commentCount = new Text("コメントの数:"+String.valueOf(outPutLinkList2.size()));
+                allCommentStringList = commentParse(inputString);
+                allCommentLinkList = toHyperLinkList(allCommentStringList);
+
+
+                Text commentCount = new Text("コメントの数:"+String.valueOf(allCommentLinkList.size()));
                 TextFlow textFlow2 = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),commentCount);
                 allCommentsAreaVbox.getChildren().add(textFlow2);
                 // //改行を入れるために，
-                outPutLinkList2.add(new Hyperlink());
+                allCommentLinkList.add(new Hyperlink());
 
-                for(Hyperlink link : outPutLinkList2){
+                for(Hyperlink link : allCommentLinkList){
                     //ファイルを開いてテキストエディタにセットする機能の追加
                     link.setOnAction(new EventHandler<ActionEvent>() {
                         public void handle(ActionEvent e) {
@@ -221,7 +236,7 @@ public class Controller implements Initializable {
                             int lineNumber = Integer.parseInt(str2[1]);
 
                             setScrollBar(lineNumber);
-                        }
+                            }
                     });
                     allCommentsAreaVbox.getChildren().add(link);
                 }
@@ -233,7 +248,7 @@ public class Controller implements Initializable {
 
     //変数名を解析
     @FXML
-    private void executeParser(ActionEvent event) {
+    private void executeVariableParser(ActionEvent event) {
         String str = editArea.getText();
         String[] strs = str.split(crlf);
         String outPutString = "";
@@ -254,7 +269,6 @@ public class Controller implements Initializable {
             count++;
         }
         parseResultArea.setText(outPutString);
-
     }
 
     @FXML
@@ -292,8 +306,9 @@ public class Controller implements Initializable {
 
     }
 
-    //指定されたパスに存在するファイルを開く．
+    //指定されたパスに存在するファイルを開き，テキストエリアに出力する．
     private void openFile(File file){
+        openedFileOnEditArea = new File(file.getPath());
         try {
             String inputAllString;
             try(BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"))){
@@ -318,10 +333,10 @@ public class Controller implements Initializable {
 
     // 戻り値 コンソールエリアに出力する文字列
     // 引数 解析するソースコード
-    private ArrayList<Hyperlink> commentParse(String inputString)
+    private ArrayList<String> commentParse(String inputString)
     {
         ResultData result= new ResultData(inputString);
-        ArrayList<Hyperlink> outPutLink= new ArrayList<Hyperlink>();
+        ArrayList<String> outPutList = new ArrayList<String>();
 
         for(int i = 0; i < result.map.size();  i++) {
             ArrayList<String> comment = result.map.get(result.keyValue.get(i));
@@ -329,27 +344,80 @@ public class Controller implements Initializable {
                 CommentDictionaly dictionaly = new CommentDictionaly();
                 //適切なコメントかどうか判断する．
                 if (dictionaly.isInappropriateComment(comment.get(j))) {
-                    outPutLink.add(new Hyperlink(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります"+crlf));
+                    outPutList.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります"+crlf);
                 }
             }
         }
-        return outPutLink;
+        return outPutList;
     }
+    //StringをHyperLinkのListに変更する．
+    private ArrayList<Hyperlink> toHyperLinkList(List<String> stringList)
+    {
+        ArrayList<Hyperlink> outPutList = new ArrayList<>();
+        for(String str:stringList){
+          outPutList.add(new Hyperlink(str));
+        }
+        return outPutList;
+    }
+
     // 引数　ソースコード
     // 戻り値 ソースコードに存在するすべてのコメント
-    private ArrayList<Hyperlink> getAllComment(String inputString)
+    private ArrayList<String> getAllComment(String inputString)
     {
         ResultData result = new ResultData(inputString);
-        ArrayList<Hyperlink> outPutLink= new ArrayList<Hyperlink>();
+        ArrayList<String> outPutLink= new ArrayList<String>();
 
         for(int i = 0; i < result.map.size();  i++) {
             ArrayList<String> comment = result.map.get(result.keyValue.get(i));
             for(int j = 0; j < comment.size(); j++){
-                outPutLink.add(new Hyperlink(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "")));
+                outPutLink.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, ""));
             }
         }
         return outPutLink;
     }
+
+    //listは解析結果
+    //fileNameはファイル名
+    //result_filename.txtに解析結果を出力する．
+    private void exportResultToFile(List<String> list,String fileName) 
+    {
+
+      //TODO:文字コードによって，出力する文字コードを変更する．
+        Calendar c = Calendar.getInstance();
+        //フォーマットパターンを指定して表示する
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+       String exportString = sdf.format(c.getTime())+crlf;
+       exportString += "不適切な可能性のあるコメントの数:"+String.valueOf(list.size())+crlf;
+        for(String str:list){
+          exportString+=str;
+        }
+        //出力先ファイルのFileオブジェクトを作成
+        File file = new File("src/Result/"+"result_"+fileName+".txt");
+        if(!file.exists()){
+          try {
+            file.createNewFile();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+        try {
+          BufferedWriter bw = encoding? new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8")) : new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"SJIS"));
+          bw.write(exportString);
+          bw.newLine();
+          bw.close();
+        } catch (UnsupportedEncodingException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        } catch (FileNotFoundException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+
+    }
+
     //編集エリアのコメントを解析する
     @Override
     public void initialize(URL url, ResourceBundle rb) {
