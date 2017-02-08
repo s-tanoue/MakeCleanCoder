@@ -29,13 +29,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -116,22 +113,20 @@ public class Controller implements Initializable {
     private void handleOnExecuteParseComment(ActionEvent event) 
     {
         String editAreaText = editArea.getText();
-        ArrayList<String> inproperCommentStringList = commentParse(editAreaText);
-        exportResultToFile(inproperCommentStringList, openedFileOnEditArea.getName());
-        ArrayList<Hyperlink> inproperCommentLinkList =toHyperLinkList(inproperCommentStringList);
-        ArrayList<String> allCommentStringList = commentParse(editAreaText);
+        ArrayList<String> improperCommentStringList = commentParse(editAreaText);
+        exportResultToFile(improperCommentStringList, openedFileOnEditArea.getName());
+        ArrayList<Hyperlink> improperCommentLinkList =toHyperLinkList(improperCommentStringList);
+        ArrayList<String> allCommentStringList = getAllComment(editAreaText);
         ArrayList<Hyperlink> allCommentLinkList =toHyperLinkList(allCommentStringList);
 
 
         consoleAreaVbox.getChildren().clear();
-        TextFlow inproperCommentCount= new TextFlow(new Text("不適切な可能性のあるコメントの数:"+String.valueOf(inproperCommentLinkList.size())));
-        consoleAreaVbox.getChildren().add(inproperCommentCount);
-        for(Hyperlink link : inproperCommentLinkList){
+        TextFlow improperCommentCount= new TextFlow(new Text("不適切な可能性のあるコメントの数:"+String.valueOf(improperCommentLinkList.size())));
+        consoleAreaVbox.getChildren().add(improperCommentCount);
+        for(Hyperlink link : improperCommentLinkList){
             link.setOnAction(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) {
-                    String str[] =link.toString().split(":",0);
-                    String str2[] = str[0].split("'",0);
-                    int lineNumber = Integer.parseInt(str2[1]);
+                    int lineNumber = getLineNumberFromLink(link);
                     setScrollBar(lineNumber);
                 }
             });
@@ -145,9 +140,7 @@ public class Controller implements Initializable {
         for(Hyperlink link : allCommentLinkList){
             link.setOnAction(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) {
-                    String str[] =link.toString().split(":",0);
-                    String str2[] = str[0].split("'",0);
-                    int lineNumber = Integer.parseInt(str2[1]);
+                    int lineNumber = getLineNumberFromLink(link);
                     setScrollBar(lineNumber);
                 }
             });
@@ -207,15 +200,13 @@ public class Controller implements Initializable {
                     link.setOnAction(new EventHandler<ActionEvent>() {
                         public void handle(ActionEvent e) {
                             openFile(file);
-                            String str[] =link.toString().split(":",0);
-                            String str2[] = str[0].split("'",0);
-                            int lineNumber = Integer.parseInt(str2[1]);
+                            int lineNumber = getLineNumberFromLink(link);
                             setScrollBar(lineNumber);
                         }
                     });
                     consoleAreaVbox.getChildren().add(link);
                 }
-                allCommentStringList = commentParse(inputString);
+                allCommentStringList = getAllComment(inputString);
                 allCommentLinkList = toHyperLinkList(allCommentStringList);
 
 
@@ -231,9 +222,7 @@ public class Controller implements Initializable {
                         public void handle(ActionEvent e) {
                             openFile(file);
 
-                            String str[] =link.toString().split(":",0);
-                            String str2[] = str[0].split("'",0);
-                            int lineNumber = Integer.parseInt(str2[1]);
+                            int lineNumber = getLineNumberFromLink(link);
 
                             setScrollBar(lineNumber);
                             }
@@ -244,6 +233,12 @@ public class Controller implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private int getLineNumberFromLink(Hyperlink link) {
+        String str[] =link.toString().split(":",0);
+        String str2[] = str[0].split("'",0);
+        return Integer.parseInt(str2[1]);
     }
 
     //変数名を解析
