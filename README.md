@@ -3,8 +3,8 @@
 CleanCodeを提供します．
 
 #使い方
-MakeCleanCoder.java を実行する．
-WebAPIを利用しているので，インターネットに接続していないと動かないことがある．
+MakeCleanCoder.jar をクリックする．
+変数名を解析機能は， WebAPIを利用しているので，インターネットに接続していない．
 
 #開発環境
 Eclipse + JavaCCプラグイン + JavaFxプラグイン
@@ -20,10 +20,10 @@ http://www.eclipse.org/efxclipse/install.html
 http://qiita.com/again22/items/dccc86bddc5414f8bea8
 を参考にする．
 
-#使い方
+#コンパイル
 リポジトリをcloneし，Eclipseにプロジェクトをインポートする．
 Eclipseから，File -> Import ->General -> Existing Projects into Workspace　をクリック
-MakeCleanCoder.javaを選択して実行する．
+makecleancoder.javaを選択して実行する．
 
 
 
