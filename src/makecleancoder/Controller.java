@@ -67,7 +67,7 @@ public class Controller implements Initializable {
     private String crlf = System.getProperty("line.separator");
     private File initialFile = new File(System.getProperty("user.home"));
     private File openedFileOnEditArea;
-    
+
     //encodingがtrueのときはutf-8になる
     private boolean encoding = true;
 
@@ -110,7 +110,7 @@ public class Controller implements Initializable {
     }
     //editAreaの中身から，コメントを解析する．
     @FXML
-    private void handleOnExecuteParseComment(ActionEvent event) 
+    private void handleOnExecuteParseComment(ActionEvent event)
     {
         String editAreaText = editArea.getText();
         ArrayList<String> improperCommentStringList = commentParse(editAreaText);
@@ -121,7 +121,7 @@ public class Controller implements Initializable {
 
 
         consoleAreaVbox.getChildren().clear();
-        TextFlow improperCommentCount= new TextFlow(new Text("不適切な可能性のあるコメントの数:"+String.valueOf(improperCommentLinkList.size())));
+        TextFlow improperCommentCount= new TextFlow(new Text("検出したコメントの数:"+String.valueOf(improperCommentLinkList.size())));
         consoleAreaVbox.getChildren().add(improperCommentCount);
         for(Hyperlink link : improperCommentLinkList){
             link.setOnAction(new EventHandler<ActionEvent>() {
@@ -190,7 +190,7 @@ public class Controller implements Initializable {
                 exportResultToFile(inproperCommentStringList, file.getName());
                 inproperCommentLinkList = toHyperLinkList(inproperCommentStringList);
 
-                Text inproperCommentCount = new Text("不適切な可能性のあるコメントの数:"+String.valueOf(inproperCommentLinkList.size()));
+                Text inproperCommentCount = new Text("検出したコメントの数:"+String.valueOf(inproperCommentLinkList.size()));
                 TextFlow textFlow = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),inproperCommentCount);
                 consoleAreaVbox.getChildren().add(textFlow);
                 inproperCommentLinkList.add(new Hyperlink());
@@ -225,7 +225,7 @@ public class Controller implements Initializable {
                             int lineNumber = getLineNumberFromLink(link);
 
                             setScrollBar(lineNumber);
-                            }
+                        }
                     });
                     allCommentsAreaVbox.getChildren().add(link);
                 }
@@ -270,7 +270,7 @@ public class Controller implements Initializable {
     private void createLineNumber(KeyEvent event) {
         if ("ENTER".equals(event.getCode().toString())) {
             double scrollTop = editArea.getScrollTop();
-            int lineNumber = editArea.getText().split(crlf,-1).length; 
+            int lineNumber = editArea.getText().split(crlf,-1).length;
             String line = "";
             for (int i = 1; i <= lineNumber + 1; i++) {
                 line += String.valueOf(i) + crlf;
@@ -314,7 +314,7 @@ public class Controller implements Initializable {
                 }
             }
             editArea.setText(inputAllString);
-            int lineNumber = inputAllString.split(crlf,-1).length; 
+            int lineNumber = inputAllString.split(crlf,-1).length;
             String line = "";
             for (int i = 1; i <= lineNumber; i++) {
                 line += String.valueOf(i) + crlf;
@@ -333,13 +333,13 @@ public class Controller implements Initializable {
         ResultData result= new ResultData(inputString);
         ArrayList<String> outPutList = new ArrayList<String>();
 
-        for(int i = 0; i < result.map.size();  i++) {
+        for(int i = 0; i < result.comment.size();  i++) {
             ArrayList<String> comment = result.map.get(result.keyValue.get(i));
             for(int j = 0; j < comment.size(); j++){
                 CommentDictionaly dictionaly = new CommentDictionaly();
                 //適切なコメントかどうか判断する．
                 if (dictionaly.isInappropriateComment(comment.get(j))) {
-                    outPutList.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります"+crlf);
+                    outPutList.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
                 }
             }
         }
@@ -350,7 +350,7 @@ public class Controller implements Initializable {
     {
         ArrayList<Hyperlink> outPutList = new ArrayList<>();
         for(String str:stringList){
-          outPutList.add(new Hyperlink(str));
+            outPutList.add(new Hyperlink(str));
         }
         return outPutList;
     }
@@ -374,41 +374,41 @@ public class Controller implements Initializable {
     //listは解析結果
     //fileNameはファイル名
     //result_filename.txtに解析結果を出力する．
-    private void exportResultToFile(List<String> list,String fileName) 
+    private void exportResultToFile(List<String> list,String fileName)
     {
 
-      //TODO:文字コードによって，出力する文字コードを変更する．
+        //TODO:文字コードによって，出力する文字コードを変更する．
         Calendar c = Calendar.getInstance();
         //フォーマットパターンを指定して表示する
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-       String exportString = sdf.format(c.getTime())+crlf;
-       exportString += "不適切な可能性のあるコメントの数:"+String.valueOf(list.size())+crlf;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String exportString = sdf.format(c.getTime())+crlf;
+        exportString += "検出したコメントの数:"+String.valueOf(list.size())+crlf;
         for(String str:list){
-          exportString+=str;
+            exportString+=str+crlf;
         }
         //出力先ファイルのFileオブジェクトを作成
         File file = new File("src/Result/"+"result_"+fileName+".txt");
         if(!file.exists()){
-          try {
-            file.createNewFile();
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         try {
-          BufferedWriter bw = encoding? new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8")) : new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"SJIS"));
-          bw.write(exportString);
-          bw.newLine();
-          bw.close();
+            BufferedWriter bw = encoding? new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8")) : new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"SJIS"));
+            bw.write(exportString);
+            bw.newLine();
+            bw.close();
         } catch (UnsupportedEncodingException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
         } catch (FileNotFoundException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
         } catch (IOException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
     }

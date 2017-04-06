@@ -64,7 +64,7 @@ public class CommentDictionaly {
                 //nullじゃないとき，ハッシュマップに，コメントの属性値とワードのリストをセットする．
                 if(wordList != null && commentNode.getAttributes().getNamedItem("type") != null){
                     wordMap.put(commentNode.getAttributes().getNamedItem("type").getNodeValue(),wordList);
-                }  
+                }
                 if(regularExpressionList != null && commentNode.getAttributes().getNamedItem("type") != null){
                     regularExpressionMap.put(commentNode.getAttributes().getNamedItem("type").getNodeValue(),regularExpressionList);
                 }

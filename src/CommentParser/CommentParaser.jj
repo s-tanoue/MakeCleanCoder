@@ -32,25 +32,19 @@ ArrayList<String> comment():
    
 }
 {
-      ( others()
-          ( lineComment = < LINE_COMMENT > 
-            {
-                 result.add(lineComment.image);
-            }
-            | blockComment =< BLOCK_COMMENT >
-            {
-                result.add(blockComment.image);
-            }
+      ( (< OTHERS >)*
+          (lineComment = < LINE_COMMENT >
+          {
+            result.add(lineComment.image);
+          }
+          | blockComment =< BLOCK_COMMENT >
+          {
+            result.add(blockComment.image);
+          }
           )
-           others())*
+         (< OTHERS >)* )*
       {
                return result;
       }
 
-}
-void others():
-{
-}
-{
-        (<OTHERS>)*
 }

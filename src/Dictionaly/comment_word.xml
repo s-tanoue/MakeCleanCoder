@@ -1,82 +1,90 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <comments>
     <comment type="TODOコメント">
-        <word>TODO</word>
-        <word>将来</word>
-        <word>しょうらい</word>
-        <word>未来</word>
-        <word>みらい</word>
-        <word>対応</word>
-        <word>たいおう</word>
-        <word>今後</word>
-        <word>こんご</word>
-        <word>予定</word>
-        <word>よてい</word>
+        <regularExpression>TODO</regularExpression>
+        <regularExpression>将来</regularExpression>
+        <regularExpression>しょうらい</regularExpression>
+        <regularExpression>未来</regularExpression>
+        <regularExpression>みらい</regularExpression>
+        <regularExpression>未対応</regularExpression>
+        <regularExpression>たいおう</regularExpression>
+        <regularExpression>今後</regularExpression>
+        <regularExpression>こんご</regularExpression>
+        <regularExpression>予定</regularExpression>
+        <regularExpression>よてい</regularExpression>
         <regularExpression>(?i)TODO</regularExpression>
     </comment>
 
+<!-- 
     <comment type="コードの繰り返しコメント">
-        <word>ループ</word>
-        <word>るーぷ</word>
-        <word>繰り返し</word>
-        <word>くりかえし</word>
-        <word>インクリメント</word>
-        <word>いんくりめんと</word>
-        <word>ブレーク</word>
-        <word>ぶれーく</word>
-        <word>抜ける</word>
-        <word>ぬける</word>
-        <word>かもしれない</word>
-
+        <regularExpression>ループ</regularExpression>
+        <regularExpression>るーぷ</regularExpression>
+        <regularExpression>繰り返し</regularExpression>
+        <regularExpression>くりかえし</regularExpression>
+        <regularExpression>インクリメント</regularExpression>
+        <regularExpression>いんくりめんと</regularExpression>
+        <regularExpression>ブレーク</regularExpression>
+        <regularExpression>ぶれーく</regularExpression>
+        <regularExpression>抜ける</regularExpression>
+        <regularExpression>ぬける</regularExpression>
     </comment>
+ -->
 
     <comment type="改修履歴コメント">
-        <word>昭和</word>
-        <word>しょうわ</word>
-        <word>UPDATE</word>
-        <word>Version</word>
-        <word>追加</word>
-        <word>ついか</word>
-        <word>修正</word>
-        <word>しゅうせい</word>
-        <regularExpression>改修</regularExpression>
-        <regularExpression>\d{2,4}/\d{1,2}/\d{1,2}</regularExpression>
-        <regularExpression>(\d{1,2})?-?((?i)(jan|feb|mar|apr|jun|jul|aug|sep|oct|nov|dec)(\w)?)-?(\d{1,2})?</regularExpression>
-        <regularExpression>(\d{4}-\d{1,2}-\d{1,2})</regularExpression>
-        <regularExpression>(\d{4}年?\d{1,2}月?\d{1,2}日?)</regularExpression>
+        <!-- <regularExpression>変更</regularExpression> -->
+        <!-- 検出する日付フォーマットは以下
+             yyyy/mm/dd、yyyy.mm.dd、yyyy-mm-dd、yyyy年mm月dd日 (yyyyは2桁以上4桁以下)
+             ※ただし、「Copyright」および「(C)」を含む行は検出しない -->
+        <regularExpression>^(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]\d{1,2}日{0,1})(?!.*(Copyright|\(C\))).+$</regularExpression>
+        <regularExpression>^(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]{0,1})(?!.*(Copyright|\(C\))).+$</regularExpression>
+
+        <!-- 改修コメントになり得る単語が日付とセットになっているコメント -->
+        <regularExpression>(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]\d{1,2}日{0,1})(?=.*追加)</regularExpression>
+        <regularExpression>(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]\d{1,2}日{0,1})(?=.*修正)</regularExpression>
+        <regularExpression>(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]\d{1,2}日{0,1})(?=.*削除)</regularExpression>
+        <regularExpression>(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]\d{1,2}日{0,1})(?=.*編集)</regularExpression>
+        <regularExpression>(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]\d{1,2}日{0,1})(?=.*更新)</regularExpression>
+        <regularExpression>(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]\d{1,2}日{0,1})(?=.*変更)</regularExpression>
     </comment>
 
     <comment type="意図が曖昧なコメント">
-        <word>?</word>
-        <word>暫定</word>
-        <word>ざんていてき</word>
-        <word>未定</word>
-        <word>みてい</word>
-        <word>仮</word>
-        <word>かり</word>
-        <word>曖昧</word>
-        <word>あいまい</word>
+        <regularExpression>\?</regularExpression>
+        <regularExpression>暫定</regularExpression>
+        <regularExpression>ざんていてき</regularExpression>
+        <regularExpression>みてい</regularExpression>
+        <regularExpression>かり</regularExpression>
+        <regularExpression>曖昧</regularExpression>
+        <regularExpression>あいまい</regularExpression>
+        <regularExpression>とりあえず</regularExpression>
+        <regularExpression>ひとまず</regularExpression>
+        <!-- 「未定義」以外で「未定」を含む行を検出する -->
+        <regularExpression>^(?!.*未定義).*(?=未定).*$</regularExpression>
+        <!-- 「仮想」以外で「仮」を含む行を検出する -->
+        <regularExpression>^(?!.*仮想).*(?=仮).*$</regularExpression>
     </comment>
 
     <comment type="理解不足であるために追加しているコメント">
-        <word>何故</word>
-        <word>なぜ</word>
-        <word>なぜか</word>
-        <word>分からない</word>
-        <word>わからない</word>
-        <word>不安</word>
-        <word>ふあん</word>
-        <word>理解不足</word>
-        <word>りかいぶそく</word>
-        <word>バグ</word>
-        <word>ばぐ</word>
-        <word>?</word>
-        <word>？</word>
+        <regularExpression>何故</regularExpression>
+        <regularExpression>なぜ</regularExpression>
+        <regularExpression>分からない</regularExpression>
+        <regularExpression>わからない</regularExpression>
+        <regularExpression>不安</regularExpression>
+        <regularExpression>ふあん</regularExpression>
+        <regularExpression>理解不足</regularExpression>
+        <regularExpression>りかいぶそく</regularExpression>
+        <regularExpression>バグ</regularExpression>
+        <regularExpression>ばぐ</regularExpression>
+        <regularExpression>たぶん</regularExpression>
+        <regularExpression>きっと</regularExpression>
+        <regularExpression>おそらく</regularExpression>
+        <regularExpression>かもしれない</regularExpression>
+        <regularExpression>\?</regularExpression>
+        <regularExpression>？</regularExpression>
     </comment>
 
     <comment type="ソースコードコメント">
-        <word>ここから</word>
-        <word>ここまで</word>
+        <regularExpression>ここから</regularExpression>
+        <regularExpression>ここまで</regularExpression>
     </comment>
 
 </comments>
