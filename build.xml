@@ -58,7 +58,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="Dictionaly.CommentDictionalyTest" todir="${junit.output.dir}"/>
+            <test name="Dictionary.CommentDictionalyTest" todir="${junit.output.dir}"/>
             <jvmarg line="-ea"/>
             <classpath refid="MakeCleanCoder.classpath"/>
         </junit>

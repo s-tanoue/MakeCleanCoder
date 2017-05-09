@@ -22,9 +22,8 @@
          <children>
             <MenuBar>
               <menus>
-                  <Menu mnemonicParsing="false" text="MCC">
+                  <Menu mnemonicParsing="false" text="設定">
                      <items>
-                        <MenuItem fx:id="Preference" mnemonicParsing="false" onAction="#handleOnPreference" text="設定" />
                         <Menu mnemonicParsing="false" text="文字コード">
                            <items>
                               <RadioMenuItem fx:id="UTF8" mnemonicParsing="false" onAction="#handleOnUTF8" selected="true" text="UTF-8">
@@ -41,28 +40,28 @@
                   <items>
                         <MenuItem fx:id="fileOpen" mnemonicParsing="false" onAction="#handleOnFileOpen" text="ファイルを開く" />
                         <MenuItem fx:id="fileSave" mnemonicParsing="false" onAction="#handleOnFileSave" text="ファイルを保存" />
-                        <MenuItem fx:id="analaysisCommentInFolder" mnemonicParsing="false" onAction="#handleOnAnalaysisCommentInFolder" text="フォルダーの内のコメントを解析" />
+                        <!-- <MenuItem fx:id="analaysisCommentInFolder" mnemonicParsing="false" onAction="#handleOnAnalaysisCommentInFolder" text="フォルダーの内のコメントを解析" /> -->
                         <MenuItem fx:id="analaysisCommentInMultipleFiles" mnemonicParsing="false" onAction="#handleOnAnalaysisCommentInMultipleFiles" text="複数ファイルのコメントを解析" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="編集">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="戻す" />
+                   <!-- <MenuItem mnemonicParsing="false" text="戻す" /> !-->
                     <MenuItem mnemonicParsing="false" onAction="#clearEditArea" text="編集エリアをクリア" />
                     <MenuItem mnemonicParsing="false" onAction="#clearConsoleArea" text="表示エリアをクリア" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="実行">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#executeVariableParser" text="変数名を解析" />
+                        <!-- <MenuItem mnemonicParsing="false" onAction="#executeVariableParser" text="変数名を解析" /> -->
                         <MenuItem mnemonicParsing="false" onAction="#handleOnExecuteParseComment" text="コメントを解析" />
                      </items>
                   </Menu>
-                <Menu mnemonicParsing="false" text="ヘルプ">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="バージョン情報" />
-                  </items>
-                </Menu>
+              <!--   <Menu mnemonicParsing="false" text="ヘルプ">                       -->
+              <!--     <items>                                                             -->
+              <!--       <MenuItem mnemonicParsing="false" text="バージョン情報" /> -->
+              <!--     </items>                                                            -->
+              <!-- </Menu>                                                                 -->
               </menus>
             </MenuBar>
             <HBox prefHeight="399.0" prefWidth="829.0" VBox.vgrow="ALWAYS">
@@ -92,7 +91,7 @@
                </padding></Label>
             <TabPane prefHeight="275.0" prefWidth="829.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab text="コメント">
+                <Tab text="検出したコメント">
                      <content>
                          <ScrollPane fx:id="consoleArea" prefHeight="257.0" prefWidth="829.0">
                            <content>
@@ -110,15 +109,15 @@
                         </ScrollPane>
                      </content>
                 </Tab>
-                <Tab text="変数名">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TextArea fx:id="parseResultArea" editable="false" prefHeight="245.0" prefWidth="829.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
+                <!-- <Tab text="変数名">                                                                                                                                                                                                      -->
+                <!--   <content>                                                                                                                                                                                                                 -->
+                <!--     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">                                                                                                                                        -->
+                <!--            <children>                                                                                                                                                                                                       -->
+                <!--               <TextArea fx:id="parseResultArea" editable="false" prefHeight="245.0" prefWidth="829.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" /> -->
+                <!--            </children>                                                                                                                                                                                                      -->
+                <!--         </AnchorPane>                                                                                                                                                                                                       -->
+                <!--   </content>                                                                                                                                                                                                                -->
+                <!-- </Tab>                                                                                                                                                                                                                      -->
               </tabs>
             </TabPane>
          </children>
