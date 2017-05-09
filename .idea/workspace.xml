@@ -871,7 +871,7 @@
       <workItem from="1491377189118" duration="906000" />
       <workItem from="1491451007992" duration="232000" />
       <workItem from="1491452110631" duration="270000" />
-      <workItem from="1494300298259" duration="22899000" />
+      <workItem from="1494300298259" duration="22944000" />
     </task>
     <task id="LOCAL-00001" summary="変数名のスペルが間違っていたので修正した．&#10;分かりにくい部分をメソッドに抽出した．">
       <created>1486515574909</created>
@@ -884,7 +884,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68629000" />
+    <option name="totallyTimeSpent" value="68674000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
