@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import ResultData.RegularExpression;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -17,7 +18,8 @@ import org.xml.sax.SAXException;
 public class CommentDictionary {
 
     //例: key:TODOコメント Value:TODO,明日までにこれをやる！，ここは修正すべき．
-    private HashMap<String,ArrayList<String>>  regularExpressionMap = new HashMap<String,ArrayList<String>>();
+    protected ArrayList<RegularExpression> list = new ArrayList<RegularExpression>();
+    //private HashMap<String,ArrayList<String>>  regularExpressionMap = new HashMap<String,ArrayList<String>>();
 
     //データ構造の作成
     public CommentDictionary() {
@@ -42,7 +44,7 @@ public class CommentDictionary {
         //commentの最初のnodeを取得
         Node commentNode = rootNode.getFirstChild();
         while (commentNode != null) {
-            ArrayList<String> regularExpressionList = new ArrayList<String>();
+            RegularExpression regularExpression;
             if (!commentNode.getNodeName().equals("comment")) {
                 commentNode = commentNode.getNextSibling();
                 continue;
@@ -55,11 +57,28 @@ public class CommentDictionary {
                 }
                 Node node = regularExpressionNode.getFirstChild();
                 if (node != null){
-                    regularExpressionList.add(node.getNodeValue());
+
+                    //caseSensitiveの取得 nullの可能性もあり．
+                    Boolean isCaseSensitive;
+                    try {
+                        String caseSensitive = regularExpressionNode.getAttributes().getNamedItem("caseSensitive").getNodeValue();
+                        isCaseSensitive = caseSensitive.equals("true");
+                    }catch(NullPointerException e){
+                        isCaseSensitive = false;
+                    }
+
+                    //kindの取得 nullの可能性もあり．
+                    String kind ="";
+                    try {
+                        kind = commentNode.getAttributes().getNamedItem("type").getNodeValue();
+                    }catch(NullPointerException e){
+                    }
+
+                    regularExpression = new RegularExpression(node.getNodeValue(),kind,isCaseSensitive);
+                    list.add(regularExpression);
                 }
                 //nullじゃないとき，ハッシュマップに，コメントの属性値とワードのリストをセットする．
                 if(commentNode.getAttributes().getNamedItem("type") != null){
-                    regularExpressionMap.put(commentNode.getAttributes().getNamedItem("type").getNodeValue(),regularExpressionList);
                 }
                 regularExpressionNode = regularExpressionNode.getNextSibling();
             }
@@ -77,13 +96,11 @@ public class CommentDictionary {
     }
     //正規表現に一致したらtrue
     public boolean isRegularExpression(String target){
-        for (String key : regularExpressionMap.keySet()) {
-            for(String r: regularExpressionMap.get(key)){
-                Pattern p = Pattern.compile(r);
-                Matcher m = p.matcher(target);
-                if(m.find()){
+        for (RegularExpression re : list){
+            Pattern p = re.getPattern();
+            Matcher m = p.matcher(target);
+            if(m.find()){
                     return true;
-                }
             }
         }
         return false;

@@ -15,7 +15,7 @@ public class CommentWithLineNumber {
 
     private ArrayList<String> comment = new ArrayList<>();
     //コメントが存在している行番号
-    private ArrayList<Integer> keyValue = new ArrayList<Integer>();
+    private ArrayList<Integer> keyValue = new ArrayList<>();
     //コメントが存在している行番号がキーで，その行番号に存在しているコメントの文字列．
     private HashMap <Integer,ArrayList<String>> map = new HashMap<>();
 
