@@ -73,6 +73,9 @@ public class CommentDictionaly {
             commentNode = commentNode.getNextSibling();
         }
     }
+    //TODO コメントの際がないようにフィルターを作る．
+    //TODO 大文字の区別をつけないオプションを付けるのではなく
+    //TODO 過去形現在系の区別をつけないオプションを付ける
     //不適切なコメントであったらtrue
     public boolean isInappropriateComment(String target) {
       if( isWord(target) || isRegularExppression(target)){

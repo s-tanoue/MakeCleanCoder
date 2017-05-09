@@ -376,7 +376,6 @@ public class Controller implements Initializable {
     //result_filename.txtに解析結果を出力する．
     private void exportResultToFile(List<String> list,String fileName)
     {
-
         //TODO:文字コードによって，出力する文字コードを変更する．
         Calendar c = Calendar.getInstance();
         //フォーマットパターンを指定して表示する
@@ -386,34 +385,32 @@ public class Controller implements Initializable {
         for(String str:list){
             exportString+=str+crlf;
         }
+        //TODO:Resultのフォルダが無いとき，エクセプションが発生している．エラー処理を書く．
         //出力先ファイルのFileオブジェクトを作成
         File file = new File("src/Result/"+"result_"+fileName+".txt");
         if(!file.exists()){
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("ファイルを作れませんでした");
             }
         }
+
         try {
             BufferedWriter bw = encoding? new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8")) : new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"SJIS"));
             bw.write(exportString);
             bw.newLine();
             bw.close();
         } catch (UnsupportedEncodingException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+            System.err.println("そのエンコーディングはだめです");
         } catch (FileNotFoundException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+            System.err.println("解析結果のファイルがありません");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println("入出力エラーです");
         }
 
     }
 
-    //編集エリアのコメントを解析する
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         editArea.scrollTopProperty().bindBidirectional(lineNumberArea.scrollTopProperty());
