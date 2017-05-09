@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 
 public class CommentDictionary {
 
-    private HashMap<String,ArrayList<String>>  wordMap = new HashMap<String,ArrayList<String>>();
+    //例: key:TODOコメント Value:TODO,明日までにこれをやる！，ここは修正すべき．
     private HashMap<String,ArrayList<String>>  regularExpressionMap = new HashMap<String,ArrayList<String>>();
 
     //データ構造の作成
@@ -42,61 +42,41 @@ public class CommentDictionary {
         //commentの最初のnodeを取得
         Node commentNode = rootNode.getFirstChild();
         while (commentNode != null) {
-            ArrayList<String> wordList = new ArrayList<String>();
             ArrayList<String> regularExpressionList = new ArrayList<String>();
             if (!commentNode.getNodeName().equals("comment")) {
                 commentNode = commentNode.getNextSibling();
                 continue;
             }
-            Node wordNode = commentNode.getFirstChild();
-            while (wordNode != null) {
-                if (wordNode.getNodeName().equals("word")) {  
-                    Node node = wordNode.getFirstChild(); 
-                    if (node != null && node.getNodeValue() != null) {
-                        wordList.add(node.getNodeValue());           
-                    } 
-                }else if(wordNode.getNodeName().equals("regularExpression") ){
-                    Node node = wordNode.getFirstChild(); 
-                    if (node != null && node.getNodeValue() != null) {
-                        regularExpressionList.add(node.getNodeValue());           
-                    } 
+            Node regularExpressionNode = commentNode.getFirstChild();
+            while (regularExpressionNode != null) {
+                if(!regularExpressionNode.getNodeName().equals("regularExpression") ){
+                    regularExpressionNode = regularExpressionNode.getNextSibling();
+                    continue;
+                }
+                Node node = regularExpressionNode.getFirstChild();
+                if (node != null){
+                    regularExpressionList.add(node.getNodeValue());
                 }
                 //nullじゃないとき，ハッシュマップに，コメントの属性値とワードのリストをセットする．
-                if(wordList != null && commentNode.getAttributes().getNamedItem("type") != null){
-                    wordMap.put(commentNode.getAttributes().getNamedItem("type").getNodeValue(),wordList);
-                }
-                if(regularExpressionList != null && commentNode.getAttributes().getNamedItem("type") != null){
+                if(commentNode.getAttributes().getNamedItem("type") != null){
                     regularExpressionMap.put(commentNode.getAttributes().getNamedItem("type").getNodeValue(),regularExpressionList);
                 }
-                wordNode = wordNode.getNextSibling();
+                regularExpressionNode = regularExpressionNode.getNextSibling();
             }
             commentNode = commentNode.getNextSibling();
         }
     }
-    //TODO コメントの際がないようにフィルターを作る．
-    //TODO 大文字の区別をつけないオプションを付けるのではなく
+    //TODO 大文字の区別をつけないオプションを付けるの
     //TODO 過去形現在系の区別をつけないオプションを付ける
     //不適切なコメントであったらtrue
     public boolean isInappropriateComment(String target) {
-      if( isWord(target) || isRegularExppression(target)){
+      if(isRegularExpression(target)){
               return true;
         }
         return false;
     }
-    //単語と一致したらtrue
-    public boolean isWord(String target){
-        for (String key : wordMap.keySet()) {
-          //手に入れたListをそれぞれ，wに展開
-            for(String w: wordMap.get(key)){
-                if(target.matches(".*"+ Pattern.quote(w) +".*")){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
     //正規表現に一致したらtrue
-    public boolean isRegularExppression(String target){
+    public boolean isRegularExpression(String target){
         for (String key : regularExpressionMap.keySet()) {
             for(String r: regularExpressionMap.get(key)){
                 Pattern p = Pattern.compile(r);

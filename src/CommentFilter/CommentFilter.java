@@ -10,7 +10,8 @@ public class CommentFilter {
     private String textPassedThroughFilter;
 
     public CommentFilter(String originalText){
-        this.textPassedThroughFilter = new String(originalText.toLowerCase());
+      //  this.textPassedThroughFilter = new String(originalText.toLowerCase());
+        this.textPassedThroughFilter = originalText;
     };
 
     public String getTextPassedThroughFilter(){

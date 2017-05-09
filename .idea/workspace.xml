@@ -7,17 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78cf88f0-a317-4bf5-b8f5-80f7d9db71f1" name="Default" comment="変数名のスペルが間違っていたので修正した．&#10;分かりにくい部分をメソッドに抽出した．">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CommentFilter/CommentFilter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Dictionaly/CommentDictionaly.java" afterPath="$PROJECT_DIR$/src/Dictionary/CommentDictionary.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Dictionaly/WebDicitonaly.java" afterPath="$PROJECT_DIR$/src/Dictionary/WebDicitonaly.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Dictionaly/comment_word.xml" afterPath="$PROJECT_DIR$/src/Dictionary/comment_word.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ResultData/ResultData.java" afterPath="$PROJECT_DIR$/src/ResultData/CommentWithLineNumber.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParser.java" afterPath="$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParserTokenManager.java" afterPath="$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParserTokenManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Parser/CleanCoderParser.java" afterPath="$PROJECT_DIR$/src/Parser/CleanCoderParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Parser/CleanCoderParserTokenManager.java" afterPath="$PROJECT_DIR$/src/Parser/CleanCoderParserTokenManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CommentFilter/CommentFilter.java" afterPath="$PROJECT_DIR$/src/CommentFilter/CommentFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Dictionary/CommentDictionary.java" afterPath="$PROJECT_DIR$/src/Dictionary/CommentDictionary.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Dictionary/comment_word.xml" afterPath="$PROJECT_DIR$/src/Dictionary/comment_word.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ResultData/CommentWithLineNumber.java" afterPath="$PROJECT_DIR$/src/ResultData/CommentWithLineNumber.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/makecleancoder/Controller.java" afterPath="$PROJECT_DIR$/src/makecleancoder/Controller.java" />
     </list>
     <list id="30ece7fd-4675-4ce3-898a-e451cf8b46d0" name="comment_word.xmlを変更" comment="comment_word.xmlを変更" />
@@ -38,16 +32,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Controller.ast" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/makecleancoder/Controller.ast">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="81" lean-forward="false" selection-start-line="0" selection-start-column="81" selection-end-line="0" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MakeCleanCoder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/makecleancoder/MakeCleanCoder.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -68,61 +52,36 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="WebDicitonaly.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dictionary/WebDicitonaly.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="view.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/makecleancoder/view.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="974">
-              <caret line="91" column="74" lean-forward="false" selection-start-line="91" selection-start-column="74" selection-end-line="91" selection-end-column="74" />
+            <state relative-caret-position="59">
+              <caret line="30" column="61" lean-forward="true" selection-start-line="30" selection-start-column="61" selection-end-line="30" selection-end-column="61" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommentWithLineNumber.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ResultData/CommentWithLineNumber.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-              <folding>
-                <element signature="e#425#434#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CleanCoderCommentParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="861">
-              <caret line="69" column="2" lean-forward="false" selection-start-line="69" selection-start-column="2" selection-end-line="69" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CommentDictionary.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CommentDictionary.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Dictionary/CommentDictionary.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="171">
+              <caret line="19" column="68" lean-forward="false" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/makecleancoder/Controller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="338" column="33" lean-forward="false" selection-start-line="338" selection-start-column="33" selection-end-line="338" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#12748#12756#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -131,8 +90,41 @@
       <file leaf-file-name="comment_word.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Dictionary/comment_word.xml">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="9" lean-forward="false" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/makecleancoder/Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <caret line="339" column="46" lean-forward="true" selection-start-line="339" selection-start-column="46" selection-end-line="339" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#12860#12868#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CleanCoderCommentParserTokenManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParserTokenManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CleanCoderCommentParserConstants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParserConstants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -141,11 +133,11 @@
       <file leaf-file-name="CommentFilter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CommentFilter/CommentFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="315">
+              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding>
-                <element signature="e#370#371#0" expanded="true" />
-                <element signature="e#421#422#0" expanded="true" />
+                <element signature="e#425#426#0" expanded="true" />
+                <element signature="e#476#477#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -192,11 +184,11 @@
         <option value="$PROJECT_DIR$/src/Dictionafy/CommentDictionaly.java" />
         <option value="$PROJECT_DIR$/src/Dictionary/CommentDictionaly.java" />
         <option value="$PROJECT_DIR$/src/Dictionary/CommentDictionafry.java" />
-        <option value="$PROJECT_DIR$/src/Dictionary/CommentDictionary.java" />
+        <option value="$PROJECT_DIR$/src/ResultData/CommentWithLineNumber.java" />
+        <option value="$PROJECT_DIR$/src/makecleancoder/Controller.java" />
         <option value="$PROJECT_DIR$/src/CommentFilter/CommentFilter.java" />
         <option value="$PROJECT_DIR$/src/Dictionary/comment_word.xml" />
-        <option value="$PROJECT_DIR$/src/makecleancoder/Controller.java" />
-        <option value="$PROJECT_DIR$/src/ResultData/CommentWithLineNumber.java" />
+        <option value="$PROJECT_DIR$/src/Dictionary/CommentDictionary.java" />
       </list>
     </option>
   </component>
@@ -867,7 +859,7 @@
       <workItem from="1491377189118" duration="906000" />
       <workItem from="1491451007992" duration="232000" />
       <workItem from="1491452110631" duration="270000" />
-      <workItem from="1494300298259" duration="8216000" />
+      <workItem from="1494300298259" duration="16404000" />
     </task>
     <task id="LOCAL-00001" summary="変数名のスペルが間違っていたので修正した．&#10;分かりにくい部分をメソッドに抽出した．">
       <created>1486515574909</created>
@@ -880,7 +872,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53946000" />
+    <option name="totallyTimeSpent" value="62134000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -893,7 +885,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-2560" y="-591" width="2560" height="1440" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Tool Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -910,7 +902,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20948905" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329927" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277372" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3270073" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -918,7 +910,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22554745" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919708" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25178713" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25178713" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
@@ -970,7 +962,7 @@
           <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="11" />
+      <option name="time" value="16" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -979,16 +971,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Dictionary/CommentDictionary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Dictionary/comment_word.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1046,20 +1028,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParserConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParserTokenManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1219,14 +1187,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Dictionary/WebDicitonaly.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Result/result_testdata.c.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -1243,32 +1203,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CommentFilter/CommentFilter.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/src.zip!/java/util/HashMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#370#371#0" expanded="true" />
-            <element signature="e#421#422#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Dictionary/comment_word.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="351">
+          <caret line="904" column="0" lean-forward="false" selection-start-line="904" selection-start-column="0" selection-end-line="904" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/makecleancoder/view.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/ResultData/CommentWithLineNumber.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="974">
-          <caret line="91" column="74" lean-forward="false" selection-start-line="91" selection-start-column="74" selection-end-line="91" selection-end-column="74" />
+        <state relative-caret-position="855">
+          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding>
+            <element signature="e#389#398#0" expanded="true" />
+            <element signature="e#1847#1848#0" expanded="true" />
+            <element signature="e#1968#1969#0" expanded="true" />
+            <element signature="e#2002#2003#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/makecleancoder/Controller.ast">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="81" lean-forward="false" selection-start-line="0" selection-start-column="81" selection-end-line="0" selection-end-column="81" />
           <folding />
         </state>
       </provider>
@@ -1281,6 +1240,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/makecleancoder/view.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="30" column="61" lean-forward="true" selection-start-line="30" selection-start-column="61" selection-end-line="30" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/makecleancoder/MakeCleanCoder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -1289,41 +1259,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/makecleancoder/Controller.ast">
+    <entry file="file://$PROJECT_DIR$/src/makecleancoder/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="81" lean-forward="false" selection-start-line="0" selection-start-column="81" selection-end-line="0" selection-end-column="81" />
+        <state relative-caret-position="210">
+          <caret line="339" column="46" lean-forward="true" selection-start-line="339" selection-start-column="46" selection-end-line="339" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#12860#12868#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dictionary/WebDicitonaly.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/makecleancoder/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParserTokenManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="338" column="33" lean-forward="false" selection-start-line="338" selection-start-column="33" selection-end-line="338" selection-end-column="33" />
+        <state relative-caret-position="75">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dictionary/comment_word.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="9" lean-forward="false" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CommentFilter/CommentFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#12748#12756#0" expanded="true" />
+            <element signature="e#425#426#0" expanded="true" />
+            <element signature="e#476#477#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CommentParser/CleanCoderCommentParserConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Dictionary/CommentDictionary.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="171">
+          <caret line="19" column="68" lean-forward="false" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ResultData/CommentWithLineNumber.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-          <folding>
-            <element signature="e#425#434#0" expanded="true" />
           </folding>
         </state>
       </provider>

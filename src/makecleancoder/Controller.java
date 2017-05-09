@@ -34,10 +34,8 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+
 /**
  * @author SatoshiTanoue
  * @version 1.0
@@ -332,17 +330,21 @@ public class Controller implements Initializable {
     private ArrayList<String> commentParse(String inputString)
     {
         //TODO もっといい名前にしたい．
+        //TODO filterに通したコメントと通ささなかったコメントの総数が同じじゃないとまずい 改行の数は変わらないようにする．
         CommentFilter commentFilter = new CommentFilter(inputString);
-        CommentWithLineNumber result= new CommentWithLineNumber(inputString);
+        CommentWithLineNumber resultPassedCommentFilter= new CommentWithLineNumber(commentFilter.getTextPassedThroughFilter());
+        CommentWithLineNumber result = new CommentWithLineNumber(inputString);
         ArrayList<String> outPutList = new ArrayList<String>();
 
-        for(int i = 0; i < result.comment.size();  i++) {
-            ArrayList<String> comment = result.map.get(result.keyValue.get(i));
+        //全てのコメントを表示するまで繰り返す．
+        for(int i = 0; i < result.getCommentSize();  i++) {
+            ArrayList<String> comment = result.getMap().get(result.getKeyValue().get(i));
+            ArrayList<String> commentPassedCommentFilter = resultPassedCommentFilter.getMap().get(resultPassedCommentFilter.getKeyValue().get(i));
             for(int j = 0; j < comment.size(); j++){
                 CommentDictionary dictionary = new CommentDictionary();
                 //適切なコメントかどうか判断する．
-                if (dictionary.isInappropriateComment(comment.get(j))) {
-                    outPutList.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
+                if (dictionary.isInappropriateComment(commentPassedCommentFilter.get(j))) {
+                    outPutList.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
                 }
             }
         }
@@ -365,10 +367,10 @@ public class Controller implements Initializable {
         CommentWithLineNumber result = new CommentWithLineNumber(inputString);
         ArrayList<String> outPutLink= new ArrayList<String>();
 
-        for(int i = 0; i < result.map.size();  i++) {
-            ArrayList<String> comment = result.map.get(result.keyValue.get(i));
+        for(int i = 0; i < result.getCommentSize();  i++) {
+            ArrayList<String> comment = result.getMap().get(result.getKeyValue().get(i));
             for(int j = 0; j < comment.size(); j++){
-                outPutLink.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, ""));
+                outPutLink.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, ""));
             }
         }
         return outPutLink;
