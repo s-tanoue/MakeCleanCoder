@@ -2,7 +2,7 @@
 package Parser;
 import java.util.ArrayList;
 import java.util.List;
-import Dictionaly.*;
+import Dictionary.*;
 
 public class CleanCoderParser implements CleanCoderParserConstants {
 

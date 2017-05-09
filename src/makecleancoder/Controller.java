@@ -1,9 +1,10 @@
 package makecleancoder;
 
-import Dictionaly.CommentDictionaly;
+import CommentFilter.CommentFilter;
+import Dictionary.CommentDictionary;
 import Parser.CleanCoderParser;
 import Parser.ParseException;
-import ResultData.ResultData;
+import ResultData.CommentWithLineNumber;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -326,19 +327,21 @@ public class Controller implements Initializable {
 
     }
 
-    // 戻り値 コンソールエリアに出力する文字列
     // 引数 解析するソースコード
+    // 戻り値 コンソールエリアに出力する文字列
     private ArrayList<String> commentParse(String inputString)
     {
-        ResultData result= new ResultData(inputString);
+        //TODO もっといい名前にしたい．
+        CommentFilter commentFilter = new CommentFilter(inputString);
+        CommentWithLineNumber result= new CommentWithLineNumber(inputString);
         ArrayList<String> outPutList = new ArrayList<String>();
 
         for(int i = 0; i < result.comment.size();  i++) {
             ArrayList<String> comment = result.map.get(result.keyValue.get(i));
             for(int j = 0; j < comment.size(); j++){
-                CommentDictionaly dictionaly = new CommentDictionaly();
+                CommentDictionary dictionary = new CommentDictionary();
                 //適切なコメントかどうか判断する．
-                if (dictionaly.isInappropriateComment(comment.get(j))) {
+                if (dictionary.isInappropriateComment(comment.get(j))) {
                     outPutList.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
                 }
             }
@@ -359,7 +362,7 @@ public class Controller implements Initializable {
     // 戻り値 ソースコードに存在するすべてのコメント
     private ArrayList<String> getAllComment(String inputString)
     {
-        ResultData result = new ResultData(inputString);
+        CommentWithLineNumber result = new CommentWithLineNumber(inputString);
         ArrayList<String> outPutLink= new ArrayList<String>();
 
         for(int i = 0; i < result.map.size();  i++) {

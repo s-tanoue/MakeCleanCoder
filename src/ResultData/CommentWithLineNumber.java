@@ -7,15 +7,16 @@ import java.util.regex.Pattern;
 
 import CommentParser.CleanCoderCommentParser;
 
-public class ResultData {
+public class CommentWithLineNumber {
 
 
+    //もっとわかりやすくしたいけどどうすれば？？？
 	public ArrayList<String> comment = new ArrayList<>();
 	public HashMap <Integer,ArrayList<String>> map = new HashMap<>();
 	public ArrayList<Integer> keyValue = new ArrayList<Integer>();
-	
+
 	//HashMapにコメントと行番号をhashmapにセットする．
-	public ResultData(String inputString){
+	public CommentWithLineNumber(String inputString){
 		int lineNumber = 0;
 		String inputStrings[] = inputString.split("\n", -1);
 		CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(inputString));

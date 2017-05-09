@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <comments>
     <comment type="DESIGN">
-        <regularExpression>(?i)TODO</regularExpression>
+        <regularExpression>todo</regularExpression>
         <regularExpression>(don't)*(like)</regularExpression>
         <regularExpression>hack(ed)?(ing)?</regularExpression>
         <regularExpression>ignore</regularExpression>
