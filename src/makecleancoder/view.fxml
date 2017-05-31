@@ -31,7 +31,7 @@
                                     <ToggleGroup fx:id="encoding" />
                                  </toggleGroup>
                               </RadioMenuItem>
-                              <RadioMenuItem fx:id="ShiftJIS" mnemonicParsing="false" onAction="#handleOnShiftJIS" text="Shfit-JIS" toggleGroup="$encoding" />
+                              <RadioMenuItem fx:id="ShiftJIS" mnemonicParsing="false" onAction="#handleOnShiftJIS" text="Shift-JIS" toggleGroup="$encoding" />
                            </items>
                         </Menu>
                      </items>
