@@ -1,4 +1,4 @@
-package Dictionaly;
+package Dictionary;
 
 
 import java.io.IOException;
@@ -14,19 +14,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-public class CommentDictionaly {
+public class  CommentDictionary {
 
     private HashMap<String,ArrayList<String>>  wordMap = new HashMap<String,ArrayList<String>>();
     private HashMap<String,ArrayList<String>>  regularExpressionMap = new HashMap<String,ArrayList<String>>();
 
     //データ構造の作成
-    public CommentDictionaly() {
+    public CommentDictionary() {
         //xml の読みこみ
         Document document = null;
         try {
             document = DocumentBuilderFactory.newInstance()
                 .newDocumentBuilder()
-                .parse("src/Dictionaly/comment_word.xml");
+                .parse("src/Dictionary/comment_word.xml");
         } catch (SAXException e) {
             // TODO 自動生成された catch ブロック
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class CommentDictionaly {
     }
     //不適切なコメントであったらtrue
     public boolean isInappropriateComment(String target) {
-      if( isWord(target) || isRegularExppression(target)){
+      if( isWord(target) || isRegularExpression(target)){
               return true;
         }
         return false;
@@ -93,7 +93,7 @@ public class CommentDictionaly {
         return false;
     }
     //正規表現に一致したらtrue
-    public boolean isRegularExppression(String target){
+    public boolean isRegularExpression(String target){
         for (String key : regularExpressionMap.keySet()) {
             for(String r: regularExpressionMap.get(key)){
                 Pattern p = Pattern.compile(r);

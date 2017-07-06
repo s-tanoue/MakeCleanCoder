@@ -15,29 +15,27 @@
         <regularExpression>(?i)TODO</regularExpression>
     </comment>
 
-<!-- 
-    <comment type="コードの繰り返しコメント">
-        <regularExpression>ループ</regularExpression>
-        <regularExpression>るーぷ</regularExpression>
-        <regularExpression>繰り返し</regularExpression>
-        <regularExpression>くりかえし</regularExpression>
-        <regularExpression>インクリメント</regularExpression>
-        <regularExpression>いんくりめんと</regularExpression>
-        <regularExpression>ブレーク</regularExpression>
-        <regularExpression>ぶれーく</regularExpression>
-        <regularExpression>抜ける</regularExpression>
-        <regularExpression>ぬける</regularExpression>
-    </comment>
- -->
+    <!--
+        <comment type="コードの繰り返しコメント">
+            <regularExpression>ループ</regularExpression>
+            <regularExpression>るーぷ</regularExpression>
+            <regularExpression>繰り返し</regularExpression>
+            <regularExpression>くりかえし</regularExpression>
+            <regularExpression>インクリメント</regularExpression>
+            <regularExpression>いんくりめんと</regularExpression>
+            <regularExpression>ブレーク</regularExpression>
+            <regularExpression>ぶれーく</regularExpression>
+            <regularExpression>抜ける</regularExpression>
+            <regularExpression>ぬける</regularExpression>
+        </comment>
+     -->
 
     <comment type="改修履歴コメント">
-        <!-- <regularExpression>変更</regularExpression> -->
         <!-- 検出する日付フォーマットは以下
              yyyy/mm/dd、yyyy.mm.dd、yyyy-mm-dd、yyyy年mm月dd日 (yyyyは2桁以上4桁以下)
              ※ただし、「Copyright」および「(C)」を含む行は検出しない -->
         <regularExpression>^(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]\d{1,2}日{0,1})(?!.*(Copyright|\(C\))).+$</regularExpression>
         <regularExpression>^(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]{0,1})(?!.*(Copyright|\(C\))).+$</regularExpression>
-
         <!-- 改修コメントになり得る単語が日付とセットになっているコメント -->
         <regularExpression>(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]\d{1,2}日{0,1})(?=.*追加)</regularExpression>
         <regularExpression>(?=.*\d{2,4}[.\-/年]\d{1,2}[.\-/月]\d{1,2}日{0,1})(?=.*修正)</regularExpression>

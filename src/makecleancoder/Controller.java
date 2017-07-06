@@ -1,6 +1,6 @@
 package makecleancoder;
 
-import Dictionaly.CommentDictionaly;
+import Dictionary.CommentDictionary;
 import Parser.CleanCoderParser;
 import Parser.ParseException;
 import ResultData.ResultData;
@@ -114,6 +114,7 @@ public class Controller implements Initializable {
     {
         String editAreaText = editArea.getText();
         ArrayList<String> improperCommentStringList = commentParse(editAreaText);
+        //TODO　ファイルがないときに，検出できない．
         exportResultToFile(improperCommentStringList, openedFileOnEditArea.getName());
         ArrayList<Hyperlink> improperCommentLinkList =toHyperLinkList(improperCommentStringList);
         ArrayList<String> allCommentStringList = getAllComment(editAreaText);
@@ -187,7 +188,8 @@ public class Controller implements Initializable {
                 //コメントを解析した結果は，hyperlinkのlistで返ってくる．
                 inproperCommentLinkList.clear();
                 inproperCommentStringList = commentParse(inputString);
-                exportResultToFile(inproperCommentStringList, file.getName());
+
+                exportResultToFile(inproperCommentStringList,file.getName());
                 inproperCommentLinkList = toHyperLinkList(inproperCommentStringList);
 
                 Text inproperCommentCount = new Text("検出したコメントの数:"+String.valueOf(inproperCommentLinkList.size()));
@@ -304,6 +306,7 @@ public class Controller implements Initializable {
     //指定されたパスに存在するファイルを開き，テキストエリアに出力する．
     private void openFile(File file){
         openedFileOnEditArea = new File(file.getPath());
+        fileLabel.setText(file.getName());
         try {
             String inputAllString;
             try(BufferedReader br = encoding ? new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8")) : new BufferedReader(new InputStreamReader(new FileInputStream(file),"SJIS"))){
@@ -336,9 +339,9 @@ public class Controller implements Initializable {
         for(int i = 0; i < result.comment.size();  i++) {
             ArrayList<String> comment = result.map.get(result.keyValue.get(i));
             for(int j = 0; j < comment.size(); j++){
-                CommentDictionaly dictionaly = new CommentDictionaly();
+                CommentDictionary ditcionary = new CommentDictionary();
                 //適切なコメントかどうか判断する．
-                if (dictionaly.isInappropriateComment(comment.get(j))) {
+                if (ditcionary.isInappropriateComment(comment.get(j))) {
                     outPutList.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
                 }
             }
@@ -377,7 +380,7 @@ public class Controller implements Initializable {
     private void exportResultToFile(List<String> list,String fileName)
     {
 
-        //TODO:文字コードによって，出力する文字コードを変更する．
+        //TODO 文字コードによって，出力する文字コードを変更する．
         Calendar c = Calendar.getInstance();
         //フォーマットパターンを指定して表示する
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -401,13 +404,10 @@ public class Controller implements Initializable {
             bw.newLine();
             bw.close();
         } catch (UnsupportedEncodingException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         } catch (FileNotFoundException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

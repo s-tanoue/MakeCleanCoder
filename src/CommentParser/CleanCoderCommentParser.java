@@ -2,8 +2,6 @@
   package CommentParser;
 
   import java.util.ArrayList;
-  import Dictionaly.*;
-  import ResultData.*;
 
 public class CleanCoderCommentParser implements CleanCoderCommentParserConstants {
 
