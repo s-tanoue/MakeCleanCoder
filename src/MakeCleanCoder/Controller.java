@@ -1,9 +1,5 @@
 package MakeCleanCoder;
-
-<<<<<<< HEAD:src/MakeCleanCoder/Controller.java
-=======
 import CommentFilter.CommentFilter;
->>>>>>> 61ce92172ae77fda66304effbe2b374a330b1524:src/makecleancoder/Controller.java
 import Dictionary.CommentDictionary;
 import Parser.CleanCoderParser;
 import Parser.ParseException;
@@ -349,13 +345,9 @@ public class Controller implements Initializable {
             for(int j = 0; j < comment.size(); j++){
                 CommentDictionary dictionary = new CommentDictionary();
                 //適切なコメントかどうか判断する．
-<<<<<<< HEAD:src/MakeCleanCoder/Controller.java
                 if (dictionary.isInappropriateComment(comment.get(j))) {
                     outPutList.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
-=======
-                if (dictionary.isInappropriateComment(commentPassedCommentFilter.get(j))) {
-                    outPutList.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
->>>>>>> 61ce92172ae77fda66304effbe2b374a330b1524:src/makecleancoder/Controller.java
+
                 }
             }
         }
@@ -392,12 +384,7 @@ public class Controller implements Initializable {
     //result_filename.txtに解析結果を出力する．
     private void exportResultToFile(List<String> list,String fileName)
     {
-<<<<<<< HEAD:src/MakeCleanCoder/Controller.java
-
         //TODO 文字コードによって，出力する文字コードを変更する．
-=======
-        //TODO:文字コードによって，出力する文字コードを変更する．
->>>>>>> 61ce92172ae77fda66304effbe2b374a330b1524:src/makecleancoder/Controller.java
         Calendar c = Calendar.getInstance();
         //フォーマットパターンを指定して表示する
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
