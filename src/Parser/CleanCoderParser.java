@@ -138,7 +138,7 @@ public class CleanCoderParser implements CleanCoderParserConstants {
     final public String name() throws ParseException {
         Token t;
         String result="",name;
-        WebDicitonaly dictionaly = new WebDicitonaly();
+        WebDictionary dictionary = new WebDictionary();
         if (jj_2_1(2147483647)) {
             result = snakeCaseName();
         } else if (jj_2_2(2147483647)) {
@@ -147,7 +147,7 @@ public class CleanCoderParser implements CleanCoderParserConstants {
             switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
                 case SMALL_LITERAL:
                     name = commonName();
-                    if(dictionaly.searchDictionaly(name)){
+                    if(dictionary.searchDictionary(name)){
                         System.out.println(name);
                     } else{
                         result=name;
@@ -333,11 +333,11 @@ public class CleanCoderParser implements CleanCoderParserConstants {
         List<String> allName = new ArrayList<String>();
         String tokenName,outPutString="";
         String searchText;
-        WebDicitonaly dictionaly = new WebDicitonaly();
+        WebDictionary dictionary = new WebDictionary();
         Token underbar;
         tokenName = commonName();
         //辞書を検索する．
-        if(dictionaly.searchDictionaly(tokenName)){
+        if(dictionary.searchDictionary(tokenName)){
             System.out.println(tokenName);
         } else{
             //辞書に存在しない場合，errorResultに加える．
@@ -348,7 +348,7 @@ public class CleanCoderParser implements CleanCoderParserConstants {
         while (true) {
             underbar = jj_consume_token(UNDERBAR);
             tokenName = commonName();
-            if(dictionaly.searchDictionaly(tokenName)){
+            if(dictionary.searchDictionary(tokenName)){
                 System.out.println(tokenName);
             } else{
                 errorResult.add(tokenName);
@@ -402,10 +402,10 @@ public class CleanCoderParser implements CleanCoderParserConstants {
         List<String> errorResult = new ArrayList<String>();
         List<String> allName = new ArrayList<String > ();
         String tokenName,name,outPutString="";
-        WebDicitonaly dictionaly = new WebDicitonaly();
+        WebDictionary dictionary = new WebDictionary();
         Token largeLiteral;
         tokenName = commonName();
-        if(dictionaly.searchDictionaly(tokenName)){
+        if(dictionary.searchDictionary(tokenName)){
             System.out.println(tokenName);
         } else{
             errorResult.add(tokenName);
@@ -415,7 +415,7 @@ public class CleanCoderParser implements CleanCoderParserConstants {
         while (true) {
             largeLiteral = jj_consume_token(LAGRGE_LITERAL);
             tokenName = commonName();
-            if(dictionaly.searchDictionaly(largeLiteral.image+tokenName)){
+            if(dictionary.searchDictionary(largeLiteral.image+tokenName)){
                 System.out.println(largeLiteral+tokenName);
             } else{
                 errorResult.add(largeLiteral+tokenName);

@@ -152,8 +152,8 @@ public class Controller implements Initializable {
     //フォルダー内のコメントを解析
     @FXML
     private void handleOnAnalaysisCommentInFolder(ActionEvent event){
-        DirectoryChooser directoryChosser = new DirectoryChooser();
-        File selectedFolder = directoryChosser.showDialog(root.getScene().getWindow());
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedFolder = directoryChooser.showDialog(root.getScene().getWindow());
         fileLabel.setText(selectedFolder.getName());
     }
     //複数ファイルのコメントを解析
@@ -339,9 +339,9 @@ public class Controller implements Initializable {
         for(int i = 0; i < result.comment.size();  i++) {
             ArrayList<String> comment = result.map.get(result.keyValue.get(i));
             for(int j = 0; j < comment.size(); j++){
-                CommentDictionary ditcionary = new CommentDictionary();
+                CommentDictionary dictionary = new CommentDictionary();
                 //適切なコメントかどうか判断する．
-                if (ditcionary.isInappropriateComment(comment.get(j))) {
+                if (dictionary.isInappropriateComment(comment.get(j))) {
                     outPutList.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
                 }
             }

@@ -3,9 +3,9 @@ import javax.xml.parsers.*;
 
 import org.w3c.dom.*;
 
-public class WebDicitonaly{
+public class WebDictionary {
 	
-	public boolean searchDictionaly(String text){
+	public boolean searchDictionary(String text){
 		try{
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = dbfactory.newDocumentBuilder();
@@ -21,7 +21,7 @@ public class WebDicitonaly{
 					+ "EXACT&Merge=AND&Prof=XHTML&PageSize=20&PageIndex=0");
              
               //そのままの単語で良い場合はtrueを返す;
-			 if(this.MyDicitonaly(text)){
+			 if(this.MyDictionary(text)){
 				 return false;
 			}
 			 else if(Integer.parseInt(TotalHitCountValue)>= 1){
@@ -32,7 +32,7 @@ public class WebDicitonaly{
 		}
 		return false;
 	}
-	public boolean MyDicitonaly(String text){
+	public boolean MyDictionary(String text){
 		
 		if(text.equals("a")){
 			return true;

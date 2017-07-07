@@ -107,18 +107,24 @@ List<String> VariableDeclaration() :
   
 	type()  name = name()  expr=expr() 
 	 {
-	  if(name.isEmpty()){	  }else{
+	  if(name.isEmpty()){
+	  }else{
 	    String[] names = name.split(",",0);
 	  if(names.length == 1){
-	     resultText +="変数名"+names[0]+expr;	  }else{
-	    resultText +="変数名"+names[0]+expr+"の";	  }
+	     resultText +="変数名"+names[0]+expr;
+	  }else{
+	    resultText +="変数名"+names[0]+expr+"の";
+	  }
 	  for(int i=1; i<names.length; i++)
 	  {
 	  		System.out.println(names[i]);
-	  		if( i == names.length-1)	  		{
-	  		  resultText+=names[i];	  		}
+	  		if( i == names.length-1)
+	  		{
+	  		  resultText+=names[i];
+	  		}
 	  		else{
-	  		  resultText+=names[i]+",";	  		}
+	  		  resultText+=names[i]+",";
+	  		}
 	  }
 	  resultText+="から役割が推測できません．変数名を変更してください．";
 	  }
@@ -162,19 +168,21 @@ String name():
 {
   Token t;
   String result="",name;
-  WebDicitonaly dictionaly = new WebDicitonaly();
+  WebDicitonary dictionaly = new WebDicitonary();
 
 }
 {
    (
      LOOKAHEAD(snakeCaseName()) result = snakeCaseName()
     | LOOKAHEAD(camelCaseName()) result = camelCaseName()
-	| name = commonName()	{
-	  	if(dictionaly.searchDictionaly(name)){
+	| name = commonName()
+	{
+	  	if(dictionaly.searchDictionary(name)){
 			System.out.println(name);
 		} else{
 		  result=name;
-		}	}
+		}
+	}
    )
 	{
 	  return result;
@@ -208,7 +216,8 @@ String expr() :
     	 	result += t3.image;
    		 } catch (NullPointerException e) {
    			   e.printStackTrace();
-   		}   }
+   		}
+   }
    |(t4=< LAGRGE_LITERAL >
    {
      	 try {
@@ -221,7 +230,8 @@ String expr() :
 
    )?
    t5= <RIGHT_BRACKET>
-	{	 try {
+	{
+	 try {
     	 	result += t5.image;
    		 } catch (NullPointerException e) {
    			   e.printStackTrace();
@@ -266,7 +276,7 @@ String snakeCaseName() :
 	tokenName = commonName()
 	{
 	   //辞書を検索する．
-		if(dictionaly.searchDictionaly(tokenName)){
+    if(dictionaly.searchDictionary(tokenName)){
 			System.out.println(tokenName);
 		} else{
 		  //辞書に存在しない場合，errorResultに加える．
@@ -276,13 +286,13 @@ String snakeCaseName() :
 	}
 	(underbar = <UNDERBAR> tokenName = commonName()
 	{
-		if(dictionaly.searchDictionaly(tokenName)){
+		if(dictionaly.searchDictionary(tokenName)){
 			System.out.println(tokenName);
 		} else{
 		  errorResult.add(tokenName);
 		}
 		allName.add(underbar.image);
-		allName.add(tokenName);
+allName.add(tokenName);
 	}
 	)+
 	{
@@ -299,10 +309,13 @@ String snakeCaseName() :
 		for (int i = 0; i < errorResult.size(); i++) {
 			if (errorResult.get(i).isEmpty()) {
 			} else {
-				if( i == errorResult.size()-1 )            	 {
-					outPutString += errorResult.get(i);            
+				if( i == errorResult.size()-1 )
+            	 {
+					outPutString += errorResult.get(i);
+            
 				}else{
-					outPutString += errorResult.get(i)+",";            	 
+					outPutString += errorResult.get(i)+",";
+            	 
 				}        
 			}
 		}
@@ -310,7 +323,8 @@ String snakeCaseName() :
 			return "";
 		}else{
 		   System.out.println("outPutString:"+outPutString);
-			return outPutString;        
+			return outPutString;
+        
 		}
 	}
 
@@ -329,7 +343,7 @@ String camelCaseName() :
 {   
 	tokenName = commonName()
 	{
-		if(dictionaly.searchDictionaly(tokenName)){
+		if(dictionaly.searchDictionary(tokenName)){
 			System.out.println(tokenName);
 		} else{
 			errorResult.add(tokenName);
@@ -339,7 +353,7 @@ String camelCaseName() :
 
 	(largeLiteral = <LAGRGE_LITERAL>  tokenName=commonName()
 	 {
-	 if(dictionaly.searchDictionaly(largeLiteral.image+tokenName)){
+	 if(dictionaly.searchDictionary(largeLiteral.image+tokenName)){
 	 System.out.println(largeLiteral+tokenName);
 	 } else{
 	 errorResult.add(largeLiteral+tokenName);
