@@ -346,7 +346,7 @@ public class Controller implements Initializable {
                 CommentDictionary dictionary = new CommentDictionary();
                 //適切なコメントかどうか判断する．
                 if (dictionary.isInappropriateComment(comment.get(j))) {
-                    outPutList.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
+                    outPutList.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
 
                 }
             }

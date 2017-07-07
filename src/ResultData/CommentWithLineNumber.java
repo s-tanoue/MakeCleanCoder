@@ -19,10 +19,9 @@ public class CommentWithLineNumber {
     //コメントが存在している行番号がキーで，その行番号に存在しているコメントの文字列．
     private HashMap <Integer,ArrayList<String>> map = new HashMap<>();
 
-
     private  int commentSize;
 
-	//HashMapにコメントと行番号をhashmapにセットする．
+    //HashMapにコメントと行番号をhashmapにセットする．
 	public CommentWithLineNumber(String inputString){
 		int lineNumber = 0;
 		String inputStrings[] = inputString.split("\n", -1);
