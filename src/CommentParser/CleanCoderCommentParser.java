@@ -2,8 +2,6 @@
   package CommentParser;
 
   import java.util.ArrayList;
-  import Dictionaly.*;
-  import ResultData.*;
 
 public class CleanCoderCommentParser implements CleanCoderCommentParserConstants {
 
@@ -23,48 +21,46 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
         jj_la1[0] = jj_gen;
         break label_1;
       }
-      firstOthers = others();
+      label_2:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case OTHERS:
+          ;
+          break;
+        default:
+          jj_la1[1] = jj_gen;
+          break label_2;
+        }
+        jj_consume_token(OTHERS);
+      }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case LINE_COMMENT:
         lineComment = jj_consume_token(LINE_COMMENT);
-                 result.add(lineComment.image.replaceAll("\u005cn", ""));
+            result.add(lineComment.image);
         break;
       case BLOCK_COMMENT:
         blockComment = jj_consume_token(BLOCK_COMMENT);
                 result.add(blockComment.image);
         break;
       default:
-        jj_la1[1] = jj_gen;
+        jj_la1[2] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
-      lastOthers = others();
+      label_3:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case OTHERS:
+          ;
+          break;
+        default:
+          jj_la1[3] = jj_gen;
+          break label_3;
+        }
+        jj_consume_token(OTHERS);
+      }
     }
                {if (true) return result;}
-    throw new Error("Missing return statement in function");
-  }
-
-  final public String others() throws ParseException {
-        String result="";
-        Token t;
-    label_2:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case OTHERS:
-        ;
-        break;
-      default:
-        jj_la1[2] = jj_gen;
-        break label_2;
-      }
-      t = jj_consume_token(OTHERS);
-                try {
-                  result += t.image;
-                 } catch (NullPointerException e) {
-                   e.printStackTrace();
-            }
-    }
-                {if (true) return result;}
     throw new Error("Missing return statement in function");
   }
 
@@ -77,13 +73,13 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[3];
+  final private int[] jj_la1 = new int[4];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x1c,0xc,0x10,};
+      jj_la1_0 = new int[] {0x1c,0x10,0xc,0x10,};
    }
 
   /** Constructor with InputStream. */
@@ -97,7 +93,7 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -111,7 +107,7 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -121,7 +117,7 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -131,7 +127,7 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -140,7 +136,7 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -149,7 +145,7 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -205,7 +201,7 @@ public class CleanCoderCommentParser implements CleanCoderCommentParserConstants
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

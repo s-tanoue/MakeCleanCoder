@@ -2,3 +2,5 @@
 .checkstyle
 .DS_Store
 /reports
+/src/Result/
+

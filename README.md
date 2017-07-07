@@ -23,7 +23,7 @@ http://qiita.com/again22/items/dccc86bddc5414f8bea8
 #コンパイル
 リポジトリをcloneし，Eclipseにプロジェクトをインポートする．
 Eclipseから，File -> Import ->General -> Existing Projects into Workspace　をクリック
-makecleancoder.javaを選択して実行する．
+MakeCleanCoder.javaを選択して実行する．
 
 
 
