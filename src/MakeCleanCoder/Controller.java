@@ -141,11 +141,9 @@ public class Controller implements Initializable {
         TextFlow commentCount= new TextFlow(new Text("コメントの数:"+String.valueOf(allCommentLinkList.size())));
         allCommentsAreaVbox.getChildren().add(commentCount);
         for(Hyperlink link : allCommentLinkList){
-            link.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent e) {
-                    int lineNumber = getLineNumberFromLink(link);
-                    setScrollBar(lineNumber);
-                }
+            link.setOnAction(e -> {
+                int lineNumber = getLineNumberFromLink(link);
+                setScrollBar(lineNumber);
             });
             TextFlow textFlow = new TextFlow(link);
             allCommentsAreaVbox.getChildren().add(textFlow);
