@@ -55,7 +55,7 @@
         </junit>
     </target>
     <target name="MakeCleanCoder">
-        <java classname="makecleancoder.MakeCleanCoder" failonerror="true" fork="yes">
+        <java classname="MakeCleanCoder.MakeCleanCoder" failonerror="true" fork="yes">
             <classpath refid="MakeCleanCoder.classpath"/>
         </java>
     </target>

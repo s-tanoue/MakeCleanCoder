@@ -1,4 +1,4 @@
-package makecleancoder;
+package MakeCleanCoder;
 
 import Dictionary.CommentDictionary;
 import Parser.CleanCoderParser;
@@ -69,6 +69,8 @@ public class Controller implements Initializable {
     private File openedFileOnEditArea;
 
     //encodingがtrueのときはutf-8になる
+
+    @FXML
     private boolean encoding = true;
 
     @FXML
