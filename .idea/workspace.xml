@@ -7,10 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78cf88f0-a317-4bf5-b8f5-80f7d9db71f1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/satopi.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/satopi.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MakeCleanCoder/Controller.java" afterPath="$PROJECT_DIR$/src/MakeCleanCoder/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ResultData/CommentWithLineNumber.java" afterPath="$PROJECT_DIR$/src/ResultData/CommentWithLineNumber.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -780,7 +777,7 @@
       <workItem from="1497674141913" duration="1088000" />
       <workItem from="1499353771238" duration="4601000" />
       <workItem from="1499399270755" duration="4882000" />
-      <workItem from="1499417855410" duration="44000" />
+      <workItem from="1499417855410" duration="68000" />
     </task>
     <task id="LOCAL-00001" summary="変数名のスペルが間違っていたので修正した．&#10;分かりにくい部分をメソッドに抽出した．">
       <created>1486515574909</created>
@@ -845,7 +842,14 @@
       <option name="project" value="LOCAL" />
       <updated>1499414406956</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="travis.ciツールの設定ファイルを追加した．">
+      <created>1499417912064</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1499417912064</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -860,7 +864,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64873000" />
+    <option name="totallyTimeSpent" value="64897000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -982,6 +986,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1183,6 +1190,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1200">
           <caret line="91" column="9" lean-forward="false" selection-start-line="91" selection-start-column="9" selection-end-line="91" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1204,6 +1214,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-8">
           <caret line="399" column="22" lean-forward="false" selection-start-line="399" selection-start-column="22" selection-end-line="399" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
