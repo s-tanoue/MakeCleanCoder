@@ -7,22 +7,32 @@ import java.util.regex.Pattern;
 
 import CommentParser.CleanCoderCommentParser;
 
-public class ResultData {
+public class CommentWithLineNumber {
 
 
-	public ArrayList<String> comment = new ArrayList<>();
-	public HashMap <Integer,ArrayList<String>> map = new HashMap<>();
-	public ArrayList<Integer> keyValue = new ArrayList<Integer>();
-	
+
+    //もっとわかりやすくしたいけどどうすれば？？？
+
+    private ArrayList<String> comment = new ArrayList<>();
+    //コメントが存在している行番号
+    private ArrayList<Integer> keyValue = new ArrayList<>();
+    //コメントが存在している行番号がキーで，その行番号に存在しているコメントの文字列．
+    private HashMap <Integer,ArrayList<String>> map = new HashMap<>();
+
+
+    private  int commentSize;
+
 	//HashMapにコメントと行番号をhashmapにセットする．
-	public ResultData(String inputString){
+	public CommentWithLineNumber(String inputString){
 		int lineNumber = 0;
 		String inputStrings[] = inputString.split("\n", -1);
 		CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(inputString));
 		try {
+            //ソースコードからコメントを抽出．
 			comment = parser.comment();
+			//コメントがあるだけ繰り返す．
 			for (int i = 0; i < comment.size(); i++) {
-				if (!comment.get(i).isEmpty()) {
+				if (!comment.get(i).isEmpty()) {//このif文　何？？？？？？
 					String comments[] = comment.get(i).split("\n", -1);
 					for (int j = 0; j < inputStrings.length; j++) {
 						if(inputStrings[j].matches(".*"+Pattern.quote(comments[0])+".*")){
@@ -40,11 +50,28 @@ public class ResultData {
 					}
 				}
 			}
+			commentSize =comment.size();
 		} catch (CommentParser.ParseException e) {
 		  System.out.println("コメントがありません");
 			e.printStackTrace();
 		}
-
 	}
+
+    public ArrayList<String> getComment() {
+        return comment;
+    }
+
+    public ArrayList<Integer> getKeyValue() {
+        return keyValue;
+    }
+
+    public HashMap<Integer, ArrayList<String>> getMap() {
+        return map;
+
+    }
+
+    public int getCommentSize() {
+        return commentSize;
+    }
 }
 

@@ -1,9 +1,13 @@
 package MakeCleanCoder;
 
+<<<<<<< HEAD:src/MakeCleanCoder/Controller.java
+=======
+import CommentFilter.CommentFilter;
+>>>>>>> 61ce92172ae77fda66304effbe2b374a330b1524:src/makecleancoder/Controller.java
 import Dictionary.CommentDictionary;
 import Parser.CleanCoderParser;
 import Parser.ParseException;
-import ResultData.ResultData;
+import ResultData.CommentWithLineNumber;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,10 +37,8 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+
 /**
  * @author SatoshiTanoue
  * @version 1.0
@@ -329,20 +331,31 @@ public class Controller implements Initializable {
 
     }
 
-    // 戻り値 コンソールエリアに出力する文字列
     // 引数 解析するソースコード
+    // 戻り値 コンソールエリアに出力する文字列
     private ArrayList<String> commentParse(String inputString)
     {
-        ResultData result= new ResultData(inputString);
+        //TODO もっといい名前にしたい．
+        //TODO filterに通したコメントと通ささなかったコメントの総数が同じじゃないとまずい 改行の数は変わらないようにする．
+        CommentFilter commentFilter = new CommentFilter(inputString);
+        CommentWithLineNumber resultPassedCommentFilter= new CommentWithLineNumber(commentFilter.getTextPassedThroughFilter());
+        CommentWithLineNumber result = new CommentWithLineNumber(inputString);
         ArrayList<String> outPutList = new ArrayList<String>();
 
-        for(int i = 0; i < result.comment.size();  i++) {
-            ArrayList<String> comment = result.map.get(result.keyValue.get(i));
+        //全てのコメントを表示するまで繰り返す．
+        for(int i = 0; i < result.getCommentSize();  i++) {
+            ArrayList<String> comment = result.getMap().get(result.getKeyValue().get(i));
+            ArrayList<String> commentPassedCommentFilter = resultPassedCommentFilter.getMap().get(resultPassedCommentFilter.getKeyValue().get(i));
             for(int j = 0; j < comment.size(); j++){
                 CommentDictionary dictionary = new CommentDictionary();
                 //適切なコメントかどうか判断する．
+<<<<<<< HEAD:src/MakeCleanCoder/Controller.java
                 if (dictionary.isInappropriateComment(comment.get(j))) {
                     outPutList.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
+=======
+                if (dictionary.isInappropriateComment(commentPassedCommentFilter.get(j))) {
+                    outPutList.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
+>>>>>>> 61ce92172ae77fda66304effbe2b374a330b1524:src/makecleancoder/Controller.java
                 }
             }
         }
@@ -362,13 +375,13 @@ public class Controller implements Initializable {
     // 戻り値 ソースコードに存在するすべてのコメント
     private ArrayList<String> getAllComment(String inputString)
     {
-        ResultData result = new ResultData(inputString);
+        CommentWithLineNumber result = new CommentWithLineNumber(inputString);
         ArrayList<String> outPutLink= new ArrayList<String>();
 
-        for(int i = 0; i < result.map.size();  i++) {
-            ArrayList<String> comment = result.map.get(result.keyValue.get(i));
+        for(int i = 0; i < result.getCommentSize();  i++) {
+            ArrayList<String> comment = result.getMap().get(result.getKeyValue().get(i));
             for(int j = 0; j < comment.size(); j++){
-                outPutLink.add(String.valueOf(result.keyValue.get(i)) + ":" +comment.get(j).replaceAll(crlf, ""));
+                outPutLink.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, ""));
             }
         }
         return outPutLink;
@@ -379,8 +392,12 @@ public class Controller implements Initializable {
     //result_filename.txtに解析結果を出力する．
     private void exportResultToFile(List<String> list,String fileName)
     {
+<<<<<<< HEAD:src/MakeCleanCoder/Controller.java
 
         //TODO 文字コードによって，出力する文字コードを変更する．
+=======
+        //TODO:文字コードによって，出力する文字コードを変更する．
+>>>>>>> 61ce92172ae77fda66304effbe2b374a330b1524:src/makecleancoder/Controller.java
         Calendar c = Calendar.getInstance();
         //フォーマットパターンを指定して表示する
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -389,15 +406,17 @@ public class Controller implements Initializable {
         for(String str:list){
             exportString+=str+crlf;
         }
+        //TODO:Resultのフォルダが無いとき，エクセプションが発生している．エラー処理を書く．
         //出力先ファイルのFileオブジェクトを作成
         File file = new File("src/Result/"+"result_"+fileName+".txt");
         if(!file.exists()){
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("ファイルを作れませんでした");
             }
         }
+
         try {
             BufferedWriter bw = encoding? new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8")) : new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"SJIS"));
             bw.write(exportString);
@@ -413,7 +432,6 @@ public class Controller implements Initializable {
 
     }
 
-    //編集エリアのコメントを解析する
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         editArea.scrollTopProperty().bindBidirectional(lineNumberArea.scrollTopProperty());
