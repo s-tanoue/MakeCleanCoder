@@ -8,8 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="78cf88f0-a317-4bf5-b8f5-80f7d9db71f1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="$PROJECT_DIR$/.travis.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -771,7 +769,7 @@
       <workItem from="1496809814109" duration="1928000" />
       <workItem from="1497674141913" duration="1088000" />
       <workItem from="1499353771238" duration="4601000" />
-      <workItem from="1499399270755" duration="2928000" />
+      <workItem from="1499399270755" duration="2949000" />
     </task>
     <task id="LOCAL-00001" summary="変数名のスペルが間違っていたので修正した．&#10;分かりにくい部分をメソッドに抽出した．">
       <created>1486515574909</created>
@@ -808,7 +806,14 @@
       <option name="project" value="LOCAL" />
       <updated>1499403920329</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="travis.ciツールの設定ファイルを追加した．">
+      <created>1499404350124</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1499404350124</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -823,7 +828,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62875000" />
+    <option name="totallyTimeSpent" value="62896000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
