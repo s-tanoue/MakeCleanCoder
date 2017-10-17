@@ -46,11 +46,6 @@ public class Controller implements Initializable {
 
     @FXML
     private TextArea editArea;
-
-    @FXML
-    private ScrollPane consoleArea;
-    @FXML
-    private ScrollPane allCommentsArea;
     @FXML
     private VBox consoleAreaVbox;
     @FXML
@@ -122,7 +117,7 @@ public class Controller implements Initializable {
 
 
         consoleAreaVbox.getChildren().clear();
-        TextFlow improperCommentCount= new TextFlow(new Text("検出したコメントの数:"+String.valueOf(improperCommentLinkList.size())));
+        TextFlow improperCommentCount= new TextFlow(new Text("Number of Comments Defected : "+String.valueOf(improperCommentLinkList.size())));
         consoleAreaVbox.getChildren().add(improperCommentCount);
         for(Hyperlink link : improperCommentLinkList){
             link.setOnAction(new EventHandler<ActionEvent>() {
@@ -164,7 +159,7 @@ public class Controller implements Initializable {
         List<File> selectedFile = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
         initialFile = new File(selectedFile.get(0).getParent());
         String inputString="";
-        ArrayList<Hyperlink> inproperCommentLinkList = new ArrayList<>();
+        ArrayList<Hyperlink> improperCommentLinkList = new ArrayList<>();
         ArrayList<String> inproperCommentStringList = new ArrayList<>();
         ArrayList<String> allCommentStringList = new ArrayList<>();
         ArrayList<Hyperlink> allCommentLinkList = new ArrayList<>();
@@ -184,28 +179,18 @@ public class Controller implements Initializable {
                 String filePath = file.getPath();
 
                 //コメントを解析した結果は，hyperlinkのlistで返ってくる．
-                inproperCommentLinkList.clear();
+                improperCommentLinkList.clear();
                 inproperCommentStringList = commentParse(inputString);
 
                 exportResultToFile(inproperCommentStringList,file.getName());
-                inproperCommentLinkList = toHyperLinkList(inproperCommentStringList);
+                improperCommentLinkList = toHyperLinkList(inproperCommentStringList);
 
-                Text inproperCommentCount = new Text("検出したコメントの数:"+String.valueOf(inproperCommentLinkList.size()));
-                TextFlow textFlow = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),inproperCommentCount);
+                Text improperCommentCount = new Text("検出したコメントの数:"+String.valueOf(improperCommentLinkList.size()));
+                TextFlow textFlow = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),improperCommentCount);
                 consoleAreaVbox.getChildren().add(textFlow);
-                inproperCommentLinkList.add(new Hyperlink());
+                improperCommentLinkList.add(new Hyperlink());
 
-                for(Hyperlink link : inproperCommentLinkList){
-                    //ファイルを開いてテキストエディタにセットする機能の追加
-                    link.setOnAction(new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent e) {
-                            openFile(file);
-                            int lineNumber = getLineNumberFromLink(link);
-                            setScrollBar(lineNumber);
-                        }
-                    });
-                    consoleAreaVbox.getChildren().add(link);
-                }
+                fileOpenAndSetTextArea(allCommentLinkList, file);
                 allCommentStringList = getAllComment(inputString);
                 allCommentLinkList = toHyperLinkList(allCommentStringList);
 
@@ -216,22 +201,26 @@ public class Controller implements Initializable {
                 // //改行を入れるために，
                 allCommentLinkList.add(new Hyperlink());
 
-                for(Hyperlink link : allCommentLinkList){
-                    //ファイルを開いてテキストエディタにセットする機能の追加
-                    link.setOnAction(new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent e) {
-                            openFile(file);
-
-                            int lineNumber = getLineNumberFromLink(link);
-
-                            setScrollBar(lineNumber);
-                        }
-                    });
-                    allCommentsAreaVbox.getChildren().add(link);
-                }
+                fileOpenAndSetTextArea(allCommentLinkList, file);
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void fileOpenAndSetTextArea(ArrayList<Hyperlink> allCommentLinkList, final File file) {
+        for(Hyperlink link : allCommentLinkList){
+            //ファイルを開いてテキストエディタにセットする機能の追加
+            link.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e) {
+                    openFile(file);
+
+                    int lineNumber = getLineNumberFromLink(link);
+
+                    setScrollBar(lineNumber);
+                }
+            });
+            allCommentsAreaVbox.getChildren().add(link);
         }
     }
 
@@ -290,7 +279,10 @@ public class Controller implements Initializable {
         editArea.setText("");
         lineNumberArea.setText("1"+crlf);
     }
-
+    @FXML
+    private void handleOnOpenSupportingRegexStage(ActionEvent event) {
+        MakeCleanCoder.showSupportingRegexStage();
+    }
     private void setScrollBar(int lineNumber){
         double value = 20;
         if(lineNumber == 1){
@@ -346,7 +338,7 @@ public class Controller implements Initializable {
                 CommentDictionary dictionary = new CommentDictionary();
                 //適切なコメントかどうか判断する．
                 if (dictionary.isInappropriateComment(comment.get(j))) {
-                    outPutList.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
+                    outPutList.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " may be inappropriate comments. ");
 
                 }
             }
