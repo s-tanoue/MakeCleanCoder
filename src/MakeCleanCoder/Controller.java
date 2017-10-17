@@ -117,7 +117,7 @@ public class Controller implements Initializable {
 
 
         consoleAreaVbox.getChildren().clear();
-        TextFlow improperCommentCount= new TextFlow(new Text("Number of Comments Defected : "+String.valueOf(improperCommentLinkList.size())));
+        TextFlow improperCommentCount= new TextFlow(new Text("検出したコメントの数 : "+String.valueOf(improperCommentLinkList.size())));
         consoleAreaVbox.getChildren().add(improperCommentCount);
         for(Hyperlink link : improperCommentLinkList){
             link.setOnAction(new EventHandler<ActionEvent>() {
