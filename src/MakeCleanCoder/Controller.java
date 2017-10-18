@@ -109,11 +109,14 @@ public class Controller implements Initializable {
     {
         String editAreaText = editArea.getText();
         ArrayList<String> improperCommentStringList = commentParse(editAreaText);
-        //TODO　ファイルがないときに，検出できない．
-        exportResultToFile(improperCommentStringList, openedFileOnEditArea.getName());
         ArrayList<Hyperlink> improperCommentLinkList =toHyperLinkList(improperCommentStringList);
         ArrayList<String> allCommentStringList = getAllComment(editAreaText);
-        ArrayList<Hyperlink> allCommentLinkList =toHyperLinkList(allCommentStringList);
+        ArrayList<Hyperlink> allCommentLinkList = toHyperLinkList(allCommentStringList);
+        //TODO　ファイルがないときに，検出できない．
+        if(openedFileOnEditArea !=null){
+            exportResultToFile(improperCommentStringList, openedFileOnEditArea.getName());
+            exportResultsOfAllCommentsToFile(allCommentStringList,openedFileOnEditArea.getName());
+        }
 
 
         consoleAreaVbox.getChildren().clear();
@@ -159,10 +162,10 @@ public class Controller implements Initializable {
         List<File> selectedFile = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
         initialFile = new File(selectedFile.get(0).getParent());
         String inputString="";
-        ArrayList<Hyperlink> improperCommentLinkList = new ArrayList<>();
-        ArrayList<String> inproperCommentStringList = new ArrayList<>();
-        ArrayList<String> allCommentStringList = new ArrayList<>();
-        ArrayList<Hyperlink> allCommentLinkList = new ArrayList<>();
+        ArrayList<String> improperCommentsStringList = new ArrayList<>();
+        ArrayList<Hyperlink> improperCommentsHyperlinkList = new ArrayList<>();
+        ArrayList<String> allCommentsStringList = new ArrayList<>();
+        ArrayList<Hyperlink> allCommentsHyperLinkList = new ArrayList<>();
 
         consoleAreaVbox.getChildren().clear();
         allCommentsAreaVbox.getChildren().clear();
@@ -179,44 +182,42 @@ public class Controller implements Initializable {
                 String filePath = file.getPath();
 
                 //コメントを解析した結果は，hyperlinkのlistで返ってくる．
-                improperCommentLinkList.clear();
-                inproperCommentStringList = commentParse(inputString);
+                improperCommentsHyperlinkList.clear();
+                improperCommentsStringList = commentParse(inputString);
 
-                exportResultToFile(inproperCommentStringList,file.getName());
-                improperCommentLinkList = toHyperLinkList(inproperCommentStringList);
+                //Fileに出力する．
+                exportResultToFile(improperCommentsStringList,file.getName());
+                exportResultsOfAllCommentsToFile(allCommentsStringList,file.getName());
 
-                Text improperCommentCount = new Text("検出したコメントの数:"+String.valueOf(improperCommentLinkList.size()));
+                improperCommentsHyperlinkList = toHyperLinkList(improperCommentsStringList);
+                Text improperCommentCount = new Text("検出したコメントの数:"+String.valueOf(improperCommentsHyperlinkList.size()));
                 TextFlow textFlow = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),improperCommentCount);
                 consoleAreaVbox.getChildren().add(textFlow);
-                improperCommentLinkList.add(new Hyperlink());
+                improperCommentsHyperlinkList.add(new Hyperlink());
+                fileOpenAndSetTextAreaOfimproperComments(improperCommentsHyperlinkList,file);
 
-                fileOpenAndSetTextArea(allCommentLinkList, file);
-                allCommentStringList = getAllComment(inputString);
-                allCommentLinkList = toHyperLinkList(allCommentStringList);
+                allCommentsStringList = getAllComment(inputString);
+                allCommentsHyperLinkList = toHyperLinkList(allCommentsStringList);
 
-
-                Text commentCount = new Text("コメントの数:"+String.valueOf(allCommentLinkList.size()));
-                TextFlow textFlow2 = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),commentCount);
+                Text allCommentsCount = new Text("コメントの数:"+String.valueOf(allCommentsHyperLinkList.size()));
+                TextFlow textFlow2 = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),allCommentsCount);
                 allCommentsAreaVbox.getChildren().add(textFlow2);
                 // //改行を入れるために，
-                allCommentLinkList.add(new Hyperlink());
-
-                fileOpenAndSetTextArea(allCommentLinkList, file);
+                allCommentsHyperLinkList.add(new Hyperlink());
+                fileOpenAndSetTextAreaOfAllComments(allCommentsHyperLinkList, file);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void fileOpenAndSetTextArea(ArrayList<Hyperlink> allCommentLinkList, final File file) {
-        for(Hyperlink link : allCommentLinkList){
+    private void fileOpenAndSetTextAreaOfAllComments(ArrayList<Hyperlink> commentsLinkList, final File file) {
+        for(Hyperlink link : commentsLinkList){
             //ファイルを開いてテキストエディタにセットする機能の追加
             link.setOnAction(new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) {
                     openFile(file);
-
                     int lineNumber = getLineNumberFromLink(link);
-
                     setScrollBar(lineNumber);
                 }
             });
@@ -224,6 +225,20 @@ public class Controller implements Initializable {
         }
     }
 
+
+    private void fileOpenAndSetTextAreaOfimproperComments(ArrayList<Hyperlink> commentsLinkList, final File file) {
+        for(Hyperlink link : commentsLinkList){
+            //ファイルを開いてテキストエディタにセットする機能の追加
+            link.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e) {
+                    openFile(file);
+                    int lineNumber = getLineNumberFromLink(link);
+                    setScrollBar(lineNumber);
+                }
+            });
+            consoleAreaVbox.getChildren().add(link);
+        }
+    }
     private int getLineNumberFromLink(Hyperlink link) {
         String str[] =link.toString().split(":",0);
         String str2[] = str[0].split("'",0);
@@ -388,6 +403,42 @@ public class Controller implements Initializable {
         //TODO:Resultのフォルダが無いとき，エクセプションが発生している．エラー処理を書く．
         //出力先ファイルのFileオブジェクトを作成
         File file = new File("src/Result/"+"result_"+fileName+".txt");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("ファイルを作れませんでした");
+            }
+        }
+
+        try {
+            BufferedWriter bw = encoding? new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8")) : new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"SJIS"));
+            bw.write(exportString);
+            bw.newLine();
+            bw.close();
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void exportResultsOfAllCommentsToFile(List<String> list,String fileName)
+    {
+        Calendar c = Calendar.getInstance();
+        //フォーマットパターンを指定して表示する
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String exportString = sdf.format(c.getTime())+crlf;
+        exportString += "検出した全てのコメントの数:"+String.valueOf(list.size())+crlf;
+        for(String str:list){
+            exportString+=str+crlf;
+        }
+        //TODO:Resultのフォルダが無いとき，エクセプションが発生している．エラー処理を書く．
+        //出力先ファイルのFileオブジェクトを作成
+        File file = new File("src/Result/"+"result_all_comments"+fileName+".txt");
         if(!file.exists()){
             try {
                 file.createNewFile();
