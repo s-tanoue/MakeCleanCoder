@@ -353,7 +353,7 @@ public class Controller implements Initializable {
                 CommentDictionary dictionary = new CommentDictionary();
                 //適切なコメントかどうか判断する．
                 if (dictionary.isInappropriateComment(comment.get(j))) {
-                    outPutList.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " may be inappropriate comments. ");
+                    outPutList.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " 不適切なコメントの可能性があります．");
 
                 }
             }
@@ -402,7 +402,7 @@ public class Controller implements Initializable {
         }
         //TODO:Resultのフォルダが無いとき，エクセプションが発生している．エラー処理を書く．
         //出力先ファイルのFileオブジェクトを作成
-        File file = new File("src/Result/"+"result_"+fileName+".txt");
+        File file = new File("src/Result/ImproperComments/"+"result_"+fileName+".txt");
         if(!file.exists()){
             try {
                 file.createNewFile();
@@ -428,17 +428,14 @@ public class Controller implements Initializable {
 
     private void exportResultsOfAllCommentsToFile(List<String> list,String fileName)
     {
-        Calendar c = Calendar.getInstance();
-        //フォーマットパターンを指定して表示する
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String exportString = sdf.format(c.getTime())+crlf;
-        exportString += "検出した全てのコメントの数:"+String.valueOf(list.size())+crlf;
+        String exportString ="";
+        //TODO:Resultのフォルダが無いとき，エクセプションが発生している．エラー処理を書く．
+        //出力先ファイルのFileオブジェクトを作成
         for(String str:list){
             exportString+=str+crlf;
         }
-        //TODO:Resultのフォルダが無いとき，エクセプションが発生している．エラー処理を書く．
-        //出力先ファイルのFileオブジェクトを作成
-        File file = new File("src/Result/"+"result_all_comments"+fileName+".txt");
+        File file = new File("src/Result/AllComments/"+"result_all_comments"+fileName+".txt");
+
         if(!file.exists()){
             try {
                 file.createNewFile();
@@ -446,7 +443,6 @@ public class Controller implements Initializable {
                 System.err.println("ファイルを作れませんでした");
             }
         }
-
         try {
             BufferedWriter bw = encoding? new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8")) : new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"SJIS"));
             bw.write(exportString);

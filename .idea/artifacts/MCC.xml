@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="MCC">
-    <output-path>$PROJECT_DIR$/../../MCC</output-path>
-    <root id="archive" name="MCC.jar">
-      <element id="module-output" name="MakeCleanCoder" />
-    </root>
-  </artifact>
-</component>

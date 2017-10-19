@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MakeCleanCoder:jar">
+    <output-path>$PROJECT_DIR$/../../MCC</output-path>
+    <root id="archive" name="MakeCleanCoder.jar">
+      <element id="module-output" name="MakeCleanCoder" />
+      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/junit-4.12.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
