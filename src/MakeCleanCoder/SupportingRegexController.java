@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Created by satopi on 2017/10/17.
@@ -22,13 +23,16 @@ public class SupportingRegexController implements Initializable {
 
     @FXML
     private void handleOnTestRegex(ActionEvent event) {
-        Pattern p = Pattern.compile(regexField.getText());
-        Matcher m = p.matcher(targetField.getText());
-        if(m.find()){
-            resultArea.setText("true");
-        }else{
-            resultArea.setText("false");
-
+        try {
+            Pattern p = Pattern.compile(regexField.getText());
+            Matcher m = p.matcher(targetField.getText());
+            if (m.find()) {
+                resultArea.setText("true");
+            } else {
+                resultArea.setText("false");
+            }
+        }catch(PatternSyntaxException e){
+            resultArea.setText(e.getMessage());
         }
     }
 

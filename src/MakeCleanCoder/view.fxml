@@ -54,8 +54,8 @@
                   <Menu mnemonicParsing="false" text="実行">
                      <items>
                         <!-- <MenuItem mnemonicParsing="false" onAction="#executeVariableParser" text="変数名を解析" /> -->
-                        <MenuItem mnemonicParsing="false" onAction="#handleOnOpenSupportingRegexStage" text="正規表現を確認" />
                         <MenuItem mnemonicParsing="false" onAction="#handleOnExecuteParseComment" text="コメントを解析" />
+                         <MenuItem mnemonicParsing="false" onAction="#handleOnOpenSupportingRegexStage" text="正規表現を確認" />
                      </items>
                   </Menu>
               <!--   <Menu mnemonicParsing="false" text="ヘルプ">                       -->

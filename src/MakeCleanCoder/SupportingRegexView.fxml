@@ -8,12 +8,12 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MakeCleanCoder.SupportingRegexController">
    <children>
-      <TextField fx:id="regexField" layoutX="26.0" layoutY="59.0" prefHeight="27.0" prefWidth="270.0" promptText="(\d+)-(\d+)-(\d+)" />
+      <TextField fx:id="regexField" layoutX="26.0" layoutY="59.0" prefHeight="27.0" prefWidth="554.0" promptText="(\d+)-(\d+)-(\d+)" />
       <Label layoutX="26.0" layoutY="32.0" text="正規表現 " />
-      <TextField fx:id="targetField" layoutX="26.0" layoutY="124.0" prefHeight="27.0" prefWidth="270.0" promptText="//03-1234-5678" />
+      <TextField fx:id="targetField" layoutX="26.0" layoutY="124.0" prefHeight="27.0" prefWidth="554.0" promptText="//03-1234-5678" />
       <Label layoutX="26.0" layoutY="95.0" text="対象のコメント" />
       <Button layoutX="28.0" layoutY="173.0" mnemonicParsing="false" onAction="#handleOnTestRegex" prefHeight="27.0" prefWidth="107.0" text="テストを実行" />
-      <TextArea fx:id="resultArea" layoutX="28.0" layoutY="250.0" prefHeight="105.0" prefWidth="306.0" />
+      <TextArea fx:id="resultArea" layoutX="28.0" layoutY="250.0" prefHeight="105.0" prefWidth="546.0" />
       <Label layoutX="28.0" layoutY="226.0" text="テスト結果" />
    </children>
 </Pane>
