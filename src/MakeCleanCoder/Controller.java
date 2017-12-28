@@ -122,7 +122,7 @@ public class Controller implements Initializable {
 
 
         consoleAreaVbox.getChildren().clear();
-        TextFlow improperCommentCount= new TextFlow(new Text("検出したコメントの数:"+String.valueOf(improperCommentLinkList.size())));
+        TextFlow improperCommentCount= new TextFlow(new Text("Number of Detected Comments:"+String.valueOf(improperCommentLinkList.size())));
         consoleAreaVbox.getChildren().add(improperCommentCount);
         for(Hyperlink link : improperCommentLinkList){
             link.setOnAction(new EventHandler<ActionEvent>() {
@@ -136,7 +136,7 @@ public class Controller implements Initializable {
         }
         allCommentsAreaVbox.getChildren().clear();
 
-        TextFlow commentCount= new TextFlow(new Text("コメントの数:"+String.valueOf(allCommentLinkList.size())));
+        TextFlow commentCount= new TextFlow(new Text("Comments:"+String.valueOf(allCommentLinkList.size())));
         allCommentsAreaVbox.getChildren().add(commentCount);
         for(Hyperlink link : allCommentLinkList){
             link.setOnAction(e -> {
@@ -190,8 +190,8 @@ public class Controller implements Initializable {
                 exportResultToFile(inproperCommentStringList,file.getName());
                 inproperCommentLinkList = toHyperLinkList(inproperCommentStringList);
 
-                Text inproperCommentCount = new Text("検出したコメントの数:"+String.valueOf(inproperCommentLinkList.size()));
-                TextFlow textFlow = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),inproperCommentCount);
+                Text inproperCommentCount = new Text("Number of Comments Detected:"+String.valueOf(inproperCommentLinkList.size()));
+                TextFlow textFlow = new TextFlow(new Text("file name"+file.getPath()+"  "),inproperCommentCount);
                 consoleAreaVbox.getChildren().add(textFlow);
                 inproperCommentLinkList.add(new Hyperlink());
 
@@ -210,8 +210,8 @@ public class Controller implements Initializable {
                 allCommentLinkList = toHyperLinkList(allCommentStringList);
 
 
-                Text commentCount = new Text("コメントの数:"+String.valueOf(allCommentLinkList.size()));
-                TextFlow textFlow2 = new TextFlow(new Text("ファイル名"+file.getPath()+"  "),commentCount);
+                Text commentCount = new Text("Number of Comments Comments:"+String.valueOf(allCommentLinkList.size()));
+                TextFlow textFlow2 = new TextFlow(new Text("file name"+file.getPath()+"  "),commentCount);
                 allCommentsAreaVbox.getChildren().add(textFlow2);
                 // //改行を入れるために，
                 allCommentLinkList.add(new Hyperlink());
@@ -334,7 +334,7 @@ public class Controller implements Initializable {
         //TODO もっといい名前にしたい．
         //TODO filterに通したコメントと通ささなかったコメントの総数が同じじゃないとまずい 改行の数は変わらないようにする．
         CommentFilter commentFilter = new CommentFilter(inputString);
-        CommentWithLineNumber resultPassedCommentFilter= new CommentWithLineNumber(commentFilter.getTextPassedThroughFilter());
+        CommentWithLineNumber resultPassedCommentFilter = new CommentWithLineNumber(commentFilter.getTextPassedThroughFilter());
         CommentWithLineNumber result = new CommentWithLineNumber(inputString);
         ArrayList<String> outPutList = new ArrayList<String>();
 
@@ -346,7 +346,7 @@ public class Controller implements Initializable {
                 CommentDictionary dictionary = new CommentDictionary();
                 //適切なコメントかどうか判断する．
                 if (dictionary.isInappropriateComment(comment.get(j))) {
-                    outPutList.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " は不適切な可能性があります");
+                    outPutList.add(String.valueOf(result.getKeyValue().get(i)) + ":" +comment.get(j).replaceAll(crlf, "") + " may be improper comments");
 
                 }
             }

@@ -22,9 +22,9 @@
          <children>
             <MenuBar>
               <menus>
-                  <Menu mnemonicParsing="false" text="設定">
+                  <Menu mnemonicParsing="false" text="Configuration">
                      <items>
-                        <Menu mnemonicParsing="false" text="文字コード">
+                        <Menu mnemonicParsing="false" text="Chacater">
                            <items>
                               <RadioMenuItem fx:id="UTF8" mnemonicParsing="false" onAction="#handleOnUTF8" selected="true" text="UTF-8">
                                  <toggleGroup>
@@ -36,25 +36,25 @@
                         </Menu>
                      </items>
                   </Menu>
-                <Menu mnemonicParsing="false" text="ファイル">
+                <Menu mnemonicParsing="false" text="File">
                   <items>
-                        <MenuItem fx:id="fileOpen" mnemonicParsing="false" onAction="#handleOnFileOpen" text="ファイルを開く" />
-                        <MenuItem fx:id="fileSave" mnemonicParsing="false" onAction="#handleOnFileSave" text="ファイルを保存" />
+                        <MenuItem fx:id="fileOpen" mnemonicParsing="false" onAction="#handleOnFileOpen" text="Open File" />
+                        <MenuItem fx:id="fileSave" mnemonicParsing="false" onAction="#handleOnFileSave" text="Save File" />
                         <!-- <MenuItem fx:id="analaysisCommentInFolder" mnemonicParsing="false" onAction="#handleOnAnalaysisCommentInFolder" text="フォルダーの内のコメントを解析" /> -->
-                        <MenuItem fx:id="analaysisCommentInMultipleFiles" mnemonicParsing="false" onAction="#handleOnAnalaysisCommentInMultipleFiles" text="複数ファイルのコメントを解析" />
+                        <MenuItem fx:id="analaysisCommentInMultipleFiles" mnemonicParsing="false" onAction="#handleOnAnalaysisCommentInMultipleFiles" text="Analyze Comments of Multiple Files" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="編集">
+                <Menu mnemonicParsing="false" text="Edit">
                   <items>
                    <!-- <MenuItem mnemonicParsing="false" text="戻す" /> !-->
-                    <MenuItem mnemonicParsing="false" onAction="#clearEditArea" text="編集エリアをクリア" />
-                    <MenuItem mnemonicParsing="false" onAction="#clearConsoleArea" text="表示エリアをクリア" />
+                    <MenuItem mnemonicParsing="false" onAction="#clearEditArea" text="Clear EdtiArea" />
+                    <MenuItem mnemonicParsing="false" onAction="#clearConsoleArea" text="Clear DisplayArea" />
                   </items>
                 </Menu>
-                  <Menu mnemonicParsing="false" text="実行">
+                  <Menu mnemonicParsing="false" text="Run">
                      <items>
                         <!-- <MenuItem mnemonicParsing="false" onAction="#executeVariableParser" text="変数名を解析" /> -->
-                        <MenuItem mnemonicParsing="false" onAction="#handleOnExecuteParseComment" text="コメントを解析" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleOnExecuteParseComment" text="Analyze Comments" />
                      </items>
                   </Menu>
               <!--   <Menu mnemonicParsing="false" text="ヘルプ">                       -->
@@ -91,7 +91,7 @@
                </padding></Label>
             <TabPane prefHeight="275.0" prefWidth="829.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab text="検出したコメント">
+                <Tab text="Detected Comments">
                      <content>
                          <ScrollPane fx:id="consoleArea" prefHeight="257.0" prefWidth="829.0">
                            <content>
@@ -100,7 +100,7 @@
                         </ScrollPane>
                      </content>
                 </Tab>
-                <Tab text="全てのコメント">
+                <Tab text="All Comments">
                      <content>
                         <ScrollPane fx:id="allCommentsArea" prefHeight="257.0" prefWidth="829.0">
                            <content>

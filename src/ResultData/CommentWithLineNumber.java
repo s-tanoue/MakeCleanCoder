@@ -9,25 +9,22 @@ import CommentParser.CleanCoderCommentParser;
 
 public class CommentWithLineNumber {
 
+	//もっとわかりやすくしたいけどどうすれば？？？
+	private ArrayList<String> comment = new ArrayList<>();
+	//コメントが存在している行番号
+	private ArrayList<Integer> keyValue = new ArrayList<>();
+	//コメントが存在している行番号がキーで，その行番号に存在しているコメントの文字列．
+	private HashMap <Integer,ArrayList<String>> map = new HashMap<>();
 
+	private  int commentSize;
 
-    //もっとわかりやすくしたいけどどうすれば？？？
-
-    private ArrayList<String> comment = new ArrayList<>();
-    //コメントが存在している行番号
-    private ArrayList<Integer> keyValue = new ArrayList<>();
-    //コメントが存在している行番号がキーで，その行番号に存在しているコメントの文字列．
-    private HashMap <Integer,ArrayList<String>> map = new HashMap<>();
-
-    private  int commentSize;
-
-    //HashMapにコメントと行番号をhashmapにセットする．
+	//HashMapにコメントと行番号をhashmapにセットする．
 	public CommentWithLineNumber(String inputString){
 		int lineNumber = 0;
 		String inputStrings[] = inputString.split("\n", -1);
 		CleanCoderCommentParser parser = new CleanCoderCommentParser(new StringReader(inputString));
 		try {
-            //ソースコードからコメントを抽出．
+			//ソースコードからコメントを抽出．
 			comment = parser.comment();
 			//コメントがあるだけ繰り返す．
 			for (int i = 0; i < comment.size(); i++) {
@@ -49,28 +46,28 @@ public class CommentWithLineNumber {
 					}
 				}
 			}
-			commentSize =comment.size();
+			commentSize = comment.size();
 		} catch (CommentParser.ParseException e) {
-		  System.out.println("コメントがありません");
+			System.out.println("コメントがありません");
 			e.printStackTrace();
 		}
 	}
 
-    public ArrayList<String> getComment() {
-        return comment;
-    }
+	public ArrayList<String> getComment() {
+		return comment;
+	}
 
-    public ArrayList<Integer> getKeyValue() {
-        return keyValue;
-    }
+	public ArrayList<Integer> getKeyValue() {
+		return keyValue;
+	}
 
-    public HashMap<Integer, ArrayList<String>> getMap() {
-        return map;
+	public HashMap<Integer, ArrayList<String>> getMap() {
+		return map;
 
-    }
+	}
 
-    public int getCommentSize() {
-        return commentSize;
-    }
+	public int getCommentSize() {
+		return commentSize;
+	}
 }
 

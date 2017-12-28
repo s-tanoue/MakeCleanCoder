@@ -55,7 +55,7 @@ public class  CommentDictionary {
                     if (node != null && node.getNodeValue() != null) {
                         wordList.add(node.getNodeValue());           
                     } 
-                }else if(wordNode.getNodeName().equals("regularExpression") ){
+                }else if(wordNode.getNodeName().equals("regExp") ){
                     Node node = wordNode.getFirstChild(); 
                     if (node != null && node.getNodeValue() != null) {
                         regularExpressionList.add(node.getNodeValue());           
